@@ -8,6 +8,7 @@
 
 html {
     scroll-behavior: smooth;
+    cursor: default;
 }
 
 :root {
@@ -338,7 +339,6 @@ section {
     padding: 1.5rem;
     box-shadow: var(--card-shadow);
     transition: border-color 0.2s, transform 0.2s;
-    cursor: pointer;
     position: relative;
     overflow: hidden;
 }
