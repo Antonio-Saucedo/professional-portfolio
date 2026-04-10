@@ -175,18 +175,35 @@ function App() {
                         <div className="project-header">
                             <div className="project-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                    <rect x="3" y="3" width="7" height="7" rx="1"/>
-                                    <rect x="14" y="3" width="7" height="7" rx="1"/>
-                                    <rect x="3" y="14" width="7" height="7" rx="1"/>
-                                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                    <path d="M2 17l10 5 10-5"/>
+                                    <path d="M2 12l10 5 10-5"/>
                                 </svg>
                             </div>
-                            <a className="project-link" href="#">🕑 Pending</a>
+                            <a className="project-link" href="https://app.mobiledash.net/">↗ Live</a>
                         </div>
-                        <div className="project-name">In Progress</div>
-                        <div className="project-desc">This section is currently in progress.
+                        <div className="project-name">MobileDash</div>
+                        <div className="project-desc">A cloud-based, full-featured CRM platform built on Oracle APEX for
+                            exterior contractors, utilizing Oracle's built-in authentication for secure, role-based
+                            access control and custom-developed plugins to extend the framework for domain-specific
+                            needs. I was directly involved in implementing and enhancing all major features throughout
+                            the development lifecycle.
                         </div>
-                        <div className="project-tags"><span className="tag">TBD</span></div>
+                        <div className="project-tags">
+                            <span className="tag">Git/GitHub</span>
+                            <span className="tag">Docker</span>
+                            <span className="tag">Oracle Apex (OCI)</span>
+                            <span className="tag">SaaS</span>
+                            <span className="tag">OAuth & Security</span>
+                            <span className="tag">HTML</span>
+                            <span className="tag">CSS</span>
+                            <span className="tag">JavaScript</span>
+                            <span className="tag">SQL</span>
+                            <span className="tag">PL/SQL</span>
+                            <span className="tag">Playwright (E2E Testing)</span>
+                            <span className="tag">utPLSQL (Unit Testing)</span>
+                            <span className="tag">RESTful API Design</span>
+                        </div>
                     </div>
                 </div>
             </section>
