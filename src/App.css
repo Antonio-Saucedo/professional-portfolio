@@ -23,6 +23,7 @@ html {
     --border: rgba(80, 30, 20, 0.1);
     --border2: rgba(80, 30, 20, 0.18);
     --tag-bg: #fae8e6;
+    --hamburger-options-bg-hover: #ede9e4;
     --skills-tag-bg: #fae8e6;
     --tag-text: #7f0f20;
     --skills-tag-text-hover: #cf1c1c;
@@ -41,6 +42,7 @@ html {
     --border: rgba(255, 255, 255, 0.06);
     --border2: rgba(255, 255, 255, 0.1);
     --tag-bg: #2a1510;
+    --hamburger-options-bg-hover: #2a1510;
     --skills-tag-bg: #7c0000;
     --tag-text: #e74c3c;
     --skills-tag-text-hover: #ffffff;
@@ -90,13 +92,13 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
     align-items: center;
 }
 
 .nav-links a {
     font-size: 14px;
     color: var(--text2);
+    padding: 10px 15px;
     text-decoration: none;
     transition: color 0.15s;
 }
@@ -762,15 +764,13 @@ footer p {
     .nav-links a {
         font-size: 15px;
         color: var(--text2);
-        padding: 10px 1.5rem;
         margin: 0 -1.5rem;
         text-align: center;
         width: 100%;
     }
 
     .nav-links a:hover {
-        /* background: var(--bg3); /* Option 1 */
-        background: var(--tag-bg); /* Option 2 */
+        background: var(--hamburger-options-bg-hover);
         color: var(--accent);
     }
 
