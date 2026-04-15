@@ -241,7 +241,7 @@ function App() {
                         },
                         {
                             period: '02/2021 – 10/2022',
-                            role: 'CAD Drafer',
+                            role: 'CAD Drafter',
                             company: 'Harper Leavitt Engineering Inc.',
                             desc: [
                                 'Worked in a team setting to meet the needs of clients and meet deadlines.',
