@@ -7,6 +7,19 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function App() {
+    // Nav bar
+    const toggleMenu = () => {
+        const nav = document.getElementById('nav-links');
+        const burger = document.getElementById('hamburger');
+        nav?.classList.toggle('nav-open');
+        burger?.classList.toggle('hamburger-open');
+    };
+
+    const closeMenu = () => {
+        document.getElementById('nav-links')?.classList.remove('nav-open');
+        document.getElementById('hamburger')?.classList.remove('hamburger-open');
+    };
+
     const [formData, setFormData] = useState({
         from_name: '',
         from_email: '',
@@ -77,12 +90,19 @@ function App() {
         <>
             <nav>
                 <span className="nav-logo">ANTONIO</span>
-                <div className="nav-links">
-                    <a href="#about">About me</a>
-                    <a href="#projects">Portfolio</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#experience">Resume</a>
-                    <a href="#contact">Contact</a>
+                <div className="nav-links" id="nav-links">
+                    <a href="#about" onClick={() => closeMenu()}>About me</a>
+                    <a href="#projects" onClick={() => closeMenu()}>Portfolio</a>
+                    <a href="#skills" onClick={() => closeMenu()}>Skills</a>
+                    <a href="#experience" onClick={() => closeMenu()}>Resume</a>
+                    <a href="#contact" onClick={() => closeMenu()}>Contact</a>
+                </div>
+                <div className="nav-right">
+                    <button className="hamburger" id="hamburger" onClick={() => toggleMenu()} aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                     <button className="theme-btn" onClick={() => {
                         const isDark = document.body.getAttribute('data-theme') === 'dark';
                         document.body.setAttribute('data-theme', isDark ? '' : 'dark');

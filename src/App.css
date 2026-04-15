@@ -125,6 +125,12 @@ nav {
     border-color: var(--accent);
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 section {
     padding: 5rem 2rem;
     max-width: 960px;
@@ -685,6 +691,40 @@ footer p {
     font-family: 'DM Mono', monospace;
 }
 
+/* ── Hamburger button ── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hamburger-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
     .skills-cards-grid {
@@ -697,8 +737,41 @@ footer p {
         padding: 0 1rem;
     }
 
-    .nav-links a {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 0.5px solid var(--border);
+        padding: 1rem 1.5rem 1.5rem;
+        gap: 0;
+        z-index: 99;
+    }
+
+    .nav-links.nav-open {
+        display: flex;
+    }
+
+    .nav-links a {
+        font-size: 15px;
+        color: var(--text2);
+        padding: 10px 1.5rem;
+        margin: 0 -1.5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+        /* background: var(--bg3); /* Option 1 */
+        background: var(--tag-bg); /* Option 2 */
+        color: var(--accent);
     }
 
     section {
