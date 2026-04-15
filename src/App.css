@@ -285,6 +285,34 @@ section {
     text-transform: uppercase;
 }
 
+.resume-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--text);
+    border: 0.5px solid var(--border2);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.resume-download-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.resume-download-btn svg {
+    stroke: currentColor;
+}
+
 /* ── Skills Cards ── */
 .skills-cards-grid {
     display: grid;
