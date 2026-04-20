@@ -244,7 +244,7 @@ function App() {
                 <div className="experience-list">
                     {[
                         {
-                            period: '09/2023 – Now',
+                            period: '09/2023 – 03/2026',
                             role: 'Lead Software Developer',
                             company: 'MobileDash',
                             desc: [
