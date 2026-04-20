@@ -246,7 +246,7 @@ function App() {
                         {
                             period: '09/2023 – 03/2026',
                             role: 'Lead Software Developer',
-                            company: 'MobileDash',
+                            company: 'MobileDash LLC',
                             desc: [
                                 'Worked with management to lead development team.',
                                 'Developed application that queries thousands of documents to retrieve documents based on various query types.',
@@ -271,7 +271,7 @@ function App() {
                         {
                             period: '02/2021 – 10/2022',
                             role: 'CAD Drafter',
-                            company: 'Harper Leavitt Engineering Inc.',
+                            company: 'HLE Inc.',
                             desc: [
                                 'Worked in a team setting to meet the needs of clients and meet deadlines.',
                                 'Communicated with state and local jurisdictions to meet requirements.',
