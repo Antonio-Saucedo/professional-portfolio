@@ -248,42 +248,41 @@ function App() {
                             role: 'Lead Software Developer',
                             company: 'MobileDash LLC',
                             desc: [
-                                'Worked with management to lead development team.',
-                                'Developed application that queries thousands of documents to retrieve documents based on various query types.',
-                                'Developed Web application pages, functionality and databases using Oracle Apex.',
-                                'Worked on GitHub tickets to improve application frontend/backend using WebStorm, SaaS, Node, SCSS, TypeScript, Angular, Git.',
-                                'Review, approve, and merge GitHub pull requests.',
-                                'Report on work completed during daily standup meetings.']
+                                'Led a full stack development team building two parallel applications — a legacy system and a new Oracle Apex platform — spanning front-end UI, REST API development, and database architecture.',
+                                'Integrated the Intuit API end-to-end to enable in-app invoicing and payment processing, implementing OAuth 2.0 token acquisition and automated token renewal to maintain secure, uninterrupted user sessions.',
+                                'Designed and implemented the SQL database architecture for the Oracle Apex application, creating schemas and complex queries to support multi-entity project data at the scale of construction work order management.',
+                                'Built and maintained RESTful APIs and server-side logic using Node.js with Express and NestJS, integrating front-end clients with third-party services and back-end business logic.',
+                                'Integrated external APIs to capture user IP address and consent metadata for terms and conditions compliance, ensuring accurate audit trails for legal and regulatory purposes.',
+                                'Maintained MongoDB schemas and optimized queries on the legacy production application, supporting thousands of document retrievals across diverse query types with minimal downtime.',
+                                'Maintained and extended Angular components and features across the legacy application, ensuring UI stability and consistency during active parallel development.',
+                                'Served as primary technical liaison between development, design, and business stakeholders — translating feature requirements into technical plans, evaluating trade-offs, and communicating pros and cons of new features in non-technical terms to support business decisions.',
+                                'Reviewed, approved, and merged GitHub pull requests; conducted code reviews to enforce quality standards and maintainability across the team.',
+                                'Participated in daily Agile/Scrum standups, tracking progress and surfacing blockers to keep cross-functional teams aligned.']
                         },
                         {
                             period: '01/2023 – 04/2023',
                             role: 'Developer Intern',
                             company: 'The Church of Jesus Christ of Latter-day Saints',
                             desc: [
-                                'Helped in development of application that queries millions of documents to retrieve documents based on various query types.',
-                                'Worked on Jira bug/story/feature tickets to improve application frontend/backend using IntelliJ, Node, SASS, Typescript, Angular, Maven, Azure DevOps, Git.',
-                                'Upgrade node dependencies (bootstrap, angular, others as needed).',
-                                'Helped review/approve/merge GitHub pull requests.',
-                                'QA user-based bug fixes and feature development.',
-                                'Requirement elicitation to prepared Jira tickets for software developers.',
-                                'Report on work completed during daily Agile standup meetings.']
+                                'Contributed to a large-scale application querying millions of documents, building features that handled diverse query types with high reliability.',
+                                'Developed front-end and back-end features using Angular, Node.js, SASS, TypeScript, and Maven within an Azure DevOps CI/CD pipeline.',
+                                'Wrote and managed Jira bug, story, and feature tickets; performed requirement elicitation to clearly define scope for other developers.',
+                                'Conducted QA on user-based bug fixes and new feature releases; helped review and approve GitHub pull requests.',
+                                'Upgraded Node dependencies (Bootstrap, Angular, and others) and reported on progress in daily Agile standups.']
                         },
                         {
                             period: '02/2021 – 10/2022',
                             role: 'CAD Drafter',
                             company: 'HLE Inc.',
                             desc: [
-                                'Worked in a team setting to meet the needs of clients and meet deadlines.',
-                                'Communicated with state and local jurisdictions to meet requirements.',
-                                'Drafted for surveyors and civil engineers using Civil3D.']
+                                'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
                         },
                         {
                             period: '03/2020 – 02/2021',
                             role: 'Construction Estimator',
                             company: 'Mickelsen Construction Inc.',
                             desc: [
-                                'Created civil estimates for clients working with vendors for best prices.',
-                                'Created excel sheets for effective calculations.']
+                                'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
                         },
                     ].map(({period, role, company, desc}) => (
                         <div className="exp-item" key={company}>
@@ -291,15 +290,11 @@ function App() {
                             <div>
                                 <div className="exp-role">{role}</div>
                                 <div className="exp-company">{company}</div>
-                                {desc.length === 1 ? (
-                                    <div className="exp-desc">{desc[0]}</div>
-                                ) : (
-                                    <ul className="exp-desc">
-                                        {desc.map((point, i) => (
-                                            <li key={i}>{point}</li>
-                                        ))}
-                                    </ul>
-                                )}
+                                <ul className="exp-desc">
+                                    {desc.map((point, i) => (
+                                        <li key={i}>{point}</li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
                     ))}
