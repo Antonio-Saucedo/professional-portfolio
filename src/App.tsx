@@ -119,11 +119,13 @@ function App() {
             <section className="hero" id="about">
                 <div className="hero-eyebrow">I Am Antonio Saucedo</div>
                 <h1>Software<br/><em>Engineer</em></h1>
-                <p className="hero-bio">With full-stack experience spanning front-end development, backend architecture,
-                    and database design. Skilled in Software design principles and web development, with proficiency
-                    across multiple programming languages and a strong ability to work with and manipulate data to meet
-                    project requirements. Known for attention to detail and a methodical approach to solving complex
-                    problems efficiently.</p>
+                <p className="hero-bio">Full Stack Developer with 3+ years of experience building and maintaining web
+                    applications from front-end UI through back-end APIs and database design. Experienced leading small
+                    development teams, mentoring developers, and establishing standards that measurably improve delivery
+                    speed. Skilled in JavaScript, TypeScript, React, Angular, Node.js (Express/NestJS), Python, SQL, and
+                    NoSQL databases. Known for integrating third-party APIs, translating complex technical work into
+                    business value, and collaborating across development, design, and stakeholder teams to deliver
+                    reliable, scalable software.</p>
                 <div className="hero-cta">
                     <a href="#projects" className="btn-primary">View Portfolio</a>
                     <a href="#contact" className="btn-secondary">Contact Me</a>
@@ -151,20 +153,36 @@ function App() {
                 <div className="skills-cards-grid">
                     {[
                         {
-                            title: 'Languages',
-                            tags: ['HTML', 'JavaScript', 'TypeScript', 'Python', 'Java', 'SQL', 'PL/SQL', 'C++', 'Kotlin', 'Swift', 'VBA', 'Bash Scripting']
+                            title: 'Frontend',
+                            tags: ['JavaScript', 'TypeScript', 'React', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind']
                         },
                         {
-                            title: 'Frameworks & Libraries',
-                            tags: ['Node.js', 'React', 'Angular', 'Oracle Apex (OCI)', 'Bootstrap', 'SASS/SCSS/CSS', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)']
+                            title: 'Backend',
+                            tags: ['OAuth 2.0 & Security', 'Node.js', 'Express', 'NestJS', 'PL/SQL', 'Python', 'Java']
                         },
                         {
-                            title: 'Databases & Tools',
-                            tags: ['Git/GitHub', 'Docker', 'Azure DevOps (CI/CD)', 'Jira', 'Render', 'MySQL', 'MongoDB (NoSQL)', 'Microsoft SQL Server', 'PostgreSQL', 'SQLite']
+                            title: 'Databases',
+                            tags: ['SQL', 'Oracle Apex', 'MySQL', 'PostgreSQL', 'SQLite', 'Microsoft SQL Server', 'MongoDB (NoSQL)']
                         },
                         {
-                            title: 'Skills & Concepts',
-                            tags: ['RESTful API Design', 'GraphQL', 'OAuth & Security', 'Swagger API', 'SaaS', 'Agile/Scrum']
+                            title: 'APIs & Integrations',
+                            tags: ['Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'GraphQL', 'Swagger API']
+                        },
+                        {
+                            title: 'DevOps & Tools',
+                            tags: ['Git/GitHub', 'Azure DevOps (CI/CD)', 'Docker', 'Render', 'Bash Scripting', 'Code Review', 'Jira', 'Agile / Scrum', 'SaaS']
+                        },
+                        {
+                            title: 'Testing',
+                            tags: ['Playwright (E2E)', 'utPLSQL (Unit)', 'Jest (Unit)']
+                        },
+                        {
+                            title: 'Other Languages',
+                            tags: ['C++', 'Kotlin', 'Swift', 'Rust', 'VBA']
+                        },
+                        {
+                            title: 'Soft Skills',
+                            tags: ['Cross-functional Collaboration', 'Leadership', 'Conflict Resolution', 'Adaptability', 'Self-Motivated', 'Attention to Detail', 'Continuous Learner', 'Problem-solving', 'Bilingual (Spanish)']
                         },
                     ].map(({title, tags}) => (
                         <div className="skills-card" key={title}>
