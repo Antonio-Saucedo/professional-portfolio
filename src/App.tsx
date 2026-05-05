@@ -230,17 +230,22 @@ function App() {
                         <div className="project-tags">
                             <span className="tag">Git/GitHub</span>
                             <span className="tag">Docker</span>
+                            <span className="tag">Bash Scripting</span>
                             <span className="tag">Oracle Apex (OCI)</span>
                             <span className="tag">SaaS</span>
                             <span className="tag">OAuth & Security</span>
                             <span className="tag">HTML</span>
                             <span className="tag">CSS</span>
+                            <span className="tag">Tailwind</span>
                             <span className="tag">JavaScript</span>
                             <span className="tag">SQL</span>
                             <span className="tag">PL/SQL</span>
+                            <span className="tag">Intuit API (payments/invoicing)</span>
+                            <span className="tag">IP geolocation APIs</span>
+                            <span className="tag">RESTful API Design</span>
+                            <span className="tag">Third-party REST</span>
                             <span className="tag">Playwright (E2E Testing)</span>
                             <span className="tag">utPLSQL (Unit Testing)</span>
-                            <span className="tag">RESTful API Design</span>
                         </div>
                     </div>
                 </div>
