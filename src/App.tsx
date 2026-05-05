@@ -246,41 +246,40 @@ function App() {
                         {
                             period: '09/2023 – 03/2026',
                             role: 'Lead Software Developer',
-                            company: 'MobileDash LLC',
+                            company: 'MobileDash LLC., Remote from Rexburg ID',
                             desc: [
-                                'Led a full stack development team building two parallel applications — a legacy system and a new Oracle Apex platform — spanning front-end UI, REST API development, and database architecture.',
-                                'Integrated the Intuit API end-to-end to enable in-app invoicing and payment processing, implementing OAuth 2.0 token acquisition and automated token renewal to maintain secure, uninterrupted user sessions.',
-                                'Designed and implemented the SQL database architecture for the Oracle Apex application, creating schemas and complex queries to support multi-entity project data at the scale of construction work order management.',
-                                'Built and maintained RESTful APIs and server-side logic using Node.js with Express and NestJS, integrating front-end clients with third-party services and back-end business logic.',
-                                'Integrated external APIs to capture user IP address and consent metadata for terms and conditions compliance, ensuring accurate audit trails for legal and regulatory purposes.',
-                                'Maintained MongoDB schemas and optimized queries on the legacy production application, supporting thousands of document retrievals across diverse query types with minimal downtime.',
-                                'Maintained and extended Angular components and features across the legacy application, ensuring UI stability and consistency during active parallel development.',
-                                'Served as primary technical liaison between development, design, and business stakeholders — translating feature requirements into technical plans, evaluating trade-offs, and communicating pros and cons of new features in non-technical terms to support business decisions.',
-                                'Reviewed, approved, and merged GitHub pull requests; conducted code reviews to enforce quality standards and maintainability across the team.',
-                                'Participated in daily Agile/Scrum standups, tracking progress and surfacing blockers to keep cross-functional teams aligned.']
+                                'Led a team of 2–3 developers building two parallel applications (a legacy system and a new Oracle Apex platform serving 40–50 end users), owning full stack delivery across front-end UI, REST API development, and database architecture, while mentoring developers, unblocking blockers, and delegating tasks to keep the team moving.',
+                                'Integrated the Intuit API end-to-end to replace manual cash and check collection with in-app invoicing and digital payment processing, reducing billing errors, accelerating revenue collection, and giving the business real-time visibility into invoice balances; implemented OAuth 2.0 token acquisition and automated renewal to maintain secure, uninterrupted sessions.',
+                                'Redesigned the SQL database architecture for the Oracle Apex application from the ground up, resolving structural issues that caused slow queries, poor scalability, and data integrity bugs; the improved schema supported multi-entity construction work order and project data and delivered a measurable boost to overall application performance.',
+                                'Built a lead intake form from scratch in the Oracle Apex platform that used dynamic dropdowns driven by admin-managed settings to route leads to the correct service or product, then automatically generated the associated purchase and work orders, eliminating a fully manual process from the legacy system and empowering company admins to update service configurations directly without routing changes through a third party.',
+                                'Established and enforced developer standards and coding conventions across the team, reducing feature delivery time from 2–3 months down to 1–2 weeks and building a consistent, maintainable codebase that lowered the onboarding curve for new developers.',
+                                'Built and maintained RESTful APIs using Node.js with Express and NestJS, and maintained MongoDB schemas and query performance on the legacy production application, keeping thousands of document retrievals reliable across diverse query types with minimal downtime during active parallel development.',
+                                'Maintained and extended Angular components across the legacy application to ensure UI stability during parallel development, and integrated external APIs to capture IP address and consent metadata for terms and conditions compliance, creating accurate audit trails for legal and regulatory purposes.',
+                                'Served as the primary technical liaison between development, design, and business stakeholders, translating feature requirements into technical plans, communicating trade-offs in non-technical terms, and helping leadership make informed product decisions without needing to interpret technical detail.',
+                                'Reviewed and merged GitHub pull requests, enforced code quality standards, and participated in daily Agile/Scrum standups to surface blockers and keep cross-functional teams aligned across design, engineering, and product.']
                         },
                         {
                             period: '01/2023 – 04/2023',
                             role: 'Developer Intern',
-                            company: 'The Church of Jesus Christ of Latter-day Saints',
+                            company: 'The Church of Jesus Christ of Latter-day Saints, Remote from Riverton UT',
                             desc: [
-                                'Contributed to a large-scale application querying millions of documents, building features that handled diverse query types with high reliability.',
-                                'Developed front-end and back-end features using Angular, Node.js, SASS, TypeScript, and Maven within an Azure DevOps CI/CD pipeline.',
-                                'Wrote and managed Jira bug, story, and feature tickets; performed requirement elicitation to clearly define scope for other developers.',
-                                'Conducted QA on user-based bug fixes and new feature releases; helped review and approve GitHub pull requests.',
-                                'Upgraded Node dependencies (Bootstrap, Angular, and others) and reported on progress in daily Agile standups.']
+                                'Contributed UI fixes and small feature improvements to a member-facing portal querying millions of documents, delivering changes that shipped to users across the full development cycle from coding to QA to production deployment.',
+                                'Diagnosed and resolved front-end UI bugs in Angular components using TypeScript, Node.js, SASS, and Maven, working alongside developers to identify root causes and implement fixes that restored correct display and behavior for members using the portal.',
+                                'Created and updated Jira bug, story, and feature tickets, performing requirement elicitation directly with stakeholders to define clear scope for other developers and ensure work was well-defined before implementation began.',
+                                'Independently executed manual QA across bug fixes, PR reviews, and production deployments, applying workflow knowledge to run through test cases without needing them defined; reviewed and approved GitHub pull requests as part of the same quality gate process.',
+                                'Upgraded Node.js dependencies including Bootstrap and Angular, resolving breaking changes in the codebase introduced by the version bumps; independently deployed application changes to staging and production via Azure DevOps CI/CD pipelines, taking full ownership of the release process while the engineering manager was unavailable.']
                         },
                         {
                             period: '02/2021 – 10/2022',
                             role: 'CAD Drafter',
-                            company: 'HLE Inc.',
+                            company: 'HLE Inc., Blackfoot ID',
                             desc: [
-                                'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
+                                'Drafted plans for surveyors and civil engineers using Civil3D, collaborating with state and local jurisdictions to meet regulatory requirements.']
                         },
                         {
                             period: '03/2020 – 02/2021',
                             role: 'Construction Estimator',
-                            company: 'Mickelsen Construction Inc.',
+                            company: 'Mickelsen Construction Inc., Blackfoot ID',
                             desc: [
                                 'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
                         },
@@ -308,8 +307,7 @@ function App() {
                 <div className="contact-wrap">
                     <div className="contact-text">
                         <p>I'm always open to new opportunities, collaborations, or just a conversation about software
-                            design.
-                            Drop me a message.</p>
+                            design. Send me a message.</p>
                         <div className="contact-links">
                             <a className="contact-link" href="mailto:antonios.softwareengineer@gmail.com">
                                 <div className="contact-link-icon">
