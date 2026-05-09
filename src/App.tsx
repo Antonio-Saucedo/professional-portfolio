@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import emailjs from '@emailjs/browser'
+import CoverLetterGenerator from "./modals/CoverLetterGenerator";
 import './App.css'
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
@@ -7,6 +8,9 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function App() {
+    // Modal pages state
+    const [isOpen, setIsOpen] = useState(false);
+
     // Nav bar
     const toggleMenu = () => {
         const nav = document.getElementById('nav-links');
@@ -47,7 +51,7 @@ function App() {
         }
     }
 
-    useEffect(() => {                 // ← add this block
+    useEffect(() => {
         const circumference = 2 * Math.PI * 45;
 
         const circleObserver = new IntersectionObserver((entries) => {
@@ -80,11 +84,11 @@ function App() {
 
         document.querySelectorAll<HTMLElement>('.skill-fill').forEach(el => barObserver.observe(el));
 
-        return () => {                  // ← cleanup so observers don't leak on re-renders
+        return () => { // ← cleanup so observers don't leak on re-renders
             circleObserver.disconnect();
             barObserver.disconnect();
         };
-    }, []);                           // ← empty array = runs once after first render
+    }, []); // ← empty array = runs once after first render
 
     return (
         <>
@@ -248,6 +252,33 @@ function App() {
                             <span className="tag">utPLSQL (Unit Testing)</span>
                         </div>
                     </div>
+                    <div className="project-card">
+                        <div className="project-header">
+                            <div className="project-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </div>
+                            <button className="project-link" onClick={() => setIsOpen(true)}>↗ Open</button>
+                        </div>
+                        <div className="project-name">Cover Letter Generator</div>
+                        <div className="project-desc">A full-stack AI tool that generates tailored cover letters from a
+                            job description and resume highlights, powered by the Gemini Flash API with tone selection
+                            and a clean modal UI.
+                        </div>
+                        <div className="project-tags">
+                            <span className="tag">Git/GitHub</span>
+                            <span className="tag">Vite</span>
+                            <span className="tag">React</span>
+                            <span className="tag">TypeScript</span>
+                            <span className="tag">SCSS</span>
+                            <span className="tag">Gemini Flash API</span>
+                            <span className="tag">RESTful API Design</span>
+                        </div>
+                    </div>
+                    <CoverLetterGenerator isOpen={isOpen} onClose={() => setIsOpen(false)}/>
                 </div>
             </section>
 
