@@ -1,0 +1,22 @@
+.modal-page {
+  align-items: center;
+  background-color: #00000080;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: 101;
+
+  .modal-container {
+    border-radius: 16px;
+    max-height: 100vh;
+    outline: none;
+    scrollbar-width: none;
+    width: 720px;
+
+    @media (max-width: 720px) {
+      border-radius: 0;
+      overflow-y: auto;
+    }
+  }
+}
