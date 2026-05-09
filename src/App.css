@@ -58,6 +58,10 @@ body {
     overflow-x: hidden;
 }
 
+body:has(.modal-page) {
+    overflow: clip;
+}
+
 nav {
     position: sticky;
     top: 0;
@@ -430,6 +434,12 @@ section {
     font-family: 'DM Mono', monospace;
 }
 
+button.project-link {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .project-link:hover {
     color: var(--accent);
 }
@@ -678,20 +688,20 @@ section {
     background: var(--accent2);
 }
 
-.form-status {
+.contact-form .form-status {
     font-size: 13px;
     padding: 10px 14px;
     border-radius: 4px;
     font-family: 'DM Mono', monospace;
 }
 
-.form-status--success {
+.contact-form .form-status--success {
     background: #edfaf1;
     color: #1a7a3f;
     border: 0.5px solid #a3d9b5;
 }
 
-.form-status--error {
+.contact-form .form-status--error {
     background: var(--tag-bg);
     color: var(--tag-text);
     border: 0.5px solid var(--border2);
