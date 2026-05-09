@@ -273,6 +273,7 @@ function App() {
                             <span className="tag">Vite</span>
                             <span className="tag">React</span>
                             <span className="tag">TypeScript</span>
+                            <span className="tag">SASS</span>
                             <span className="tag">SCSS</span>
                             <span className="tag">Gemini Flash API</span>
                             <span className="tag">RESTful API Design</span>
