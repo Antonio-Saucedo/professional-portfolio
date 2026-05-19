@@ -1,6 +1,6 @@
 .modal-page {
   align-items: center;
-  background-color: #00000080;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -18,7 +18,7 @@
     .badge {
       background-color: #046B93;
       border-radius: 5px;
-      color: #ABD1EA;
+      color: #D6EFFF;
       display: flex;
       font-size: 11px;
       line-height: 1;
