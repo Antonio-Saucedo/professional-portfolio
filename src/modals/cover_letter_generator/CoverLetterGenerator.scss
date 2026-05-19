@@ -1,63 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;700&display=swap');
-
 .modal-page .cover-letter-generator {
 
-  .modal-container {
-    background-color: #FFFFFF;
-  }
-
-  .modal-header {
-    background-color: #013E5A;
-    border-bottom: 1px solid #3390B5;
-    border-radius: 16px 16px 0 0;
-    display: flex;
-    font-family: Roboto, sans-serif;
-    gap: 14px;
-    line-height: normal;
-    padding: 24px;
-  }
-
-  .header-left-section {
-    align-items: center;
-    background-color: #3390B5;
-    border-radius: 10px;
-    display: flex;
-    height: 42px;
-    justify-content: center;
-    min-width: 42px;
-    width: 42px;
-  }
-
-  .header-title {
-    color: #ABD1EA;
-    font-family: serif;
-    font-size: 20px;
-  }
-
-  .header-subtitle {
-    color: #52CEFF;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .header-right-section {
-    margin-left: auto;
-    text-align: right;
-
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      vertical-align: top;
-    }
-  }
-
   .modal-body {
-    background-color: #011B2E;
     color: #52CEFF;
-    display: flex;
-    gap: 20px;
-    padding: 24px;
 
     .red {
       color: #E74C3C;
@@ -167,15 +111,6 @@
     white-space: pre-wrap;
   }
 
-  .modal-footer {
-    background-color: #011B2E;
-    border-radius: 0 0 16px 16px;
-    color: #3390B5;
-    display: flex;
-    gap: 6px;
-    padding: 0 24px 24px 24px;
-  }
-
   .tone-section {
     display: flex;
     flex-wrap: wrap;
@@ -231,10 +166,6 @@
     &:hover {
       background-color: #046B93;
     }
-  }
-
-  img {
-    display: block;
   }
 
   .bold {
