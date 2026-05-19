@@ -15,6 +15,27 @@
     scrollbar-width: none;
     width: 720px;
 
+    .badge {
+      background-color: #046B93;
+      border-radius: 5px;
+      color: #ABD1EA;
+      display: flex;
+      font-size: 11px;
+      line-height: 1;
+      margin-top: 7px;
+      padding: 2px 8px;
+
+      .badge-dot {
+        align-self: center;
+        background: #3390B5;
+        border-radius: 50%;
+        height: 6px;
+        margin-right: 4px;
+        min-width: 6px;
+        width: 6px;
+      }
+    }
+
     @media (max-width: 720px) {
       border-radius: 0;
       overflow-y: auto;

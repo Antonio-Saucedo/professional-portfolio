@@ -2,6 +2,10 @@ import {useEffect, useState} from 'react'
 import emailjs from '@emailjs/browser'
 import CoverLetterGenerator from "./modals/CoverLetterGenerator";
 import './App.css'
+import {useEffect, useState} from 'react';
+import emailjs from '@emailjs/browser';
+import CoverLetterGenerator from "./modals/cover_letter_generator/CoverLetterGenerator";
+import './App.css';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -10,6 +14,7 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 function App() {
     // Modal pages state
     const [isOpen, setIsOpen] = useState(false);
+    const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
 
     // Nav bar
     const toggleMenu = () => {
@@ -261,7 +266,9 @@ function App() {
                                     <line x1="10" y1="14" x2="21" y2="3"/>
                                 </svg>
                             </div>
-                            <button className="project-link" onClick={() => setIsOpen(true)}>↗ Open</button>
+                            <button className="project-link" onClick={() => setCoverLetterGeneratorIsOpen(true)}>↗
+                                Open
+                            </button>
                         </div>
                         <div className="project-name">Cover Letter Generator</div>
                         <div className="project-desc">A full-stack AI tool that generates tailored cover letters from a
@@ -280,6 +287,8 @@ function App() {
                         </div>
                     </div>
                     <CoverLetterGenerator isOpen={isOpen} onClose={() => setIsOpen(false)}/>
+                    <CoverLetterGenerator isOpen={coverLetterGeneratorIsOpen}
+                                          onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
                 </div>
             </section>
 

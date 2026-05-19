@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@400;700&display=swap');
 
-.modal-page {
+.modal-page .cover-letter-generator {
 
   .modal-container {
     background-color: #FFFFFF;
@@ -8,9 +8,8 @@
 
   .modal-header {
     background-color: #013E5A;
-    border: solid #3390B5;
+    border-bottom: 1px solid #3390B5;
     border-radius: 16px 16px 0 0;
-    border-width: 0 0 1px 0;
     display: flex;
     font-family: Roboto, sans-serif;
     gap: 14px;
@@ -50,32 +49,7 @@
       border: none;
       cursor: pointer;
       vertical-align: top;
-
-      svg {
-        vertical-align: middle;
-      }
     }
-  }
-
-  .badge {
-    background-color: #046B93;
-    border-radius: 5px;
-    color: #ABD1EA;
-    display: flex;
-    font-size: 11px;
-    line-height: 1;
-    margin-top: 7px;
-    padding: 2px 8px;
-  }
-
-  .badge-dot {
-    align-self: center;
-    background: #3390B5;
-    border-radius: 50%;
-    height: 6px;
-    margin-right: 4px;
-    min-width: 6px;
-    width: 6px;
   }
 
   .modal-body {
@@ -105,12 +79,8 @@
     padding: 5px 10px;
 
     &:focus {
-      border-color: #4682D5 !important;
+      border-color: #4682D5;
       box-shadow: 0 0 0 3px #253E5F;
-    }
-
-    &:focus-visible {
-      outline: none;
     }
   }
 
@@ -175,7 +145,7 @@
     line-height: normal;
     text-align: center;
 
-    svg {
+    img {
       display: block;
       margin: 0 auto 8px auto;
     }
@@ -216,6 +186,14 @@
 
   #professional-button,
   #confident-button,
+  #conversational-button {
+    &.tone-active {
+      background-color: #3390B5;
+    }
+  }
+
+  #professional-button,
+  #confident-button,
   #conversational-button,
   #generate-button {
     border: 1px solid #DEDCD126;
@@ -227,13 +205,13 @@
 
   #generate-button {
     align-self: baseline;
-    background-color: transparent;
     margin-left: auto;
     margin-top: 23px;
     max-height: 33px;
     min-width: 150px;
 
-    svg {
+    img {
+      display: inline-block;
       margin-right: 6px;
     }
 
@@ -243,8 +221,16 @@
     }
   }
 
-  button:hover {
-    background-color: #046B93 !important;
+  button {
+    background-color: transparent;
+
+    &:hover {
+      background-color: #046B93;
+    }
+  }
+
+  img {
+    display: block;
   }
 
   .bold {
