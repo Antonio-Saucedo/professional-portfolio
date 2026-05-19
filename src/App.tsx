@@ -1,10 +1,7 @@
-import {useEffect, useState} from 'react'
-import emailjs from '@emailjs/browser'
-import CoverLetterGenerator from "./modals/CoverLetterGenerator";
-import './App.css'
 import {useEffect, useState} from 'react';
 import emailjs from '@emailjs/browser';
 import CoverLetterGenerator from "./modals/cover_letter_generator/CoverLetterGenerator";
+import Counter from "./modals/counter/counter.tsx";
 import './App.css';
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
@@ -13,8 +10,8 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function App() {
     // Modal pages state
-    const [isOpen, setIsOpen] = useState(false);
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
+    const [counterIsOpen, setCounterIsOpen] = useState(false);
 
     // Nav bar
     const toggleMenu = () => {
@@ -286,9 +283,31 @@ function App() {
                             <span className="tag">RESTful API Design</span>
                         </div>
                     </div>
-                    <CoverLetterGenerator isOpen={isOpen} onClose={() => setIsOpen(false)}/>
                     <CoverLetterGenerator isOpen={coverLetterGeneratorIsOpen}
                                           onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
+                    <div className="project-card">
+                        <div className="project-header">
+                            <div className="project-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </div>
+                            <button className="project-link" onClick={() => setCounterIsOpen(true)}>↗ Open</button>
+                        </div>
+                        <div className="project-name">React Counter</div>
+                        <div className="project-desc">A React counter built with useState and a clean modal UI.
+                        </div>
+                        <div className="project-tags">
+                            <span className="tag">Git/GitHub</span>
+                            <span className="tag">Vite</span>
+                            <span className="tag">React</span>
+                            <span className="tag">TypeScript</span>
+                            <span className="tag">SCSS</span>
+                        </div>
+                    </div>
+                    <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
                 </div>
             </section>
 
