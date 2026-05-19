@@ -160,7 +160,7 @@ function App() {
                     {[
                         {
                             title: 'Frontend',
-                            tags: ['JavaScript', 'TypeScript', 'React', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind']
+                            tags: ['JavaScript', 'TypeScript', 'React', 'Vite', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind']
                         },
                         {
                             title: 'Backend',
