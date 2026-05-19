@@ -224,7 +224,7 @@ function App() {
                                     <path d="M2 12l10 5 10-5"/>
                                 </svg>
                             </div>
-                            <a className="project-link" href="https://app.mobiledash.net/" target="_blank">↗ Live</a>
+                            <a className="project-link" href="https://mobiledash.net/" target="_blank">↗ Live</a>
                         </div>
                         <div className="project-name">MobileDash</div>
                         <div className="project-desc">A cloud-based, full-featured CRM platform built on Oracle APEX for
