@@ -172,7 +172,7 @@ function App() {
                         },
                         {
                             title: 'APIs & Integrations',
-                            tags: ['Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'GraphQL', 'Swagger API']
+                            tags: ['Gemini Flash API', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'GraphQL', 'Swagger API']
                         },
                         {
                             title: 'DevOps & Tools',
