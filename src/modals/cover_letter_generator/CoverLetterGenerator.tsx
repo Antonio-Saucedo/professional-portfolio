@@ -95,11 +95,13 @@ export default function CoverLetterGenerator({isOpen, onClose}: Props) {
             </div>
             <div className="modal-body">
                 <div className="modal-body-left-section">
-                    <label className="job-description-label" htmlFor="job-description">Job description</label>
+                    <label className="job-description-label" htmlFor="job-description">Job description<span
+                        className="red">*</span></label>
                     <textarea ref={firstInputRef} id="job-description" name="job_description" rows={8} cols={37}
                               value={formData.job_description} onChange={handleChange}
                               placeholder="Paste the full job posting here. Role, responsibilities, requirements..."/>
-                    <label className="name-and-role-label" htmlFor="name-and-role">Your name & role</label>
+                    <label className="name-and-role-label" htmlFor="name-and-role">Your name & role<span
+                        className="red">*</span></label>
                     <input id="name-and-role" name="name_and_role" value={formData.name_and_role}
                            onChange={handleChange} placeholder="e.g. Antonio Saucedo, Full Stack Developer"/>
                     <label className="experience-label" htmlFor="experience">Key experience highlights</label>

@@ -58,6 +58,11 @@
     display: flex;
     gap: 20px;
     padding: 24px;
+
+    .red {
+      color: #FF0000;
+      margin-left: 2px;
+    }
   }
 
   .job-description-label,

@@ -94,22 +94,22 @@ function App() {
 
     return (
         <>
-            <nav>
-                <span className="nav-logo">ANTONIO</span>
-                <div className="nav-links" id="nav-links">
+            <nav className="items-center">
+                <span className="nav-logo items-center">ANTONIO</span>
+                <div className="nav-links items-center" id="nav-links">
                     <a href="#about" onClick={() => closeMenu()}>About me</a>
                     <a href="#projects" onClick={() => closeMenu()}>Portfolio</a>
                     <a href="#skills" onClick={() => closeMenu()}>Skills</a>
                     <a href="#experience" onClick={() => closeMenu()}>Resume</a>
                     <a href="#contact" onClick={() => closeMenu()}>Contact</a>
                 </div>
-                <div className="nav-right">
+                <div className="nav-right items-center">
                     <button className="hamburger" id="hamburger" onClick={() => toggleMenu()} aria-label="Toggle menu">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
-                    <button className="theme-btn" onClick={() => {
+                    <button className="theme-btn items-center" onClick={() => {
                         const isDark = document.body.getAttribute('data-theme') === 'dark';
                         document.body.setAttribute('data-theme', isDark ? '' : 'dark');
                         const icon = document.getElementById('theme-icon');
@@ -123,7 +123,7 @@ function App() {
             </nav>
 
             <section className="hero" id="about">
-                <div className="hero-eyebrow">I Am Antonio Saucedo</div>
+                <div className="hero-eyebrow items-center">I Am Antonio Saucedo</div>
                 <h1>Software<br/><em>Engineer</em></h1>
                 <p className="hero-bio">Full Stack Developer with 3+ years of experience building and maintaining web
                     applications from front-end UI through back-end APIs and database design. Experienced leading small
@@ -217,7 +217,7 @@ function App() {
                 <div className="projects-grid">
                     <div className="project-card">
                         <div className="project-header">
-                            <div className="project-icon">
+                            <div className="project-icon items-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                                     <path d="M2 17l10 5 10-5"/>
@@ -256,7 +256,7 @@ function App() {
                     </div>
                     <div className="project-card">
                         <div className="project-header">
-                            <div className="project-icon">
+                            <div className="project-icon items-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                     <polyline points="15 3 21 3 21 9"/>
@@ -287,7 +287,7 @@ function App() {
                                           onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
                     <div className="project-card">
                         <div className="project-header">
-                            <div className="project-icon">
+                            <div className="project-icon items-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                     <polyline points="15 3 21 3 21 9"/>
@@ -314,7 +314,8 @@ function App() {
             <section id="experience">
                 <div className="section-header">
                     <h2 className="section-title">My Resume</h2>
-                    <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf" className="resume-download-btn">
+                    <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
+                       className="resume-download-btn items-center">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -392,8 +393,8 @@ function App() {
                         <p>I'm always open to new opportunities, collaborations, or just a conversation about software
                             design. Send me a message.</p>
                         <div className="contact-links">
-                            <a className="contact-link" href="mailto:antonios.softwareengineer@gmail.com">
-                                <div className="contact-link-icon">
+                            <a className="contact-link items-center" href="mailto:antonios.softwareengineer@gmail.com">
+                                <div className="contact-link-icon items-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -402,8 +403,9 @@ function App() {
                                 </div>
                                 antonios.softwareengineer@gmail.com
                             </a>
-                            <a className="contact-link" href="https://github.com/Antonio-Saucedo" target="_blank">
-                                <div className="contact-link-icon">
+                            <a className="contact-link items-center" href="https://github.com/Antonio-Saucedo"
+                               target="_blank">
+                                <div className="contact-link-icon items-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
@@ -411,9 +413,9 @@ function App() {
                                 </div>
                                 github.com/Antonio-Saucedo
                             </a>
-                            <a className="contact-link" href="https://www.linkedin.com/in/antoniojsaucedo"
+                            <a className="contact-link items-center" href="https://www.linkedin.com/in/antoniojsaucedo"
                                target="_blank">
-                                <div className="contact-link-icon">
+                                <div className="contact-link-icon items-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -427,15 +429,21 @@ function App() {
                     </div>
                     <div className="contact-form">
                         <div className="form-row">
-                            <input className="form-input" type="text" name="from_name" placeholder="Your name"
-                                   value={formData.from_name} onChange={handleChange}/>
-                            <input className="form-input" type="email" name="from_email" placeholder="Email"
-                                   value={formData.from_email} onChange={handleChange}/>
+                            <label htmlFor="from_name" className="contact-form-label">Name
+                                <input id="from_name" name="from_name" type="text" className="form-input"
+                                       placeholder="Your name" value={formData.from_name}
+                                       onChange={handleChange}/></label>
+                            <label htmlFor="from_email" className="contact-form-label">From
+                                <input id="from_email" name="from_email" type="email" className="form-input"
+                                       placeholder="Email" value={formData.from_email} onChange={handleChange}/></label>
                         </div>
-                        <input className="form-input" type="text" name="subject" placeholder="Subject"
-                               value={formData.subject} onChange={handleChange}/>
-                        <textarea className="form-input form-textarea" name="message" placeholder="Your message..."
-                                  value={formData.message} onChange={handleChange}/>
+                        <label htmlFor="subject" className="contact-form-label">Subject
+                            <input id="subject" name="subject" type="text" className="form-input" placeholder="Subject"
+                                   value={formData.subject} onChange={handleChange}/></label>
+                        <label htmlFor="message" className="contact-form-label">Message
+                            <textarea id="message" name="message" className="form-input form-textarea"
+                                      placeholder="Your message..."
+                                      value={formData.message} onChange={handleChange}/></label>
                         {status === 'success' && (
                             <div className="form-status form-status--success">
                                 ✓ Message sent! I'll get back to you soon.
@@ -446,7 +454,8 @@ function App() {
                                 ✗ Something went wrong. Please check all fields and try again.
                             </div>
                         )}
-                        <button className="form-submit" onClick={handleSubmit} disabled={status === 'sending'}>
+                        <button className="form-submit items-center" onClick={handleSubmit}
+                                disabled={status === 'sending'}>
                             {status === 'sending' ? 'Sending...' : 'Send message'}
                             {status !== 'sending' && (
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -460,7 +469,7 @@ function App() {
                 </div>
             </section>
 
-            <footer>
+            <footer className="items-center">
                 <p>© 2026 Antonio Saucedo — All rights reserved</p>
                 <p>Built with React + passion</p>
             </footer>
