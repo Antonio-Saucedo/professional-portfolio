@@ -195,7 +195,7 @@ function App() {
                             <div className="skills-card-title">{title}</div>
                             <div className="skills-card-tags">
                                 {tags.map(tag => (
-                                    <span className="skills-card-tag" key={tag}>{tag}</span>
+                                    <span className="tag" key={tag}>{tag}</span>
                                 ))}
                             </div>
                         </div>

@@ -2,7 +2,7 @@
 
 .modal-page {
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: color-mix(in srgb, var(--color-black) 50%, transparent);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -10,7 +10,7 @@
   z-index: 101;
 
   .modal-container {
-    background-color: #FFFFFF;
+    background-color: var(--color-white);
     border-radius: 16px;
     max-height: 100vh;
     max-height: 100dvh;
@@ -19,8 +19,8 @@
     width: 720px;
 
     .modal-header {
-      background-color: #013E5A;
-      border-bottom: 1px solid #3390B5;
+      background-color: var(--color-astronaut-blue);
+      border-bottom: 1px solid var(--color-boston-blue);
       border-radius: 16px 16px 0 0;
       display: flex;
       font-family: Roboto, sans-serif;
@@ -30,7 +30,7 @@
 
       .header-left-section {
         align-items: center;
-        background-color: #3390B5;
+        background-color: var(--color-boston-blue);
         border-radius: 10px;
         display: flex;
         height: 42px;
@@ -41,13 +41,13 @@
 
       .header-center-section {
         .header-title {
-          color: #ABD1EA;
+          color: var(--color-spindle);
           font-family: serif;
           font-size: 20px;
         }
 
         .header-subtitle {
-          color: #52CEFF;
+          color: var(--color-malibu);
           font-size: 12px;
           font-weight: 500;
         }
@@ -62,12 +62,16 @@
           border: none;
           cursor: pointer;
           vertical-align: top;
+
+          &:hover {
+            background-color: var(--color-boston-blue);
+          }
         }
 
         .badge {
-          background-color: #046B93;
+          background-color: var(--color-bahama-blue);
           border-radius: 5px;
-          color: #D6EFFF;
+          color: var(--color-pattens-blue);
           display: flex;
           font-size: 11px;
           line-height: 1;
@@ -76,7 +80,7 @@
 
           .badge-dot {
             align-self: center;
-            background: #3390B5;
+            background: var(--color-boston-blue);
             border-radius: 50%;
             height: 6px;
             margin-right: 4px;
@@ -88,16 +92,16 @@
     }
 
     .modal-body {
-      background-color: #011B2E;
+      background-color: var(--color-midnight);
       display: flex;
       gap: 20px;
       padding: 24px;
     }
 
     .modal-footer {
-      background-color: #011B2E;
+      background-color: var(--color-midnight);
       border-radius: 0 0 16px 16px;
-      color: #3390B5;
+      color: var(--color-boston-blue);
       display: flex;
       gap: 6px;
       padding: 0 24px 24px 24px;

@@ -1,10 +1,10 @@
 .modal-page .cover-letter-generator {
 
   .modal-body {
-    color: #52CEFF;
+    color: var(--color-malibu);
 
     .red {
-      color: #E74C3C;
+      color: var(--color-cinnabar);
       margin-left: 2px;
     }
   }
@@ -19,17 +19,17 @@
   #job-description,
   #name-and-role,
   #experience {
-    background-color: rgba(48, 48, 46, 0.5);
-    border: 0.5px solid rgba(222, 220, 209, 0.15);
+    background-color: color-mix(in srgb, var(--color-tuatara) 50%, transparent);
+    border: 0.5px solid color-mix(in srgb, var(--color-westar) 15%, transparent);
     border-radius: 6px;
-    color: #3390B5;
+    color: var(--color-boston-blue);
     font-family: Roboto, sans-serif;
     font-size: 16px;
     padding: 5px 10px;
 
     &:focus {
-      border-color: #4682D5;
-      box-shadow: 0 0 0 3px #253E5F;
+      border-color: var(--color-havelock-blue);
+      box-shadow: 0 0 0 3px var(--color-cloud-burst);
     }
   }
 
@@ -60,7 +60,7 @@
   textarea,
   input {
     &::placeholder {
-      color: #046B93;
+      color: var(--color-bahama-blue);
     }
 
     &:focus-visible {
@@ -74,8 +74,8 @@
   }
 
   #generated-cover-letter-container {
-    background-color: #013E5A;
-    border: 1px solid #046B93;
+    background-color: var(--color-astronaut-blue);
+    border: 1px solid var(--color-bahama-blue);
     border-radius: 8px;
     height: 100%;
     min-height: 367px;
@@ -100,7 +100,7 @@
   }
 
   .form-status--success {
-    color: #ABD1EA;
+    color: var(--color-spindle);
     font-size: 14px;
     height: 100%;
     line-height: 1.75;
@@ -127,7 +127,7 @@
   #confident-button,
   #conversational-button {
     &.tone-active {
-      background-color: #3390B5;
+      background-color: var(--color-boston-blue);
     }
   }
 
@@ -135,9 +135,9 @@
   #confident-button,
   #conversational-button,
   #generate-button {
-    border: 1px solid rgba(222, 220, 209, .15);
+    border: 1px solid color-mix(in srgb, var(--color-westar) 15%, transparent);
     border-radius: 6px;
-    color: #FFFFFF;
+    color: var(--color-white);
     cursor: pointer;
     padding: 8px 16px;
   }
@@ -164,12 +164,12 @@
     background-color: transparent;
 
     &:hover {
-      background-color: #046B93;
+      background-color: var(--color-bahama-blue);
     }
   }
 
   .bold {
-    color: #ABD1EA;
+    color: var(--color-spindle);
   }
 
   @media (max-width: 720px) {

@@ -1,3 +1,12 @@
+/*
+ * Color primitives are named via Name That Color:
+ * https://chir.ag/projects/name-that-color/
+ *
+ * Primitives (--color-*) are defined once and referenced
+ * by semantic variables (--bg, --text, --accent, etc.)
+ * which swap values between light and dark themes.
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
 *,
@@ -14,41 +23,79 @@ html {
 }
 
 :root {
-    --accent: #CF1C1C;
-    --accent2: #96281B;
-    --bg: #F5F2EF;
-    --bg2: #FFFFFF;
-    --bg3: #EDE9E4;
-    --border: rgba(80, 30, 20, 0.1);
-    --border2: rgba(80, 30, 20, 0.18);
-    --card-shadow: 0 1px 3px rgba(80, 20, 10, 0.07), 0 4px 16px rgba(80, 20, 10, 0.05);
-    --hamburger-options-bg-hover: #EDE9E4;
-    --skills-tag-bg: #FAE8E6;
-    --skills-tag-text-hover: #CF1C1C;
-    --tag-bg: #FAE8E6;
-    --tag-text: #7F0F20;
-    --text: #1A1210;
-    --text2: #5C4f4A;
-    --text3: #FFFFFF;
+    /* Dark */
+    --color-black: #000000;
+    --color-cod-gray: #111111;
+    --color-cod-gray-light: #1A1A1A;
+    --color-mine-shaft: #222222;
+    --color-tuatara: #30302E;
+    --color-dorado: #5C4F4A;
+    --color-schooner: #948880;
+
+    /* Red */
+    --color-van-cleef: #50140A;
+    --color-brown-derby: #501E14;
+    --color-maroon: #7C0000;
+    --color-old-brick: #96281B;
+    --color-thunderbird: #CF1C1C;
+    --color-cinnabar: #E74C3C;
+    --color-red-orange: #FE3434;
+    --color-flamingo: #F24242;
+
+    /* Green */
+    --color-jewel: #1A7A3F;
+    --color-moss-green: #A3D9B5;
+    --color-ottoman: #EDFAF1;
+
+    /* Blue */
+    --color-midnight: #011B2E;
+    --color-astronaut-blue: #013E5A;
+    --color-bahama-blue: #046B93;
+    --color-cloud-burst: #253E5F;
+    --color-boston-blue: #3390B5;
+    --color-havelock-blue: #4682D5;
+    --color-malibu: #52CEFF;
+    --color-spindle: #ABD1EA;
+    --color-pattens-blue: #D6EFFF;
+
+    /* White */
+    --color-westar: #DEDCD1;
+    --color-pampas-dark: #EDE9E4;
+    --color-pampas: #F5F2EF;
+    --color-white: #FFFFFF;
+
+    --accent: var(--color-thunderbird);
+    --accent2: var(--color-old-brick);
+    --bg: var(--color-pampas);
+    --bg2: var(--color-white);
+    --bg3: var(--color-pampas-dark);
+    --bg4: var(--color-black);
+    --bg5: var(--color-flamingo);
+    --bg6: var(--color-dorado);
+    --border: color-mix(in srgb, var(--color-brown-derby) 10%, transparent);
+    --border2: color-mix(in srgb, var(--color-brown-derby) 18%, transparent);
+    --card-shadow: 0 1px 3px color-mix(in srgb, var(--color-van-cleef) 7%, transparent), 0 4px 16px color-mix(in srgb, var(--color-van-cleef) 5%, transparent);
+    --text: var(--color-dorado);
+    --text2: var(--color-white);
+    --text3: var(--color-black);
+    --text4: var(--color-flamingo);
 }
 
 [data-theme="dark"] {
-    --accent: #FE3434;
-    --accent2: #E74C3C;
-    --bg: #111111;
-    --bg2: #1A1A1A;
-    --bg3: #222222;
-    --border: rgba(255, 255, 255, 0.06);
-    --border2: rgba(255, 255, 255, 0.1);
-    --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
-    --hamburger-options-bg-hover: #2A1510;
-    --skills-tag-bg: #7C0000;
-    --skills-tag-text-hover: #FFFFFF;
-    --tag-bg: #2A1510;
-    --tag-text: #E74C3C;
-    --text: #E8E2DC;
-    --text2: #948880;
-    --text3: #000000;
+    --accent: var(--color-red-orange);
+    --bg: var(--color-cod-gray);
+    --bg2: var(--color-cod-gray-light);
+    --bg3: var(--color-mine-shaft);
+    --bg4: var(--color-white);
+    --bg5: var(--color-maroon);
+    --bg6: var(--color-schooner);
+    --border: color-mix(in srgb, var(--color-white) 6%, transparent);
+    --border2: color-mix(in srgb, var(--color-white) 10%, transparent);
+    --card-shadow: 0 1px 4px color-mix(in srgb, var(--color-black) 50%, transparent), 0 4px 20px color-mix(in srgb, var(--color-black) 40%, transparent);
+    --text: var(--color-schooner);
+    --text2: var(--color-black);
+    --text3: var(--color-white);
+    --text4: var(--color-maroon);
 }
 
 @keyframes blink {
@@ -94,6 +141,7 @@ html {
 .btn-primary:hover,
 .form-submit:hover {
     background: var(--accent2);
+    color: var(--color-white);
 }
 
 body,
@@ -101,42 +149,35 @@ nav {
     background: var(--bg);
 }
 
-.project-card,
 .skills-card,
+.quote-section,
+.project-card,
+.contact-link-icon,
 .form-input {
     background: var(--bg2);
 }
 
-.theme-btn,
-.contact-link-icon,
-.quote-section {
-    background: var(--bg3);
-}
-
-.skills-card-tag {
-    background: var(--skills-tag-bg);
-    border: 1px solid transparent;
-    border-radius: 999px;
-    padding: 4px 10px;
-    transition: border-color 0.15s, color 0.15s;
+.theme-btn {
+    background: var(--bg4);
 }
 
 .tag,
 .contact-form .form-status--error,
 .project-icon {
-    background: var(--tag-bg);
+    background: var(--bg5);
 }
 
 .hamburger span {
-    background: var(--text);
+    background: var(--bg6);
+    border-radius: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
     width: 22px;
 }
 
 .contact-form .form-status--success {
-    background: #EDFAF1;
-    border: 1px solid #A3D9B5;
-    color: #1A7A3F;
+    background: var(--color-ottoman);
+    border: 1px solid var(--color-moss-green);
+    color: var(--color-jewel);
 }
 
 .hamburger {
@@ -182,7 +223,6 @@ nav,
 .theme-btn:hover,
 .btn-secondary:hover,
 .resume-download-btn:hover,
-.skills-card-tag:hover,
 .contact-link:hover .contact-link-icon,
 .form-input:focus {
     border-color: var(--accent);
@@ -199,11 +239,6 @@ nav,
     padding: 2.5rem;
 }
 
-.tag,
-.hamburger span {
-    border-radius: 2px;
-}
-
 .form-submit,
 .btn-primary,
 .project-card,
@@ -217,16 +252,9 @@ nav,
     border-radius: 4px;
 }
 
+.tag,
 .theme-btn {
     border-radius: 20px;
-    padding: 6px 14px;
-    transition: all 0.15s;
-}
-
-.project-card,
-.skills-card {
-    box-shadow: var(--card-shadow);
-    padding: 1.5rem;
 }
 
 .hero-locations,
@@ -235,11 +263,16 @@ footer {
     border-top: 1px solid var(--border);
 }
 
+.project-card,
+.skills-card {
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+}
+
 .nav-logo,
 .nav-logo::before,
 .nav-logo::after,
 .nav-links a:hover,
-.theme-btn:hover,
 .hero-eyebrow,
 .hero h1 em,
 .btn-secondary:hover,
@@ -252,15 +285,6 @@ footer {
     color: var(--accent);
 }
 
-.skills-card-tag:hover {
-    color: var(--skills-tag-text-hover);
-}
-
-.tag,
-.contact-form .form-status--error {
-    color: var(--tag-text);
-}
-
 body,
 .form-input,
 .btn-secondary,
@@ -268,14 +292,9 @@ body,
 .quote-text,
 .exp-role,
 .loc-country,
-.hero h1,
 .section-title,
 .skills-card-title,
-.project-name {
-    color: var(--text);
-}
-
-.theme-btn,
+.project-name,
 .exp-desc,
 .project-desc,
 .form-input::placeholder,
@@ -289,13 +308,22 @@ footer p,
 .hero-bio,
 .contact-text p,
 .contact-form .contact-form-label {
-    color: var(--text2);
+    color: var(--text);
 }
 
 .form-submit,
-.btn-primary {
+.btn-primary,
+.theme-btn {
+    color: var(--text2);
+}
+
+.hero h1,
+.tag {
     color: var(--text3);
-    transition: background 0.15s;
+}
+
+.theme-btn:hover {
+    color: var(--text4);
 }
 
 .hero-eyebrow::before,
@@ -395,7 +423,6 @@ footer {
     flex-wrap: wrap;
 }
 
-.skills-card-tag,
 .tag,
 .contact-form .form-status,
 .exp-company,
@@ -425,7 +452,6 @@ body,
     line-height: 1;
 }
 
-.tag,
 .exp-period,
 .nav-logo::before,
 .nav-logo::after {
@@ -434,7 +460,7 @@ body,
 
 .form-submit,
 .btn-primary,
-.skills-card-tag,
+.tag,
 .btn-secondary,
 .resume-download-btn,
 .exp-company,
@@ -593,7 +619,7 @@ footer p,
 
 .contact-link-icon svg {
     height: 15px;
-    stroke: var(--text2);
+    stroke: var(--text);
     stroke-width: 1.75;
     width: 15px;
 }
@@ -639,7 +665,6 @@ footer {
     justify-content: space-between;
 }
 
-.skills-card-tag,
 .tag {
     letter-spacing: 0.02em;
 }
@@ -758,8 +783,14 @@ body:has(.modal-page) {
     transition: border-color 0.2s, transform 0.2s;
 }
 
+
 .tag {
-    padding: 3px 10px;
+    padding: 4px 10px;
+}
+
+.theme-btn {
+    padding: 6px 14px;
+    transition: all 0.15s;
 }
 
 .form-input,
@@ -793,7 +824,10 @@ section {
     padding-top: 3px;
 }
 
-.project-icon svg,
+.project-icon svg {
+    stroke: var(--text3);
+}
+
 .contact-link:hover .contact-link-icon svg {
     stroke: var(--accent);
 }
@@ -834,6 +868,11 @@ nav,
     transform: translateY(7px) rotate(45deg);
 }
 
+.form-submit,
+.btn-primary {
+    transition: background 0.15s;
+}
+
 .btn-secondary,
 .resume-download-btn {
     transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -870,12 +909,12 @@ nav,
     }
 
     .nav-links a:hover {
-        background: var(--hamburger-options-bg-hover);
-        color: var(--accent);
+        background: var(--accent2);
+        color: var(--color-white);
     }
 
     .nav-links a {
-        color: var(--text2);
+        color: var(--text);
         font-size: 15px;
         margin: 0 -1.5rem;
         text-align: center;

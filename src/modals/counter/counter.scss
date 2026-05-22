@@ -3,7 +3,7 @@
 
   .modal-body {
     align-items: center;
-    color: #3390B5;
+    color: var(--color-boston-blue);
     flex-direction: column;
 
     .counter-value {
@@ -21,9 +21,9 @@
   }
 
   button {
-    background-color: #046B93;
-    border: 1px solid rgba(222, 220, 209, .15);
-    color: #FFFFFF;
+    background-color: var(--color-bahama-blue);
+    border: 1px solid color-mix(in srgb, var(--color-westar) 15%, transparent);
+    color: var(--color-white);
     cursor: pointer;
 
     &:not(.close-button) {
@@ -33,7 +33,7 @@
     }
 
     &:hover {
-      background-color: #3390B5;
+      background-color: var(--color-boston-blue);
     }
   }
 }
