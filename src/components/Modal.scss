@@ -112,7 +112,10 @@
     }
 
     @media (max-width: 720px) {
-      border-radius: 0;
+      &.cover-letter-generator {
+        border-radius: 0;
+      }
+
       overflow-y: auto;
     }
   }

@@ -94,69 +94,86 @@ function App() {
 
     return (
         <>
-            <nav className="items-center">
-                <span className="nav-logo items-center">ANTONIO</span>
-                <div className="nav-links items-center" id="nav-links">
-                    <a href="#about" onClick={() => closeMenu()}>About me</a>
-                    <a href="#projects" onClick={() => closeMenu()}>Portfolio</a>
-                    <a href="#skills" onClick={() => closeMenu()}>Skills</a>
-                    <a href="#experience" onClick={() => closeMenu()}>Resume</a>
-                    <a href="#contact" onClick={() => closeMenu()}>Contact</a>
+            <nav className="flex items-center bg-bg1 bottom-border1 justify-between top-0">
+                <span
+                    className="nav-logo flex items-center color-accent font-dm-mono font-15px weight-500 gap-6px tracking-004em">ANTONIO</span>
+                <div className="nav-links flex items-center font-14px" id="nav-links">
+                    <a className="color-text1 padding-10px-15px decoration-none" href="#about"
+                       onClick={() => closeMenu()}>About me</a>
+                    <a className="color-text1 padding-10px-15px decoration-none" href="#projects"
+                       onClick={() => closeMenu()}>Portfolio</a>
+                    <a className="color-text1 padding-10px-15px decoration-none" href="#skills"
+                       onClick={() => closeMenu()}>Skills</a>
+                    <a className="color-text1 padding-10px-15px decoration-none" href="#experience"
+                       onClick={() => closeMenu()}>Resume</a>
+                    <a className="color-text1 padding-10px-15px decoration-none" href="#contact"
+                       onClick={() => closeMenu()}>Contact</a>
                 </div>
-                <div className="nav-right items-center">
-                    <button className="hamburger" id="hamburger" onClick={() => toggleMenu()} aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div className="nav-right flex items-center gap-12px">
+                    <button className="hamburger border-none cursor-pointer justify-center" id="hamburger"
+                            onClick={() => toggleMenu()} aria-label="Toggle menu">
+                        <span className="block height-2px"></span>
+                        <span className="block height-2px"></span>
+                        <span className="block height-2px"></span>
                     </button>
-                    <button className="theme-btn items-center" onClick={() => {
-                        const isDark = document.body.getAttribute('data-theme') === 'dark';
-                        document.body.setAttribute('data-theme', isDark ? '' : 'dark');
-                        const icon = document.getElementById('theme-icon');
-                        const label = document.getElementById('theme-label');
-                        if (icon) icon.textContent = isDark ? '☽' : '☀';
-                        if (label) label.textContent = isDark ? 'Dark' : 'Light';
-                    }}>
+                    <button
+                        className="theme-btn flex items-center bg-bg3 solid-border2 border-radius-20px color-text2 cursor-pointer font-dm-sans font-13px gap-6px"
+                        onClick={() => {
+                            const isDark = document.body.getAttribute('data-theme') === 'dark';
+                            document.body.setAttribute('data-theme', isDark ? '' : 'dark');
+                            const icon = document.getElementById('theme-icon');
+                            const label = document.getElementById('theme-label');
+                            if (icon) icon.textContent = isDark ? '☽' : '☀';
+                            if (label) label.textContent = isDark ? 'Dark' : 'Light';
+                        }}>
                         <span id="theme-icon">☽</span> <span id="theme-label">Dark</span>
                     </button>
                 </div>
             </nav>
 
-            <section className="hero" id="about">
-                <div className="hero-eyebrow items-center">I Am Antonio Saucedo</div>
-                <h1>Software<br/><em>Engineer</em></h1>
-                <p className="hero-bio">Full Stack Developer with 3+ years of experience building and maintaining web
-                    applications from front-end UI through back-end APIs and database design. Experienced leading small
-                    development teams, mentoring developers, and establishing standards that measurably improve delivery
-                    speed. Skilled in JavaScript, TypeScript, React, Angular, Node.js (Express/NestJS), Python, SQL, and
-                    NoSQL databases. Known for integrating third-party APIs, translating complex technical work into
-                    business value, and collaborating across development, design, and stakeholder teams to deliver
-                    reliable, scalable software.</p>
-                <div className="hero-cta">
-                    <a href="#projects" className="btn-primary">View Portfolio</a>
-                    <a href="#contact" className="btn-secondary">Contact Me</a>
+            <section className="hero margin-0-auto max-width-960px padding-48px-32px" id="about">
+                <div
+                    className="hero-eyebrow flex items-center color-accent font-dm-mono font-12px gap-10px tracking-014em margin-bottom-16px uppercase">
+                    I Am Antonio Saucedo
                 </div>
-                <div className="hero-locations">
+                <h1 className="color-text3 weight-600 margin-bottom-24px uppercase">Software<br/><em
+                    className="color-accent font-normal">Engineer</em></h1>
+                <p className="hero-bio tracking-180em">Full Stack Developer with 3+ years of experience building and
+                    maintaining web applications from front-end UI through back-end APIs and database design.
+                    Experienced leading small development teams, mentoring developers, and establishing standards that
+                    measurably improve delivery speed. Skilled in JavaScript, TypeScript, React, Angular, Node.js
+                    (Express/NestJS), Python, SQL, and NoSQL databases. Known for integrating third-party APIs,
+                    translating complex technical work into business value, and collaborating across development,
+                    design, and stakeholder teams to deliver reliable, scalable software.</p>
+                <div className="hero-cta flex flex-wrap gap-12px">
+                    <a href="#projects"
+                       className="btn-primary inline-block bg-accent border-none border-radius-4px color-text2 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">View
+                        Portfolio</a>
+                    <a href="#contact"
+                       className="btn-secondary inline-block bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">Contact
+                        Me</a>
+                </div>
+                <div className="hero-locations flex top-border1">
                     <div>
-                        <div className="loc-country">Remote</div>
-                        <div className="loc-city">Rigby, ID</div>
+                        <div className="loc-country font-13px weight-500 margin-bottom-3px">Remote</div>
+                        <div className="loc-city font-dm-mono font-12px">Rigby, ID</div>
                     </div>
                     <div>
-                        <div className="loc-country">Open to</div>
-                        <div className="loc-city">Full-time / Contract</div>
+                        <div className="loc-country font-13px weight-500 margin-bottom-3px">Open to</div>
+                        <div className="loc-city font-dm-mono font-12px">Full-time / Contract</div>
                     </div>
                     <div>
-                        <div className="loc-country">Available</div>
-                        <div className="loc-city">Immediately</div>
+                        <div className="loc-country font-13px weight-500 margin-bottom-3px">Available</div>
+                        <div className="loc-city font-dm-mono font-12px">Immediately</div>
                     </div>
                 </div>
             </section>
 
-            <section id="skills">
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
                 <div className="section-header">
-                    <h2 className="section-title">Skills</h2>
+                    <h2 className="section-title weight-600 uppercase">Skills</h2>
                 </div>
-                <div className="skills-cards-grid">
+                <div className="skills-cards-grid grid gap-16px">
                     {[
                         {
                             title: 'Frontend',
@@ -191,11 +208,14 @@ function App() {
                             tags: ['Cross-functional Collaboration', 'Leadership', 'Conflict Resolution', 'Adaptability', 'Self-Motivated', 'Attention to Detail', 'Continuous Learner', 'Problem-solving', 'Bilingual (Spanish)']
                         },
                     ].map(({title, tags}) => (
-                        <div className="skills-card" key={title}>
-                            <div className="skills-card-title">{title}</div>
-                            <div className="skills-card-tags">
+                        <div className="skills-card flex flex-column bg-bg2 border-radius-4px gap-16px height-100"
+                             key={title}>
+                            <div className="skills-card-title font-14px weight-600">{title}</div>
+                            <div
+                                className="skills-card-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em">
                                 {tags.map(tag => (
-                                    <span className="tag" key={tag}>{tag}</span>
+                                    <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px"
+                                          key={tag}>{tag}</span>
                                 ))}
                             </div>
                         </div>
@@ -203,119 +223,138 @@ function App() {
                 </div>
             </section>
 
-            <div className="quote-section">
-                <span className="quote-mark">"</span>
-                <p className="quote-text">Growth comes from putting yourself through tough situations and embracing the
-                    struggle.</p>
-                <div className="quote-author">— Antonio Saucedo</div>
+            <div className="quote-section bg-bg2 max-width-960px">
+                <span className="quote-mark block color-accent margin-bottom-8px">"</span>
+                <p className="quote-text tracking-170em margin-bottom-16px">Growth comes from putting yourself through
+                    tough situations and
+                    embracing the struggle.</p>
+                <div className="quote-author font-dm-mono font-12px tracking-006em">— Antonio Saucedo</div>
             </div>
 
-            <section id="projects">
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="projects">
                 <div className="section-header">
-                    <h2 className="section-title">Portfolio</h2>
+                    <h2 className="section-title weight-600 uppercase">Portfolio</h2>
                 </div>
-                <div className="projects-grid">
-                    <div className="project-card">
-                        <div className="project-header">
-                            <div className="project-icon items-center">
+                <div className="projects-grid grid gap-16px">
+                    <div className="project-card bg-bg2 border-radius-4px">
+                        <div className="project-header flex justify-between">
+                            <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                                     <path d="M2 17l10 5 10-5"/>
                                     <path d="M2 12l10 5 10-5"/>
                                 </svg>
                             </div>
-                            <a className="project-link" href="https://mobiledash.net/" target="_blank">↗ Live</a>
+                            <a className="project-link color-text1 font-dm-mono font-12px decoration-none"
+                               href="https://mobiledash.net/" target="_blank">↗ Live</a>
                         </div>
-                        <div className="project-name">MobileDash</div>
-                        <div className="project-desc">A cloud-based, full-featured CRM platform built on Oracle APEX for
-                            exterior contractors, utilizing Oracle's built-in authentication for secure, role-based
-                            access control and custom-developed plugins to extend the framework for domain-specific
-                            needs. I was directly involved in implementing and enhancing all major features throughout
-                            the development lifecycle.
+                        <div className="project-name font-15px weight-500 margin-bottom-8px">MobileDash</div>
+                        <div className="project-desc font-13px tracking-165em margin-bottom-16px">A cloud-based,
+                            full-featured CRM platform built on Oracle APEX for exterior contractors, utilizing Oracle's
+                            built-in authentication for secure, role-based access control and custom-developed plugins
+                            to extend the framework for domain-specific needs. I was directly involved in implementing
+                            and enhancing all major features throughout the development lifecycle.
                         </div>
-                        <div className="project-tags">
-                            <span className="tag">Git/GitHub</span>
-                            <span className="tag">Docker</span>
-                            <span className="tag">Bash Scripting</span>
-                            <span className="tag">Oracle Apex (OCI)</span>
-                            <span className="tag">SaaS</span>
-                            <span className="tag">OAuth & Security</span>
-                            <span className="tag">HTML</span>
-                            <span className="tag">CSS</span>
-                            <span className="tag">Tailwind</span>
-                            <span className="tag">JavaScript</span>
-                            <span className="tag">SQL</span>
-                            <span className="tag">PL/SQL</span>
-                            <span className="tag">Intuit API (payments/invoicing)</span>
-                            <span className="tag">IP geolocation APIs</span>
-                            <span className="tag">RESTful API Design</span>
-                            <span className="tag">Third-party REST</span>
-                            <span className="tag">Playwright (E2E Testing)</span>
-                            <span className="tag">utPLSQL (Unit Testing)</span>
+                        <div
+                            className="project-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em">
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Git/GitHub</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Docker</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Bash Scripting</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Oracle Apex (OCI)</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">SaaS</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">OAuth & Security</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">HTML</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">CSS</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Tailwind</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">JavaScript</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">SQL</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">PL/SQL</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Intuit API (payments/invoicing)</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">IP geolocation APIs</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">RESTful API Design</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Third-party REST</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Playwright (E2E Testing)</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">utPLSQL (Unit Testing)</span>
                         </div>
                     </div>
-                    <div className="project-card">
-                        <div className="project-header">
-                            <div className="project-icon items-center">
+                    <div className="project-card bg-bg2 border-radius-4px">
+                        <div className="project-header flex justify-between">
+                            <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                     <polyline points="15 3 21 3 21 9"/>
                                     <line x1="10" y1="14" x2="21" y2="3"/>
                                 </svg>
                             </div>
-                            <button className="project-link" onClick={() => setCoverLetterGeneratorIsOpen(true)}>↗
-                                Open
+                            <button
+                                className="project-link bg-transparent border-none color-text1 cursor-pointer font-dm-mono font-12px decoration-none"
+                                onClick={() => setCoverLetterGeneratorIsOpen(true)}>↗ Open
                             </button>
                         </div>
-                        <div className="project-name">Cover Letter Generator</div>
-                        <div className="project-desc">A full-stack AI tool that generates tailored cover letters from a
-                            job description and resume highlights, powered by the Gemini Flash API with tone selection
-                            and a clean modal UI.
+                        <div className="project-name font-15px weight-500 margin-bottom-8px">Cover Letter Generator
                         </div>
-                        <div className="project-tags">
-                            <span className="tag">Git/GitHub</span>
-                            <span className="tag">Vite</span>
-                            <span className="tag">React</span>
-                            <span className="tag">TypeScript</span>
-                            <span className="tag">SASS</span>
-                            <span className="tag">SCSS</span>
-                            <span className="tag">Gemini Flash API</span>
-                            <span className="tag">RESTful API Design</span>
+                        <div className="project-desc font-13px tracking-165em margin-bottom-16px">A full-stack AI tool
+                            that generates tailored cover letters from a job description and resume highlights, powered
+                            by the Gemini Flash API with tone selection and a clean modal UI.
+                        </div>
+                        <div
+                            className="project-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em">
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Git/GitHub</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Vite</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">React</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">TypeScript</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">SASS</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">SCSS</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Gemini Flash API</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">RESTful API Design</span>
                         </div>
                     </div>
                     <CoverLetterGenerator isOpen={coverLetterGeneratorIsOpen}
                                           onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
-                    <div className="project-card">
-                        <div className="project-header">
-                            <div className="project-icon items-center">
+                    <div className="project-card bg-bg2 border-radius-4px">
+                        <div className="project-header flex justify-between">
+                            <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                     <polyline points="15 3 21 3 21 9"/>
                                     <line x1="10" y1="14" x2="21" y2="3"/>
                                 </svg>
                             </div>
-                            <button className="project-link" onClick={() => setCounterIsOpen(true)}>↗ Open</button>
+                            <button
+                                className="project-link bg-transparent border-none color-text1 cursor-pointer font-dm-mono font-12px decoration-none"
+                                onClick={() => setCounterIsOpen(true)}>↗ Open
+                            </button>
                         </div>
-                        <div className="project-name">React Counter</div>
-                        <div className="project-desc">A React counter built with useState and a clean modal UI.
+                        <div className="project-name font-15px weight-500 margin-bottom-8px">React Counter</div>
+                        <div className="project-desc font-13px tracking-165em margin-bottom-16px">A React counter built
+                            with useState and a clean modal UI.
                         </div>
-                        <div className="project-tags">
-                            <span className="tag">Git/GitHub</span>
-                            <span className="tag">Vite</span>
-                            <span className="tag">React</span>
-                            <span className="tag">TypeScript</span>
-                            <span className="tag">SCSS</span>
+                        <div
+                            className="project-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em">
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Git/GitHub</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Vite</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">React</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">TypeScript</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">SCSS</span>
                         </div>
                     </div>
                     <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
                 </div>
             </section>
 
-            <section id="experience">
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="experience">
                 <div className="section-header">
-                    <h2 className="section-title">My Resume</h2>
+                    <h2 className="section-title weight-600 uppercase">My Resume</h2>
                     <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
-                       className="resume-download-btn items-center">
+                       className="resume-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -325,7 +364,7 @@ function App() {
                         Download Resume
                     </a>
                 </div>
-                <div className="experience-list">
+                <div className="experience-list flex flex-column">
                     {[
                         {
                             period: '09/2023 – 03/2026',
@@ -368,33 +407,34 @@ function App() {
                                 'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
                         },
                     ].map(({period, role, company, desc}) => (
-                        <div className="exp-item" key={company}>
-                            <div className="exp-period">{period}</div>
+                        <div className="exp-item grid bottom-border1" key={company}>
+                            <div
+                                className="exp-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
                             <div>
-                                <div className="exp-role">{role}</div>
-                                <div className="exp-company">{company}</div>
-                                <ul className="exp-desc">
-                                    {desc.map((point, i) => (
-                                        <li key={i}>{point}</li>
-                                    ))}
-                                </ul>
+                                <div className="exp-role font-15px weight-500 margin-bottom-3px">{role}</div>
+                                <div
+                                    className="exp-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
+                                <ul className="exp-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
+                                    <li key={i}>{point}</li>))}</ul>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
 
-            <section id="contact">
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="contact">
                 <div className="section-header">
-                    <h2 className="section-title">Contact Me</h2>
+                    <h2 className="section-title weight-600 uppercase">Contact Me</h2>
                 </div>
-                <div className="contact-wrap">
+                <div className="contact-wrap grid">
                     <div className="contact-text">
-                        <p>I'm always open to new opportunities, collaborations, or just a conversation about software
-                            design. Send me a message.</p>
-                        <div className="contact-links">
-                            <a className="contact-link items-center" href="mailto:antonios.softwareengineer@gmail.com">
-                                <div className="contact-link-icon items-center">
+                        <p className="font-16px tracking-180em margin-bottom-24px">I'm always open to new opportunities,
+                            collaborations, or just a conversation about software design. Send me a message.</p>
+                        <div className="contact-links flex flex-column font-14px gap-12px margin-top-24px">
+                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                               href="mailto:antonios.softwareengineer@gmail.com">
+                                <div
+                                    className="contact-link-icon flex items-center bg-bg2 solid-border1 border-radius-4px justify-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -403,9 +443,11 @@ function App() {
                                 </div>
                                 antonios.softwareengineer@gmail.com
                             </a>
-                            <a className="contact-link items-center" href="https://github.com/Antonio-Saucedo"
+                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                               href="https://github.com/Antonio-Saucedo"
                                target="_blank">
-                                <div className="contact-link-icon items-center">
+                                <div
+                                    className="contact-link-icon flex items-center bg-bg2 solid-border1 border-radius-4px justify-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
@@ -413,9 +455,11 @@ function App() {
                                 </div>
                                 github.com/Antonio-Saucedo
                             </a>
-                            <a className="contact-link items-center" href="https://www.linkedin.com/in/antoniojsaucedo"
+                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                               href="https://www.linkedin.com/in/antoniojsaucedo"
                                target="_blank">
-                                <div className="contact-link-icon items-center">
+                                <div
+                                    className="contact-link-icon flex items-center bg-bg2 solid-border1 border-radius-4px justify-center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                                         <path
                                             d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -427,35 +471,42 @@ function App() {
                             </a>
                         </div>
                     </div>
-                    <div className="contact-form">
-                        <div className="form-row">
-                            <label htmlFor="from_name" className="contact-form-label">Name
-                                <input id="from_name" name="from_name" type="text" className="form-input"
+                    <div className="contact-form flex flex-column gap-12px">
+                        <div className="form-row grid gap-12px">
+                            <label htmlFor="from_name" className="contact-form-label font-16px">Name
+                                <input id="from_name" name="from_name" type="text"
+                                       className="form-input bg-bg2 solid-border2 border-radius-4px color-text1 font-dm-sans font-14px padding-10px-14px"
                                        placeholder="Your name" value={formData.from_name}
                                        onChange={handleChange}/></label>
-                            <label htmlFor="from_email" className="contact-form-label">From
-                                <input id="from_email" name="from_email" type="email" className="form-input"
+                            <label htmlFor="from_email" className="contact-form-label font-16px">From
+                                <input id="from_email" name="from_email" type="email"
+                                       className="form-input bg-bg2 solid-border2 border-radius-4px color-text1 font-dm-sans font-14px padding-10px-14px"
                                        placeholder="Email" value={formData.from_email} onChange={handleChange}/></label>
                         </div>
-                        <label htmlFor="subject" className="contact-form-label">Subject
-                            <input id="subject" name="subject" type="text" className="form-input" placeholder="Subject"
-                                   value={formData.subject} onChange={handleChange}/></label>
-                        <label htmlFor="message" className="contact-form-label">Message
-                            <textarea id="message" name="message" className="form-input form-textarea"
-                                      placeholder="Your message..."
-                                      value={formData.message} onChange={handleChange}/></label>
+                        <label htmlFor="subject" className="contact-form-label font-16px">Subject
+                            <input id="subject" name="subject" type="text"
+                                   className="form-input bg-bg2 solid-border2 border-radius-4px color-text1 font-dm-sans font-14px padding-10px-14px"
+                                   placeholder="Subject" value={formData.subject} onChange={handleChange}/></label>
+                        <label htmlFor="message" className="contact-form-label font-16px">Message
+                            <textarea id="message" name="message"
+                                      className="form-input form-textarea bg-bg2 solid-border2 border-radius-4px color-text1 font-dm-sans font-14px padding-10px-14px"
+                                      placeholder="Your message..." value={formData.message}
+                                      onChange={handleChange}/></label>
                         {status === 'success' && (
-                            <div className="form-status form-status--success">
+                            <div
+                                className="form-status form-status--success border-radius-4px font-dm-mono font-13px padding-10px-14px">
                                 ✓ Message sent! I'll get back to you soon.
                             </div>
                         )}
                         {status === 'error' && (
-                            <div className="form-status form-status--error">
+                            <div
+                                className="form-status form-status--error bg-bg4 solid-border2 border-radius-4px color-text3 font-dm-mono font-13px padding-10px-14px">
                                 ✗ Something went wrong. Please check all fields and try again.
                             </div>
                         )}
-                        <button className="form-submit items-center" onClick={handleSubmit}
-                                disabled={status === 'sending'}>
+                        <button
+                            className="form-submit flex items-center bg-accent border-none border-radius-4px color-text2 cursor-pointer font-dm-sans font-12px weight-500 gap-8px tracking-006em uppercase"
+                            onClick={handleSubmit} disabled={status === 'sending'}>
                             {status === 'sending' ? 'Sending...' : 'Send message'}
                             {status !== 'sending' && (
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -469,7 +520,8 @@ function App() {
                 </div>
             </section>
 
-            <footer className="items-center">
+            <footer
+                className="flex items-center top-border1 font-dm-mono font-12px justify-between margin-0-auto max-width-960px padding-32px">
                 <p>© 2026 Antonio Saucedo — All rights reserved</p>
                 <p>Built with React + passion</p>
             </footer>
