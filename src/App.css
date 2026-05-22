@@ -87,7 +87,7 @@ html {
     --bg5: var(--color-schooner);
     --border1: color-mix(in srgb, var(--color-white) 6%, transparent);
     --border2: color-mix(in srgb, var(--color-white) 10%, transparent);
-    --card-shadow: 0 1px 4px color-mix(in srgb, var(--color-black) 50%, transparent), 0 4px 20px color-mix(in srgb, var(--color-black) 40%, transparent);
+    --card-shadow: 0 1px 4px color-mix(in srgb, var(--color-black) 50%, transparent), 0 -4px 6px color-mix(in srgb, var(--color-black) 20%, transparent);
     --text1: var(--color-schooner);
     --text2: var(--color-black);
     --text3: var(--color-white);
