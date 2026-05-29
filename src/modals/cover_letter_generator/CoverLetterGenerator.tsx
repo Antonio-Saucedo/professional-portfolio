@@ -1,5 +1,4 @@
 import {useEffect, useRef, useState} from 'react';
-import {GoogleGenAI} from "@google/genai";
 import Modal from '../../components/Modal';
 import documentIconUrl from './icons/document-icon.svg';
 import closeButtonIconUrl from '../global-icons/close-button-icon.svg';
@@ -7,6 +6,8 @@ import clockIconUrl from './icons/clock-icon.svg';
 import apiErrorIconUrl from './icons/api-error-icon.svg';
 import playIconUrl from './icons/play-icon.svg';
 import './CoverLetterGenerator.scss';
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface Props {
     isOpen: boolean;
@@ -23,12 +24,15 @@ export default function CoverLetterGenerator({isOpen, onClose}: Props) {
         tone: '',
     })
     const [fieldErrors, setFieldErrors] = useState<string[]>([])
-    const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'api_error'>('idle')
+    const [status, setStatus] = useState<'idle' | 'warming' | 'sending' | 'success' | 'error' | 'api_error'>('idle')
     const [result, setResult] = useState<string>('')
 
     useEffect(() => {
         if (!isOpen) return
         firstInputRef.current?.focus()
+        // Ping the backend as soon as the modal opens to wake it from cold start
+        fetch(`${BACKEND_URL}/ping`).catch(() => {
+        })
     }, [isOpen])
 
     if (!isOpen) return null
@@ -52,24 +56,31 @@ export default function CoverLetterGenerator({isOpen, onClose}: Props) {
             return;
         }
         setFieldErrors([]);
-        setStatus('sending');
+        // Show "warming up" if the server might be cold — resolves naturally once response arrives
+        setStatus('warming');
+        const warmingTimer = setTimeout(() => {
+            setStatus(prev => prev === 'warming' ? 'sending' : prev);
+        }, 2000);
+
         try {
-            const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_GEMINI_API_KEY});
-            const response = await ai.models.generateContent({
-                model: "gemini-3-flash-preview",
-                contents: `You are a cover letter writing assistant. Your only function is to generate professional cover letters. ` +
-                    `You must not answer questions, provide advice, or perform any task other than writing a cover letter. ` +
-                    `If the information provided is insufficient, generate the best cover letter possible with what is given. ` +
-                    `Do not include any preamble, explanation, or closing remarks — output only the cover letter text itself.\n\n` +
-                    `Generate a cover letter using the following:\n` +
-                    `Job description: ${formData.job_description}\n` +
-                    `Candidate name and role: ${formData.name_and_role}\n` +
-                    `Key experience: ${formData.key_experience}\n` +
-                    `Tone: ${formData.tone}`,
+            const response = await fetch(`${BACKEND_URL}/generate-cover-letter`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData),
             });
-            setResult(response.text ?? '');
+
+            clearTimeout(warmingTimer);
+
+            if (!response.ok) {
+                setStatus('api_error');
+                return;
+            }
+
+            const data = await response.json();
+            setResult(data.result ?? '');
             setStatus('success');
         } catch {
+            clearTimeout(warmingTimer);
             setStatus('api_error');
         }
     }
@@ -124,6 +135,12 @@ export default function CoverLetterGenerator({isOpen, onClose}: Props) {
                                         <div className="form-status form-status--idle">
                                             <span>Fill in the fields and click</span><br/>
                                             <span><span className="bold">Generate</span> to create your letter</span>
+                                        </div>
+                                    )}
+                                    {status === 'warming' && (
+                                        <div className="form-status form-status--sending">
+                                            <span className="bold">Warming up.</span><br/>
+                                            <span className="bold">One moment...</span>
                                         </div>
                                     )}
                                     {status === 'sending' && (
