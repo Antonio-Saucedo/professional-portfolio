@@ -1,75 +1,136 @@
-# professional-portfolio
+# Antonio Saucedo — Professional Portfolio
 
-# React + TypeScript + Vite
+A personal portfolio built to showcase my projects, skills, and experience as a software engineer. Live
+at [antoniosoftwareengineer.com](https://antoniosoftwareengineer.com).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **AI Cover Letter Generator** — powered by Gemini 2.5 Flash, generates tailored cover letters from a job description,
+  candidate info, and tone preference
+- **Light & dark mode** — system-aware theme with manual toggle
+- **Contact form** — integrated with EmailJS for direct message delivery
+- **Responsive design** — optimized for desktop and mobile
+- **CI/CD** — automatic deploys to GitHub Pages via GitHub Actions on every push to `main`
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Architecture
 
-## Expanding the ESLint configuration
+The frontend is a static React/TypeScript/Vite app deployed to GitHub Pages. The Cover Letter Generator feature uses a
+separate Node.js/Express backend proxy deployed to Render, which keeps the Gemini API key out of the browser entirely.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+Browser (GitHub Pages)
+       │
+       ├── EmailJS (contact form — direct, no key exposure risk)
+       │
+       └── POST /generate-cover-letter
+               │
+       Express Proxy (Render)
+               │
+       Gemini API (Google)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Why the proxy?** Calling the Gemini API directly from the frontend would expose the API key in the JavaScript bundle —
+visible to anyone with DevTools open. The proxy receives the request, adds the key server-side from an environment
+variable, and forwards it to Gemini. The key never reaches the browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech Stack
+
+| Layer              | Technology                         |
+|--------------------|------------------------------------|
+| Frontend           | React, TypeScript, Vite, SCSS      |
+| AI Backend         | Node.js, Express, TypeScript       |
+| AI Model           | Gemini 2.5 Flash (`@google/genai`) |
+| Contact            | EmailJS                            |
+| Hosting (frontend) | GitHub Pages                       |
+| Hosting (backend)  | Render                             |
+| CI/CD              | GitHub Actions                     |
+
+---
+
+## Local Development
+
+### Prerequisites
+
+- Node.js 18+
+- A [Gemini API key](https://aistudio.google.com/apikey)
+- An [EmailJS](https://emailjs.com) account
+
+### Frontend
+
+```bash
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+# Fill in your values in .env
+
+# Start dev server
+npm run dev
 ```
+
+### Backend proxy
+
+```bash
+cd server
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+# Add your GEMINI_API_KEY to .env
+
+# Start dev server
+npm run dev
+```
+
+The frontend dev server runs on `http://localhost:5173` and expects the backend at `http://localhost:3001` (set via
+`VITE_BACKEND_URL` in your root `.env`).
+
+---
+
+## Environment Variables
+
+### Frontend (root `.env`)
+
+| Variable                   | Description                                                                               |
+|----------------------------|-------------------------------------------------------------------------------------------|
+| `VITE_EMAILJS_SERVICE_ID`  | EmailJS service ID                                                                        |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template ID                                                                       |
+| `VITE_EMAILJS_PUBLIC_KEY`  | EmailJS public key                                                                        |
+| `VITE_BACKEND_URL`         | URL of the Express proxy (`http://localhost:3001` locally, your Render URL in production) |
+
+### Backend (`server/.env`)
+
+| Variable         | Description           |
+|------------------|-----------------------|
+| `GEMINI_API_KEY` | Google Gemini API key |
+
+---
+
+## Deployment
+
+### Frontend (GitHub Pages)
+
+Deployments are automated via `.github/workflows/deploy.yml`. Every push to `main` triggers a build and deploy. All
+`VITE_*` environment variables must be added as GitHub Actions secrets in the repo settings.
+
+### Backend (Render)
+
+The `server/` folder is deployed as a separate Web Service on Render.
+
+| Setting        | Value              |
+|----------------|--------------------|
+| Root Directory | `server`           |
+| Build Command  | `npm install`      |
+| Start Command  | `npx tsx index.ts` |
+
+Set `GEMINI_API_KEY` as an environment variable in the Render dashboard. The server includes a `/ping` endpoint that the
+frontend calls when the Cover Letter modal opens, warming the instance before the user submits the form.
