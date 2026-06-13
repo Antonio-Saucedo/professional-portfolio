@@ -177,7 +177,7 @@ function App() {
                     {[
                         {
                             title: 'Frontend',
-                            tags: ['JavaScript', 'TypeScript', 'React', 'Vite', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind']
+                            tags: ['JavaScript', 'TypeScript', 'React', 'Vite', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind', 'Responsive Design']
                         },
                         {
                             title: 'Backend',
@@ -189,7 +189,7 @@ function App() {
                         },
                         {
                             title: 'APIs & Integrations',
-                            tags: ['Gemini Flash API', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'GraphQL', 'Swagger API']
+                            tags: ['Gemini Flash API', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Fetch API', 'JSON', 'Third-party REST', 'GraphQL', 'Swagger API']
                         },
                         {
                             title: 'DevOps & Tools',
@@ -347,6 +347,42 @@ function App() {
                         </div>
                     </div>
                     <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
+                    <div className="project-card bg-bg2 border-radius-4px">
+                        <div className="project-header flex justify-between">
+                            <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </div>
+                            <a className="project-link color-text1 font-dm-mono font-12px decoration-none"
+                               href="https://antonio-saucedo.github.io/wdd230/" target="_blank">↗ Live</a>
+                        </div>
+                        <div className="project-name font-15px weight-500 margin-bottom-8px">WDD 230 – Web Frontend
+                            Development
+                        </div>
+                        <div className="project-desc font-13px tracking-165em margin-bottom-16px">A collection of
+                            frontend projects built throughout BYU-Idaho's Web Frontend Development course, covering
+                            responsive design, DOM manipulation, JSON & Fetch API integration, live weather data,
+                            progressive image loading, and a polished final site, Temple Inn & Suites.
+                        </div>
+                        <div
+                            className="project-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em">
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Git/GitHub</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">HTML</span>
+                            <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">CSS</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">JavaScript</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Fetch API</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">JSON</span>
+                            <span
+                                className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px">Responsive Design</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
