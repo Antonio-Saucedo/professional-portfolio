@@ -676,6 +676,11 @@ body:has(.modal-page) {
     transform: translateY(7px) rotate(45deg);
 }
 
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}
+
 .form-submit,
 .btn-primary {
     transition: background 0.15s;

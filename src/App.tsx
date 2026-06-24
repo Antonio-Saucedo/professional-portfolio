@@ -1,4 +1,5 @@
 import {Fragment, lazy, Suspense, useCallback, useEffect, useState} from 'react';
+import type {ReactNode, ChangeEvent} from 'react';
 import emailjs from '@emailjs/browser';
 import './App.css';
 
@@ -91,7 +92,7 @@ const EXPERIENCE_ITEMS = [
 ];
 
 // Shared wrapper for contact icons.
-function ContactLinkIcon({children}: { children: React.ReactNode }) {
+function ContactLinkIcon({children}: { children: ReactNode }) {
     return (
         <div className="contact-link-icon flex items-center bg-bg2 solid-border1 border-radius-4px justify-center">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
@@ -130,7 +131,7 @@ function TagList({tags, wrapperClassName}: { tags: string[]; wrapperClassName: s
 }
 
 // Section heading rows with `action` for a trailing control (e.g. the resume section's download button).
-function SectionHeader({title, action}: { title: string; action?: React.ReactNode }) {
+function SectionHeader({title, action}: { title: string; action?: ReactNode }) {
     return (
         <div className="section-header">
             <h2 className="section-title weight-600 uppercase">{title}</h2>
@@ -140,7 +141,7 @@ function SectionHeader({title, action}: { title: string; action?: React.ReactNod
 }
 
 type Project = {
-    icon: React.ReactNode;
+    icon: ReactNode;
     name: string;
     desc: string;
     tags: string[];
@@ -154,6 +155,7 @@ const ROLES = [
     {line1: 'Database', line2: 'Engineer'},
     {line1: 'API', line2: 'Engineer'},
 ];
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TYPE_SPEED_MS = 55;
 const DELETE_SPEED_MS = 35;
 const HOLD_MS = 1800; // pause once a phrase is fully typed, before deleting
@@ -173,7 +175,7 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
     const [charCount, setCharCount] = useState(
         prefersReducedMotion ? roles[0].line1.length + roles[0].line2.length : 0
     );
-    const [phase, setPhase] = useState<'typing' | 'holding' | 'deleting'>('typing');
+    const [phase, setPhase] = useState<'typing' | 'deleting'>('typing');
 
     // Listen for the OS/browser preference changing while the page is already
     // open. When it turns on, use the first phrase fully typed and static.
@@ -204,11 +206,7 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
                 const t = setTimeout(() => setCharCount(c => c + 1), TYPE_SPEED_MS);
                 return () => clearTimeout(t);
             }
-            const t = setTimeout(() => setPhase('holding'), HOLD_MS);
-            return () => clearTimeout(t);
-        }
-        if (phase === 'holding') {
-            const t = setTimeout(() => setPhase('deleting'), 0);
+            const t = setTimeout(() => setPhase('deleting'), HOLD_MS);
             return () => clearTimeout(t);
         }
         // deleting
@@ -250,7 +248,7 @@ function ContactField({
     id: string;
     label: string;
     value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     placeholder: string;
     type?: string;
     as?: 'input' | 'textarea';
@@ -302,7 +300,12 @@ function App() {
     // Hero heading's cycling role text.
     const {line1: heroLine1, line2: heroLine2} = useTypewriter(ROLES);
 
-    // Modal pages state
+    // States
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isDarkTheme, setIsDarkTheme] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        return localStorage.getItem('theme') === 'dark';
+    });
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
     const [counterIsOpen, setCounterIsOpen] = useState(false);
 
@@ -314,35 +317,41 @@ function App() {
     })
     const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
+    // Remove the no-transition guard after first paint so the dark/light
+    // toggle's transition still works for subsequent user-initiated changes.
+    useEffect(() => {
+        const id = requestAnimationFrame(() => {
+            document.documentElement.classList.remove('no-transition');
+        });
+        return () => cancelAnimationFrame(id);
+    }, []);
+
+    // Syncs body data-theme with isDarkTheme and stores preference in local storage
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', isDarkTheme ? 'dark' : '');
+        localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+    }, [isDarkTheme]);
+
     // Nav bar — wrapped in useCallback so the function reference is stable across
     // renders, avoiding unnecessary re-binding of the onClick handlers that use them.
     const toggleMenu = useCallback(() => {
-        const nav = document.getElementById('nav-links');
-        const burger = document.getElementById('hamburger');
-        nav?.classList.toggle('nav-open');
-        burger?.classList.toggle('hamburger-open');
+        setIsNavOpen(prev => !prev);
     }, []);
 
     const closeMenu = useCallback(() => {
-        document.getElementById('nav-links')?.classList.remove('nav-open');
-        document.getElementById('hamburger')?.classList.remove('hamburger-open');
+        setIsNavOpen(false);
     }, []);
 
     const toggleTheme = useCallback(() => {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        document.body.setAttribute('data-theme', isDark ? '' : 'dark');
-        const icon = document.getElementById('theme-icon');
-        const label = document.getElementById('theme-label');
-        if (icon) icon.textContent = isDark ? '☽' : '☀';
-        if (label) label.textContent = isDark ? 'Dark' : 'Light';
+        setIsDarkTheme(prev => !prev);
     }, []);
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({...prev, [e.target.name]: e.target.value}))
     }, []);
 
     const handleSubmit = useCallback(async () => {
-        if (!formData.from_name || !formData.from_email || !formData.message) {
+        if (!formData.from_name || !formData.from_email || !formData.message || !EMAIL_PATTERN.test(formData.from_email)) {
             setStatus('error')
             return
         }
@@ -393,23 +402,26 @@ function App() {
             <nav className="flex items-center bg-bg1 bottom-border1 justify-between top-0">
                 <span
                     className="nav-logo flex items-center color-accent font-dm-mono font-15px weight-500 gap-6px tracking-004em">ANTONIO</span>
-                <div className="nav-links flex items-center font-14px" id="nav-links">
+                <div className={`nav-links flex items-center font-14px ${isNavOpen ? 'nav-open' : ''}`}>
                     {NAV_LINKS.map(({href, label}) => (
                         <a className="color-text1 padding-10px-15px decoration-none" href={href}
                            onClick={closeMenu} key={href}>{label}</a>
                     ))}
                 </div>
                 <div className="nav-right flex items-center gap-12px">
-                    <button className="hamburger border-none cursor-pointer justify-center" id="hamburger"
-                            onClick={toggleMenu} aria-label="Toggle menu">
+                    <button
+                        className={`hamburger border-none cursor-pointer justify-center ${isNavOpen ? 'hamburger-open' : ''}`}
+                        onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isNavOpen}>
                         <span className="block height-2px"></span>
                         <span className="block height-2px"></span>
                         <span className="block height-2px"></span>
                     </button>
                     <button
                         className="theme-btn flex items-center bg-bg3 solid-border2 border-radius-20px color-text2 cursor-pointer font-dm-sans font-13px gap-6px"
-                        onClick={toggleTheme}>
-                        <span id="theme-icon">☽</span> <span id="theme-label">Dark</span>
+                        onClick={toggleTheme} aria-pressed={isDarkTheme}
+                        aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}>
+                        <span>{isDarkTheme ? '☀' : '☽'}</span>
+                        <span>{isDarkTheme ? 'Light' : 'Dark'}</span>
                     </button>
                 </div>
             </nav>
