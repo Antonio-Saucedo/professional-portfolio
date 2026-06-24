@@ -15,15 +15,28 @@
 
         gtag('config', 'G-W8P566XVHP');
     </script>
+    <script>
+        (function () {
+            document.documentElement.classList.add('no-transition');
+            try {
+                const theme = localStorage.getItem('theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {
+                // localStorage unavailable, fall back to light
+            }
+        })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="This is a portfolio for Antonio Saucedo Software Engineer.">
     <title>Antonio Saucedo Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script type="module" crossorigin src="/assets/index-Co48KHcj.js"></script>
+  <script type="module" crossorigin src="/assets/index-DDJlPIGE.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/jsx-runtime-BN4ZKciC.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-BhfSyMXZ.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-D-91PIXK.css">
 </head>
 <body>
 <div id="root"></div>
