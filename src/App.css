@@ -240,7 +240,7 @@ body {
 .nav-links a:hover,
 .btn-secondary:hover,
 .resume-download-btn:hover,
-.project-link:hover,
+.project-card:hover .project-link,
 .exp-desc li::marker,
 .contact-link:hover {
     color: var(--accent);
@@ -539,6 +539,10 @@ body {
 
 .tracking-180em {
     line-height: 1.8;
+}
+
+.project-tags li {
+    list-style: none;
 }
 
 .margin-0-auto {

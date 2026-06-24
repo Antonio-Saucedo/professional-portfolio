@@ -1,10 +1,10 @@
 import {Fragment, lazy, Suspense, useCallback, useEffect, useState} from 'react';
-import type {ReactNode, ChangeEvent} from 'react';
+import type {ReactNode, ChangeEvent, KeyboardEvent} from 'react';
 import emailjs from '@emailjs/browser';
 import './App.css';
 
 // Modals are lazy-loaded making modals reset state on close.
-const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator'));
+const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator.tsx'));
 const Counter = lazy(() => import('./modals/counter/counter.tsx'));
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
@@ -119,7 +119,7 @@ const ExternalLinkIcon = (
     </svg>
 );
 
-// Tag pills list with wrapper className for alternate styling
+// Tag pills list, used by the skills section.
 function TagList({tags, wrapperClassName}: { tags: string[]; wrapperClassName: string }) {
     return (
         <div className={wrapperClassName}>
@@ -127,6 +127,20 @@ function TagList({tags, wrapperClassName}: { tags: string[]; wrapperClassName: s
                 <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px" key={tag}>{tag}</span>
             ))}
         </div>
+    );
+}
+
+// Tag list, used by the portfolio section.
+function ProjectSkillList({tags}: { tags: string[] }) {
+    return (
+        <>
+            <div className="font-dm-mono font-14px weight-500 tracking-002em margin-bottom-3px">Skills:</div>
+            <ul className="project-tags font-dm-mono font-12px weight-500 gap-6px tracking-002em">
+                {tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                ))}
+            </ul>
+        </>
     );
 }
 
@@ -272,26 +286,34 @@ function ContactField({
 
 function ProjectCard({project}: { project: Project }) {
     const {icon, name, desc, tags, link} = project;
+    // Event handlers for user clicking on project cards
+    const handleCardClick = () => {
+        if (link.type === 'live') {
+            window.open(link.href, '_blank');
+        } else {
+            link.onOpen();
+        }
+    }
+    const handleCardKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleCardClick();
+        }
+    };
     return (
-        <div className="project-card bg-bg2 border-radius-4px">
+        <div onClick={handleCardClick} onKeyDown={handleCardKeyDown} role="button" tabIndex={0}
+             className="project-card bg-bg2 border-radius-4px cursor-pointer">
             <div className="project-header flex justify-between">
                 <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
                     {icon}
                 </div>
-                {link.type === 'live' ? (
-                    <a className="project-link color-text1 font-dm-mono font-12px decoration-none"
-                       href={link.href} target="_blank">↗ Live</a>
-                ) : (
-                    <button
-                        className="project-link bg-transparent border-none color-text1 cursor-pointer font-dm-mono font-12px decoration-none"
-                        onClick={link.onOpen}>↗ Open
-                    </button>
-                )}
+                <span className="project-link color-text1 font-dm-mono font-12px">
+                   {link.type === 'live' ? '↗ Live' : '↗ Open'}
+                </span>
             </div>
             <div className="project-name font-15px weight-500 margin-bottom-8px">{name}</div>
             <div className="project-desc font-13px tracking-165em margin-bottom-16px">{desc}</div>
-            <TagList tags={tags}
-                     wrapperClassName="project-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em"/>
+            <ProjectSkillList tags={tags}/>
         </div>
     );
 }
