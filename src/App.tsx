@@ -240,8 +240,8 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
 // Nav bar's links. Each closes the mobile menu on click.
 const NAV_LINKS = [
     {href: '#about', label: 'About'},
-    {href: '#projects', label: 'Portfolio'},
     {href: '#skills', label: 'Skills'},
+    {href: '#projects', label: 'Portfolio'},
     {href: '#experience', label: 'Resume'},
     {href: '#contact', label: 'Contact'},
 ];
