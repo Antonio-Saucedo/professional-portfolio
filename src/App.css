@@ -106,6 +106,15 @@ html {
     }
 }
 
+@keyframes skills-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .items-center {
     align-items: center;
 }
@@ -124,6 +133,10 @@ html {
     animation: blink 1.1s step-end infinite;
     content: '|';
     margin-left: 2px;
+}
+
+.skills-panel-active {
+    animation: skills-fade-in 0.2s ease forwards;
 }
 
 .bg-accent,
@@ -170,7 +183,6 @@ body {
 
 .hamburger {
     background: none;
-    display: none;
     gap: 5px;
     padding: 4px;
     z-index: 200;
@@ -209,10 +221,19 @@ body {
     transform: translateY(-2px);
 }
 
-.quote-section {
+.skills-tab {
+    border-left: 2px solid transparent;
+    padding: 9px 0 9px 16px;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.quote-wrap {
     border-left: 3px solid var(--accent);
-    margin: 3rem auto;
-    padding: 2.5rem;
+}
+
+.skills-tab-active {
+    border-left-color: var(--accent);
+    padding-left: 14px;
 }
 
 .border-radius-4px {
@@ -223,15 +244,22 @@ body {
     border-radius: 20px;
 }
 
+.skills-sidebar {
+    border-right: 1px solid var(--border1);
+    gap: 2px;
+    padding-right: 24px;
+}
+
 .top-border1,
-.exp-item:first-child {
+.resume-item:first-child {
     border-top: 1px solid var(--border1);
 }
 
-.project-card,
-.skills-card {
+.project-card {
     box-shadow: var(--card-shadow);
+    overflow: hidden;
     padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
 }
 
 .color-accent,
@@ -241,7 +269,9 @@ body {
 .btn-secondary:hover,
 .resume-download-btn:hover,
 .project-card:hover .project-link,
-.exp-desc li::marker,
+.resume-desc li::marker,
+.skills-tab-active,
+.skills-tab:hover,
 .contact-link:hover {
     color: var(--accent);
 }
@@ -282,7 +312,8 @@ body {
     cursor: pointer;
 }
 
-.block {
+.block,
+.skills-panel-active {
     display: block;
 }
 
@@ -290,7 +321,8 @@ body {
     display: flex;
 }
 
-.grid {
+.grid,
+.skills-wrap {
     display: grid;
 }
 
@@ -305,13 +337,13 @@ body {
     padding: 10px 20px;
 }
 
-.flex-column {
-    flex-direction: column;
+.hamburger,
+.skills-panel:not(.skills-panel-active) {
+    display: none;
 }
 
-.skills-card-title {
-    flex-shrink: 0;
-    letter-spacing: 0.01em;
+.flex-column {
+    flex-direction: column;
 }
 
 .flex-wrap {
@@ -391,7 +423,8 @@ body {
     font-style: normal;
 }
 
-.weight-500 {
+.weight-500,
+.skills-tab-active {
     font-weight: 500;
 }
 
@@ -399,7 +432,7 @@ body {
     font-weight: 600;
 }
 
-.exp-desc {
+.resume-desc {
     gap: 4px;
     padding-left: 1.1rem;
 }
@@ -424,10 +457,9 @@ body {
     gap: 16px;
 }
 
-.exp-item {
+.resume-item,
+.skills-wrap {
     gap: 32px;
-    grid-template-columns: 120px 1fr;
-    padding: 1.75rem 0;
 }
 
 .hero-details {
@@ -436,13 +468,18 @@ body {
     padding-top: 40px;
 }
 
+.resume-item {
+    grid-template-columns: 120px 1fr;
+    padding: 1.75rem 0;
+}
+
+.skills-wrap {
+    grid-template-columns: 190px 1fr;
+}
+
 .contact-wrap,
 .form-row {
     grid-template-columns: repeat(2, 1fr);
-}
-
-.skills-cards-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .projects-grid {
@@ -493,7 +530,6 @@ nav {
     z-index: 100;
 }
 
-.height-100,
 .project-card:hover::before {
     height: 100%;
 }
@@ -597,20 +633,17 @@ body {
     opacity: 0.6;
 }
 
+.skills-tab-active .skills-tab-count {
+    color: var(--text3);
+}
+
 .form-input {
     outline: none;
     transition: border-color 0.15s;
-    width: 100%;
 }
 
 body:has(.modal-page) {
     overflow: clip;
-}
-
-.project-card {
-    overflow: hidden;
-    position: relative;
-    transition: border-color 0.2s, transform 0.2s;
 }
 
 .padding-4px-10px {
@@ -632,14 +665,14 @@ body:has(.modal-page) {
 
 .form-submit {
     padding: 11px 20px;
-    text-align: left;
 }
 
 .padding-11px-24px {
     padding: 11px 24px;
 }
 
-.padding-32px {
+.padding-32px,
+.skills-wrap {
     padding: 32px;
 }
 
@@ -651,12 +684,22 @@ body:has(.modal-page) {
     padding-top: 3px;
 }
 
+.skills-panels,
+.project-card {
+    position: relative;
+}
+
 .project-icon svg {
     stroke: var(--text3);
 }
 
 .contact-link:hover .contact-link-icon svg {
     stroke: var(--accent);
+}
+
+.form-submit,
+.skills-tab {
+    text-align: left;
 }
 
 .decoration-none {
@@ -701,17 +744,24 @@ body:has(.modal-page) {
     transition: color 0.15s;
 }
 
-@media (max-width: 860px) {
-    .skills-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.skills-tab-count {
+    width: 8px;
+}
+
+.form-input,
+.skills-tab {
+    width: 100%;
 }
 
 @media (max-width: 660px) {
+    .skills-panel,
+    .skills-panel-active {
+        animation: none;
+    }
+
     .nav-links {
         background: var(--bg1);
         border-bottom: 1px solid var(--border1);
-        display: none;
         gap: 0;
         left: 0;
         padding: 1rem 1.5rem 1.5rem;
@@ -734,13 +784,26 @@ body:has(.modal-page) {
         width: 100%;
     }
 
+    .skills-panel:not(.skills-panel-active) {
+        display: block;
+    }
+
     .hamburger,
-    .nav-links.nav-open {
+    .nav-links.nav-open,
+    .skills-wrap,
+    .skills-panels {
         display: flex;
+    }
+
+    .nav-links,
+    .skills-sidebar {
+        display: none;
     }
 
     .hamburger,
     .nav-links,
+    .skills-wrap,
+    .skills-panels,
     footer {
         flex-direction: column;
     }
@@ -750,7 +813,7 @@ body:has(.modal-page) {
         gap: 1.5rem;
     }
 
-    .exp-item {
+    .resume-item {
         gap: 0.4rem;
     }
 
@@ -758,8 +821,12 @@ body:has(.modal-page) {
         gap: 0.5rem;
     }
 
+    .skills-panels {
+        gap: 24px;
+    }
+
     .contact-wrap, .form-row,
-    .exp-item {
+    .resume-item {
         grid-template-columns: 1fr;
     }
 
@@ -767,19 +834,18 @@ body:has(.modal-page) {
         padding: 0 1rem;
     }
 
+    .skills-wrap {
+        padding: 24px;
+    }
+
     section {
         padding: 3.5rem 1rem;
     }
 }
 
-@media (max-width: 505px) {
-    .skills-cards-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .hero h1 .typewriter-cursor::after {
+    .hero h1 .typewriter-cursor::after,
+    .skills-panel-active {
         animation: none;
     }
 }

@@ -241,8 +241,8 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
 const NAV_LINKS = [
     {href: '#about', label: 'About'},
     {href: '#skills', label: 'Skills'},
-    {href: '#projects', label: 'Portfolio'},
-    {href: '#experience', label: 'Resume'},
+    {href: '#projects', label: 'Projects'},
+    {href: '#resume', label: 'Resume'},
     {href: '#contact', label: 'Contact'},
 ];
 
@@ -323,11 +323,12 @@ function App() {
     const {line1: heroLine1, line2: heroLine2} = useTypewriter(ROLES);
 
     // States
-    const [isNavOpen, setIsNavOpen] = useState(false);
     const [isDarkTheme, setIsDarkTheme] = useState(() => {
         if (typeof window === 'undefined') return false;
         return localStorage.getItem('theme') === 'dark';
     });
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [activeSkillCategory, setActiveSkillCategory] = useState(0);
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
     const [counterIsOpen, setCounterIsOpen] = useState(false);
 
@@ -482,30 +483,42 @@ function App() {
                 </div>
             </section>
 
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
-                <SectionHeader title="Skills"/>
-                <div className="skills-cards-grid grid gap-16px">
-                    {SKILLS.map(({title, tags}) => (
-                        <div className="skills-card flex flex-column bg-bg2 border-radius-4px gap-16px height-100"
-                             key={title}>
-                            <div className="skills-card-title font-14px weight-600">{title}</div>
-                            <TagList tags={tags}
-                                     wrapperClassName="skills-card-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em"/>
-                        </div>
-                    ))}
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="quote">
+                <div className="quote-wrap bg-bg2 solid-border1 border-radius-4px padding-32px">
+                    <div className="quote-mark block color-accent margin-bottom-8px">"</div>
+                    <p className="quote-text tracking-170em margin-bottom-16px">Growth comes from putting yourself
+                        through tough situations and embracing the struggle.</p>
+                    <div className="quote-author font-dm-mono font-12px tracking-006em">— Antonio Saucedo</div>
                 </div>
             </section>
 
-            <div className="quote-section bg-bg2 max-width-960px">
-                <span className="quote-mark block color-accent margin-bottom-8px">"</span>
-                <p className="quote-text tracking-170em margin-bottom-16px">Growth comes from putting yourself through
-                    tough situations and
-                    embracing the struggle.</p>
-                <div className="quote-author font-dm-mono font-12px tracking-006em">— Antonio Saucedo</div>
-            </div>
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
+                <SectionHeader title="Skills"/>
+                <div className="skills-wrap bg-bg2 solid-border1 border-radius-4px">
+                    <div className="skills-sidebar flex flex-column" role="tablist" aria-label="Skill categories">
+                        {SKILLS.map(({title, tags}, i) => (
+                            <button key={title} role="tab" aria-selected={i === activeSkillCategory}
+                                    className={`skills-tab font-dm-mono font-12px tracking-002em flex justify-between bg-transparent border-none color-text1 cursor-pointer ${i === activeSkillCategory ? 'skills-tab-active' : ''}`}
+                                    onClick={() => setActiveSkillCategory(i)}><span>{title}</span><span
+                                className="skills-tab-count">{tags.length}</span></button>
+                        ))}
+                    </div>
+                    <div className="skills-panels">
+                        {SKILLS.map(({title, tags}, i) => (
+                            <div className={`skills-panel ${i === activeSkillCategory ? 'skills-panel-active' : ''}`}
+                                 key={title}>
+                                <div
+                                    className="skills-panel-title font-15px weight-600 color-text1 margin-bottom-16px">{title}</div>
+                                <TagList tags={tags}
+                                         wrapperClassName="skills-panel-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em"/>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             <section className="margin-0-auto max-width-960px padding-48px-32px" id="projects">
-                <SectionHeader title="Portfolio"/>
+                <SectionHeader title="Projects"/>
                 <div className="projects-grid grid gap-16px">
                     {projects.map((project, i) => (
                         <Fragment key={project.name}>
@@ -528,7 +541,7 @@ function App() {
                 </div>
             </section>
 
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="experience">
+            <section className="margin-0-auto max-width-960px padding-48px-32px" id="resume">
                 <SectionHeader title="My Resume" action={
                     <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
                        className="resume-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
@@ -541,16 +554,16 @@ function App() {
                         Download Resume
                     </a>
                 }/>
-                <div className="experience-list flex flex-column">
+                <div className="resume-list flex flex-column">
                     {EXPERIENCE_ITEMS.map(({period, role, company, desc}) => (
-                        <div className="exp-item grid bottom-border1" key={company}>
+                        <div className="resume-item grid bottom-border1" key={company}>
                             <div
-                                className="exp-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
+                                className="resume-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
                             <div>
-                                <div className="exp-role font-15px weight-500 margin-bottom-3px">{role}</div>
+                                <div className="resume-role font-15px weight-500 margin-bottom-3px">{role}</div>
                                 <div
-                                    className="exp-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
-                                <ul className="exp-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
+                                    className="resume-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
+                                <ul className="resume-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
                                     <li key={i}>{point}</li>))}</ul>
                             </div>
                         </div>
