@@ -130,7 +130,7 @@ function TagList({tags, wrapperClassName}: { tags: string[]; wrapperClassName: s
     );
 }
 
-// Tag list, used by the portfolio section.
+// Tag list, used by the project section.
 function ProjectSkillList({tags}: { tags: string[] }) {
     return (
         <>
@@ -468,7 +468,7 @@ function App() {
                 <div className="hero-cta flex flex-wrap gap-12px">
                     <a href="#projects"
                        className="btn-primary inline-block bg-accent border-none border-radius-4px color-text2 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">View
-                        Portfolio</a>
+                        Projects</a>
                     <a href="#contact"
                        className="btn-secondary inline-block bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">Contact
                         Me</a>
