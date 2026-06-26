@@ -1,0 +1,16 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="utplsql-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5BB8E8"></stop>
+            <stop offset="1" stop-color="#2F6FBF"></stop>
+        </linearGradient>
+    </defs>
+    <path d="M40 16 H88 A24 24 0 0 1 112 40 V80 A24 24 0 0 1 88 104 H80 L92 122 L70 108 H40 A24 24 0 0 1 16 84 V40 A24 24 0 0 1 40 16 Z"
+          fill="url(#utplsql-grad)"></path>
+    <g fill="#FFFFFF">
+        <ellipse cx="64" cy="42" rx="24" ry="9"></ellipse>
+        <path d="M40 42 V54 C40 59 50 63 64 63 C78 63 88 59 88 54 V42 C88 47 78 51 64 51 C50 51 40 47 40 42 Z"></path>
+        <path d="M40 56 V68 C40 73 50 77 64 77 C78 77 88 73 88 68 V56 C88 61 78 65 64 65 C50 65 40 61 40 56 Z"></path>
+        <path d="M40 70 V82 C40 87 50 91 64 91 C78 91 88 87 88 82 V70 C88 75 78 79 64 79 C50 79 40 75 40 70 Z"></path>
+    </g>
+</svg>

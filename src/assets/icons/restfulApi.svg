@@ -1,0 +1,7 @@
+<svg viewBox="0 -10 160 160" xmlns="http://www.w3.org/2000/svg">
+    <text x="8" y="82" font-family="Arial, sans-serif" font-weight="700" font-size="64" fill="#1AA3E8">{</text>
+    <text x="82" y="77" font-family="Arial, sans-serif" font-weight="700" font-size="30" fill="#1AA3E8"
+          letter-spacing="0.5" text-anchor="middle">REST
+    </text>
+    <text x="132" y="82" font-family="Arial, sans-serif" font-weight="700" font-size="64" fill="#1AA3E8">}</text>
+</svg>
