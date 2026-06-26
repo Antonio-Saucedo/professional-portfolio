@@ -3,6 +3,69 @@ import type {ReactNode, ChangeEvent, KeyboardEvent} from 'react';
 import emailjs from '@emailjs/browser';
 import './App.css';
 
+import AdaptabilityIcon from './assets/icons/adaptability.svg?react';
+import AgileScrumIcon from './assets/icons/agileScrum.svg?react';
+import AngularIcon from './assets/icons/angular.svg?react';
+import AttentionToDetailIcon from './assets/icons/attentionToDetail.svg?react';
+import AzureDevopsIcon from './assets/icons/azureDevops.svg?react';
+import BashScriptingIcon from './assets/icons/bashScripting.svg?react';
+import BilingualIcon from './assets/icons/bilingual.svg?react';
+import BootstrapIcon from './assets/icons/bootstrap.svg?react';
+import CodeReviewIcon from './assets/icons/codeReview.svg?react';
+import CollaborationIcon from './assets/icons/collaboration.svg?react';
+import ConflictResolutionIcon from './assets/icons/conflictResolution.svg?react';
+import ContinuousLearnerIcon from './assets/icons/continuousLearner.svg?react';
+import CppIcon from './assets/icons/cpp.svg?react';
+import CssIcon from './assets/icons/css.svg?react';
+import DockerIcon from './assets/icons/docker.svg?react';
+import ExpressIcon from './assets/icons/express.svg?react';
+import FetchApiIcon from './assets/icons/fetchApi.svg?react';
+import GeminiFlashApiIcon from './assets/icons/geminiFlashApi.svg?react';
+import GitIcon from './assets/icons/git.svg?react';
+import GithubIcon from './assets/icons/github.svg?react';
+import GithubActionsIcon from './assets/icons/githubActions.svg?react';
+import GraphQlIcon from './assets/icons/graphQl.svg?react';
+import HtmlIcon from './assets/icons/html.svg?react';
+import IntuitApiIcon from './assets/icons/intuitApi.svg?react';
+import IpGeolocationApiIcon from './assets/icons/ipGeolocationApi.svg?react';
+import JavaIcon from './assets/icons/java.svg?react';
+import JavascriptIcon from './assets/icons/javascript.svg?react';
+import JestIcon from './assets/icons/jest.svg?react';
+import JiraIcon from './assets/icons/jira.svg?react';
+import JsonIcon from './assets/icons/json.svg?react';
+import KotlinIcon from './assets/icons/kotlin.svg?react';
+import LeadershipIcon from './assets/icons/leadership.svg?react';
+import MicrosoftSqlServerIcon from './assets/icons/microsoftSqlServer.svg?react';
+import MongoDbIcon from './assets/icons/mongoDb.svg?react';
+import MysqlIcon from './assets/icons/mysql.svg?react';
+import NestjsIcon from './assets/icons/nestjs.svg?react';
+import NodejsIcon from './assets/icons/nodejs.svg?react';
+import OauthIcon from './assets/icons/oauth.svg?react';
+import OracleApexIcon from './assets/icons/oracleApex.svg?react';
+import PlaywrightIcon from './assets/icons/playwright.svg?react';
+import PlsqlIcon from './assets/icons/plsql.svg?react';
+import PostgresqlIcon from './assets/icons/postgresql.svg?react';
+import ProblemSolvingIcon from './assets/icons/problemSolving.svg?react';
+import PythonIcon from './assets/icons/python.svg?react';
+import ReactIcon from './assets/icons/react.svg?react';
+import RenderIcon from './assets/icons/render.svg?react';
+import ResponsiveDesignIcon from './assets/icons/responsiveDesign.svg?react';
+import RestfulApiIcon from './assets/icons/restfulApi.svg?react';
+import RustIcon from './assets/icons/rust.svg?react';
+import SassIcon from './assets/icons/sass.svg?react';
+import SaasIcon from './assets/icons/saas.svg?react';
+import SelfMotivatedIcon from './assets/icons/selfMotivated.svg?react';
+import SqlIcon from './assets/icons/sql.svg?react';
+import SqliteIcon from './assets/icons/sqlite.svg?react';
+import SwaggerIcon from './assets/icons/swagger.svg?react';
+import SwiftIcon from './assets/icons/swift.svg?react';
+import TailwindIcon from './assets/icons/tailwind.svg?react';
+import ThirdPartyRestIcon from './assets/icons/thirdPartyRest.svg?react';
+import TypescriptIcon from './assets/icons/typescript.svg?react';
+import UtplsqlIcon from './assets/icons/utplsql.svg?react';
+import VbaIcon from './assets/icons/vba.svg?react';
+import ViteIcon from './assets/icons/vite.svg?react';
+
 // Modals are lazy-loaded making modals reset state on close.
 const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator.tsx'));
 const Counter = lazy(() => import('./modals/counter/counter.tsx'));
@@ -13,38 +76,108 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 // Module scope: these never change between renders, so building them inside components
 // would recreate each array/object on re-render (they don't depend on props or state).
-const SKILLS = [
+const SKILLS: { title: string; tags: SkillTag[] }[] = [
     {
         title: 'Frontend',
-        tags: ['JavaScript', 'TypeScript', 'React', 'Vite', 'Angular', 'Bootstrap', 'HTML', 'CSS/SASS/SCSS/Tailwind', 'Responsive Design']
+        tags: [
+            {name: 'JavaScript', icon: <JavascriptIcon/>},
+            {name: 'TypeScript', icon: <TypescriptIcon/>},
+            {name: 'React', icon: <ReactIcon/>},
+            {name: 'Vite', icon: <ViteIcon/>},
+            {name: 'Angular', icon: <AngularIcon/>},
+            {name: 'Bootstrap', icon: <BootstrapIcon/>},
+            {name: 'HTML', icon: <HtmlIcon/>},
+            {name: 'CSS', icon: <CssIcon/>},
+            {name: 'SASS/SCSS', icon: <SassIcon/>},
+            {name: 'Tailwind', icon: <TailwindIcon/>},
+            {name: 'Responsive Design', icon: <ResponsiveDesignIcon/>},
+        ]
     },
     {
         title: 'Backend',
-        tags: ['OAuth 2.0 & Security', 'Node.js', 'Express', 'NestJS', 'PL/SQL', 'Python', 'Java']
+        tags: [
+            {name: 'OAuth 2.0 & Security', icon: <OauthIcon/>},
+            {name: 'Node.js', icon: <NodejsIcon/>},
+            {name: 'Express', icon: <ExpressIcon/>},
+            {name: 'NestJS', icon: <NestjsIcon/>},
+            {name: 'PL/SQL', icon: <PlsqlIcon/>},
+            {name: 'Python', icon: <PythonIcon/>},
+            {name: 'Java', icon: <JavaIcon/>},
+        ]
     },
     {
         title: 'Databases',
-        tags: ['SQL', 'Oracle Apex', 'MySQL', 'PostgreSQL', 'SQLite', 'Microsoft SQL Server', 'MongoDB (NoSQL)']
+        tags: [
+            {name: 'SQL', icon: <SqlIcon/>},
+            {name: 'Oracle Apex', icon: <OracleApexIcon/>},
+            {name: 'MySQL', icon: <MysqlIcon/>},
+            {name: 'PostgreSQL', icon: <PostgresqlIcon/>},
+            {name: 'SQLite', icon: <SqliteIcon/>},
+            {name: 'Microsoft SQL Server', icon: <MicrosoftSqlServerIcon/>},
+            {name: 'MongoDB', icon: <MongoDbIcon/>},
+        ]
     },
     {
-        title: 'APIs & Integrations',
-        tags: ['Gemini Flash API', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Fetch API', 'JSON', 'Third-party REST', 'GraphQL', 'Swagger API']
+        title: 'APIs',
+        tags: [
+            {name: 'Gemini Flash API', icon: <GeminiFlashApiIcon/>},
+            {name: 'Intuit API', icon: <IntuitApiIcon/>},
+            {name: 'IP geolocation APIs', icon: <IpGeolocationApiIcon/>},
+            {name: 'RESTful API Design', icon: <RestfulApiIcon/>},
+            {name: 'Fetch API', icon: <FetchApiIcon/>},
+            {name: 'JSON', icon: <JsonIcon/>},
+            {name: 'Third-party REST', icon: <ThirdPartyRestIcon/>},
+            {name: 'GraphQL', icon: <GraphQlIcon/>},
+            {name: 'Swagger API', icon: <SwaggerIcon/>},
+        ]
     },
     {
         title: 'DevOps & Tools',
-        tags: ['Git/GitHub', 'Azure DevOps (CI/CD)', 'Docker', 'Render', 'Bash Scripting', 'Code Review', 'Jira', 'Agile / Scrum', 'SaaS']
+        tags: [
+            {name: 'Git', icon: <GitIcon/>},
+            {name: 'GitHub', icon: <GithubIcon/>},
+            {name: 'GitHub Actions (CI/CD)', icon: <GithubActionsIcon/>},
+            {name: 'Azure DevOps (CI/CD)', icon: <AzureDevopsIcon/>},
+            {name: 'Docker', icon: <DockerIcon/>},
+            {name: 'Render', icon: <RenderIcon/>},
+            {name: 'Bash Scripting', icon: <BashScriptingIcon/>},
+            {name: 'Code Review', icon: <CodeReviewIcon/>},
+            {name: 'Jira', icon: <JiraIcon/>},
+            {name: 'Agile / Scrum', icon: <AgileScrumIcon/>},
+            {name: 'SaaS', icon: <SaasIcon/>},
+        ]
     },
     {
         title: 'Testing',
-        tags: ['Playwright (E2E)', 'utPLSQL (Unit)', 'Jest (Unit)']
+        tags: [
+            {name: 'Playwright (E2E)', icon: <PlaywrightIcon/>},
+            {name: 'utPLSQL (Unit)', icon: <UtplsqlIcon/>},
+            {name: 'Jest (Unit)', icon: <JestIcon/>},
+        ]
     },
     {
         title: 'Other Languages',
-        tags: ['C++', 'Kotlin', 'Swift', 'Rust', 'VBA']
+        tags: [
+            {name: 'C++', icon: <CppIcon/>},
+            {name: 'Kotlin', icon: <KotlinIcon/>},
+            {name: 'Swift', icon: <SwiftIcon/>},
+            {name: 'Rust', icon: <RustIcon/>},
+            {name: 'VBA', icon: <VbaIcon/>},
+        ]
     },
     {
         title: 'Soft Skills',
-        tags: ['Cross-functional Collaboration', 'Leadership', 'Conflict Resolution', 'Adaptability', 'Self-Motivated', 'Attention to Detail', 'Continuous Learner', 'Problem-solving', 'Bilingual (Spanish)']
+        tags: [
+            {name: 'Collaboration', icon: <CollaborationIcon/>},
+            {name: 'Leadership', icon: <LeadershipIcon/>},
+            {name: 'Conflict Resolution', icon: <ConflictResolutionIcon/>},
+            {name: 'Adaptability', icon: <AdaptabilityIcon/>},
+            {name: 'Self-Motivated', icon: <SelfMotivatedIcon/>},
+            {name: 'Attention to Detail', icon: <AttentionToDetailIcon/>},
+            {name: 'Continuous Learner', icon: <ContinuousLearnerIcon/>},
+            {name: 'Problem-solving', icon: <ProblemSolvingIcon/>},
+            {name: 'Bilingual (Spanish)', icon: <BilingualIcon/>},
+        ]
     },
 ];
 
@@ -120,11 +253,12 @@ const ExternalLinkIcon = (
 );
 
 // Tag pills list, used by the skills section.
-function TagList({tags, wrapperClassName}: { tags: string[]; wrapperClassName: string }) {
+function TagList({tags, wrapperClassName}: { tags: SkillTag[]; wrapperClassName: string }) {
     return (
         <div className={wrapperClassName}>
-            {tags.map(tag => (
-                <span className="tag bg-bg4 border-radius-20px color-text3 padding-4px-10px" key={tag}>{tag}</span>
+            {tags.map(({name, icon}) => (
+                <span className="tag flex items-center border-radius-10px color-text3 gap-10px padding-4px-10px"
+                      key={name}>{icon}{name}</span>
             ))}
         </div>
     );
@@ -153,6 +287,11 @@ function SectionHeader({title, action}: { title: string; action?: ReactNode }) {
         </div>
     );
 }
+
+type SkillTag = {
+    name: string;
+    icon: ReactNode;
+};
 
 type Project = {
     icon: ReactNode;
@@ -510,7 +649,7 @@ function App() {
                                 <div
                                     className="skills-panel-title font-15px weight-600 color-text1 margin-bottom-16px">{title}</div>
                                 <TagList tags={tags}
-                                         wrapperClassName="skills-panel-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-6px tracking-002em"/>
+                                         wrapperClassName="skills-panel-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-16px tracking-002em"/>
                             </div>
                         ))}
                     </div>
