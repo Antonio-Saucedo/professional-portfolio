@@ -1,5 +1,13 @@
-import {Fragment, lazy, Suspense, useCallback, useEffect, useState} from 'react';
-import type {ReactNode, ChangeEvent, KeyboardEvent} from 'react';
+import {Fragment, lazy, Suspense, useCallback, useEffect, useRef, useState} from 'react';
+import type {
+    ReactNode,
+    ChangeEvent,
+    SyntheticEvent,
+    KeyboardEvent,
+    ComponentType,
+    SVGProps,
+    LazyExoticComponent
+} from 'react';
 import emailjs from '@emailjs/browser';
 import './App.css';
 
@@ -73,110 +81,113 @@ const Counter = lazy(() => import('./modals/counter/counter.tsx'));
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+// Cache of already-created lazy components, so repeated lookups of the same
+// icon name reuse the same React.lazy() instance instead of remounting fresh.
+const skillIconCache = new Map<string, LazyExoticComponent<ComponentType<SVGProps<SVGSVGElement>>>>();
 
 // Module scope: these never change between renders, so building them inside components
 // would recreate each array/object on re-render (they don't depend on props or state).
-const SKILLS: { title: string; tags: SkillTag[] }[] = [
+const SKILLS: { title: string; tags: { name: string; iconFile: string }[] }[] = [
     {
         title: 'Frontend',
         tags: [
-            {name: 'JavaScript', icon: <JavascriptIcon/>},
-            {name: 'TypeScript', icon: <TypescriptIcon/>},
-            {name: 'React', icon: <ReactIcon/>},
-            {name: 'Vite', icon: <ViteIcon/>},
-            {name: 'Angular', icon: <AngularIcon/>},
-            {name: 'Bootstrap', icon: <BootstrapIcon/>},
-            {name: 'HTML', icon: <HtmlIcon/>},
-            {name: 'CSS', icon: <CssIcon/>},
-            {name: 'SASS/SCSS', icon: <SassIcon/>},
-            {name: 'Tailwind', icon: <TailwindIcon/>},
-            {name: 'Responsive Design', icon: <ResponsiveDesignIcon/>},
+            {name: 'JavaScript', iconFile: 'javascript'},
+            {name: 'TypeScript', iconFile: 'typescript'},
+            {name: 'React', iconFile: 'react'},
+            {name: 'Vite', iconFile: 'vite'},
+            {name: 'Angular', iconFile: 'angular'},
+            {name: 'Bootstrap', iconFile: 'bootstrap'},
+            {name: 'HTML', iconFile: 'html'},
+            {name: 'CSS', iconFile: 'css'},
+            {name: 'SASS/SCSS', iconFile: 'sass'},
+            {name: 'Tailwind', iconFile: 'tailwind'},
+            {name: 'Responsive Design', iconFile: 'responsiveDesign'},
         ]
     },
     {
         title: 'Backend',
         tags: [
-            {name: 'OAuth 2.0 & Security', icon: <OauthIcon/>},
-            {name: 'Node.js', icon: <NodejsIcon/>},
-            {name: 'Express', icon: <ExpressIcon/>},
-            {name: 'NestJS', icon: <NestjsIcon/>},
-            {name: 'PL/SQL', icon: <PlsqlIcon/>},
-            {name: 'Python', icon: <PythonIcon/>},
-            {name: 'Java', icon: <JavaIcon/>},
+            {name: 'OAuth 2.0 & Security', iconFile: 'oauth'},
+            {name: 'Node.js', iconFile: 'nodejs'},
+            {name: 'Express', iconFile: 'express'},
+            {name: 'NestJS', iconFile: 'nestjs'},
+            {name: 'PL/SQL', iconFile: 'plsql'},
+            {name: 'Python', iconFile: 'python'},
+            {name: 'Java', iconFile: 'java'},
         ]
     },
     {
         title: 'Databases',
         tags: [
-            {name: 'SQL', icon: <SqlIcon/>},
-            {name: 'Oracle Apex', icon: <OracleApexIcon/>},
-            {name: 'MySQL', icon: <MysqlIcon/>},
-            {name: 'PostgreSQL', icon: <PostgresqlIcon/>},
-            {name: 'SQLite', icon: <SqliteIcon/>},
-            {name: 'Microsoft SQL Server', icon: <MicrosoftSqlServerIcon/>},
-            {name: 'MongoDB', icon: <MongoDbIcon/>},
+            {name: 'SQL', iconFile: 'sql'},
+            {name: 'Oracle Apex', iconFile: 'oracleApex'},
+            {name: 'MySQL', iconFile: 'mysql'},
+            {name: 'PostgreSQL', iconFile: 'postgresql'},
+            {name: 'SQLite', iconFile: 'sqlite'},
+            {name: 'Microsoft SQL Server', iconFile: 'microsoftSqlServer'},
+            {name: 'MongoDB', iconFile: 'mongoDb'},
         ]
     },
     {
         title: 'APIs',
         tags: [
-            {name: 'Gemini Flash API', icon: <GeminiFlashApiIcon/>},
-            {name: 'Intuit API', icon: <IntuitApiIcon/>},
-            {name: 'IP geolocation APIs', icon: <IpGeolocationApiIcon/>},
-            {name: 'RESTful API Design', icon: <RestfulApiIcon/>},
-            {name: 'Fetch API', icon: <FetchApiIcon/>},
-            {name: 'JSON', icon: <JsonIcon/>},
-            {name: 'Third-party REST', icon: <ThirdPartyRestIcon/>},
-            {name: 'GraphQL', icon: <GraphQlIcon/>},
-            {name: 'Swagger API', icon: <SwaggerIcon/>},
+            {name: 'Gemini Flash API', iconFile: 'geminiFlashApi'},
+            {name: 'Intuit API', iconFile: 'intuitApi'},
+            {name: 'IP geolocation APIs', iconFile: 'ipGeolocationApi'},
+            {name: 'RESTful API Design', iconFile: 'restfulApi'},
+            {name: 'Fetch API', iconFile: 'fetchApi'},
+            {name: 'JSON', iconFile: 'json'},
+            {name: 'Third-party REST', iconFile: 'thirdPartyRest'},
+            {name: 'GraphQL', iconFile: 'graphQl'},
+            {name: 'Swagger API', iconFile: 'swagger'},
         ]
     },
     {
         title: 'DevOps & Tools',
         tags: [
-            {name: 'Git', icon: <GitIcon/>},
-            {name: 'GitHub', icon: <GithubIcon/>},
-            {name: 'GitHub Actions (CI/CD)', icon: <GithubActionsIcon/>},
-            {name: 'Azure DevOps (CI/CD)', icon: <AzureDevopsIcon/>},
-            {name: 'Docker', icon: <DockerIcon/>},
-            {name: 'Render', icon: <RenderIcon/>},
-            {name: 'Bash Scripting', icon: <BashScriptingIcon/>},
-            {name: 'Code Review', icon: <CodeReviewIcon/>},
-            {name: 'Jira', icon: <JiraIcon/>},
-            {name: 'Agile / Scrum', icon: <AgileScrumIcon/>},
-            {name: 'SaaS', icon: <SaasIcon/>},
+            {name: 'Git', iconFile: 'git'},
+            {name: 'GitHub', iconFile: 'github'},
+            {name: 'GitHub Actions (CI/CD)', iconFile: 'githubActions'},
+            {name: 'Azure DevOps (CI/CD)', iconFile: 'azureDevops'},
+            {name: 'Docker', iconFile: 'docker'},
+            {name: 'Render', iconFile: 'render'},
+            {name: 'Bash Scripting', iconFile: 'bashScripting'},
+            {name: 'Code Review', iconFile: 'codeReview'},
+            {name: 'Jira', iconFile: 'jira'},
+            {name: 'Agile / Scrum', iconFile: 'agileScrum'},
+            {name: 'SaaS', iconFile: 'saas'},
         ]
     },
     {
         title: 'Testing',
         tags: [
-            {name: 'Playwright (E2E)', icon: <PlaywrightIcon/>},
-            {name: 'utPLSQL (Unit)', icon: <UtplsqlIcon/>},
-            {name: 'Jest (Unit)', icon: <JestIcon/>},
+            {name: 'Playwright (E2E)', iconFile: 'playwright'},
+            {name: 'utPLSQL (Unit)', iconFile: 'utplsql'},
+            {name: 'Jest (Unit)', iconFile: 'jest'},
         ]
     },
     {
         title: 'Other Languages',
         tags: [
-            {name: 'C++', icon: <CppIcon/>},
-            {name: 'Kotlin', icon: <KotlinIcon/>},
-            {name: 'Swift', icon: <SwiftIcon/>},
-            {name: 'Rust', icon: <RustIcon/>},
-            {name: 'VBA', icon: <VbaIcon/>},
+            {name: 'C++', iconFile: 'cpp'},
+            {name: 'Kotlin', iconFile: 'kotlin'},
+            {name: 'Swift', iconFile: 'swift'},
+            {name: 'Rust', iconFile: 'rust'},
+            {name: 'VBA', iconFile: 'vba'},
         ]
     },
     {
         title: 'Soft Skills',
         tags: [
-            {name: 'Collaboration', icon: <CollaborationIcon/>},
-            {name: 'Leadership', icon: <LeadershipIcon/>},
-            {name: 'Conflict Resolution', icon: <ConflictResolutionIcon/>},
-            {name: 'Adaptability', icon: <AdaptabilityIcon/>},
-            {name: 'Self-Motivated', icon: <SelfMotivatedIcon/>},
-            {name: 'Attention to Detail', icon: <AttentionToDetailIcon/>},
-            {name: 'Continuous Learner', icon: <ContinuousLearnerIcon/>},
-            {name: 'Problem-solving', icon: <ProblemSolvingIcon/>},
-            {name: 'Bilingual (Spanish)', icon: <BilingualIcon/>},
+            {name: 'Collaboration', iconFile: 'collaboration'},
+            {name: 'Leadership', iconFile: 'leadership'},
+            {name: 'Conflict Resolution', iconFile: 'conflictResolution'},
+            {name: 'Adaptability', iconFile: 'adaptability'},
+            {name: 'Self-Motivated', iconFile: 'selfMotivated'},
+            {name: 'Attention to Detail', iconFile: 'attentionToDetail'},
+            {name: 'Continuous Learner', iconFile: 'continuousLearner'},
+            {name: 'Problem-solving', iconFile: 'problemSolving'},
+            {name: 'Bilingual (Spanish)', iconFile: 'bilingual'},
         ]
     },
 ];
@@ -252,14 +263,80 @@ const ExternalLinkIcon = (
     </svg>
 );
 
+// Tracks which skill category indices have ever been "visible" — either by
+// being scrolled into view (mobile, where all panels stack and show at once)
+// or by being the active tab (desktop, where only one panel shows at a time).
+// Once a category is marked visible, it stays visible for the session.
+function useVisitedSkillCategories(categoryCount: number, activeIndex: number) {
+    const [visited, setVisited] = useState<boolean[]>(() => new Array(categoryCount).fill(false));
+    const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    // Desktop: switching tabs marks that category visited immediately.
+    useEffect(() => {
+        setVisited(prev => {
+            if (prev[activeIndex]) return prev;
+            const next = [...prev];
+            next[activeIndex] = true;
+            return next;
+        });
+    }, [activeIndex]);
+
+    // Mobile (and anyone scrolling, regardless of layout): an IntersectionObserver
+    // per panel marks it visited the first time it enters the viewport. Safe to
+    // run on desktop too — the active panel is already visited via the effect
+    // above, so this just covers the scroll-stacked mobile case without needing
+    // to know the current breakpoint.
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                setVisited(prev => {
+                    let changed = false;
+                    const next = [...prev];
+                    for (const entry of entries) {
+                        if (entry.isIntersecting) {
+                            const index = panelRefs.current.findIndex(el => el === entry.target);
+                            if (index !== -1 && !next[index]) {
+                                next[index] = true;
+                                changed = true;
+                            }
+                        }
+                    }
+                    return changed ? next : prev;
+                });
+            },
+            {rootMargin: '200px'} // start loading slightly before it's fully in view
+        );
+
+        panelRefs.current.forEach(el => {
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
+    const setPanelRef = useCallback((index: number) => (el: HTMLDivElement | null) => {
+        panelRefs.current[index] = el;
+    }, []);
+
+    return {visited, setPanelRef};
+}
+
 // Tag pills list, used by the skills section.
-function TagList({tags, wrapperClassName}: { tags: SkillTag[]; wrapperClassName: string }) {
+function TagList({tags, wrapperClassName, shouldLoadIcons}: {
+    tags: SkillTag[];
+    wrapperClassName: string;
+    shouldLoadIcons: boolean;
+}) {
     return (
         <div className={wrapperClassName}>
-            {tags.map(({name, icon}) => (
-                <span className="tag flex items-center border-radius-10px color-text3 gap-10px padding-4px-10px"
-                      key={name}>{icon}{name}</span>
-            ))}
+            {tags.map(({name, iconFile}) => {
+                const IconComponent = shouldLoadIcons ? getSkillIconComponent(iconFile) : null;
+                return (
+                    <span className="tag flex items-center border-radius-10px color-text3 gap-10px padding-4px-10px"
+                          key={name}>{IconComponent && (<Suspense
+                        fallback={<span className="tag-icon-placeholder"/>}><IconComponent/></Suspense>)}{name}</span>
+                )
+            })}
         </div>
     );
 }
@@ -279,18 +356,36 @@ function ProjectSkillList({tags}: { tags: string[] }) {
 }
 
 // Section heading rows with `action` for a trailing control (e.g. the resume section's download button).
-function SectionHeader({title, action}: { title: string; action?: ReactNode }) {
+function SectionHeader({title, action}: {
+    title: string; action?: ReactNode
+}) {
     return (
-        <div className="section-header">
+        <div className="section-header text-center">
             <h2 className="section-title weight-600 uppercase">{title}</h2>
             {action}
         </div>
     );
 }
 
+function getSkillIconComponent(fileName: string) {
+    const cached = skillIconCache.get(fileName);
+    if (cached) return cached;
+
+    const path = `./assets/skillsIcons/${fileName}.svg`;
+    const loader = SKILL_ICON_LOADERS[path];
+    if (!loader) {
+        if (import.meta.env.DEV) console.warn(`Missing skill icon: ${fileName}`);
+        return null;
+    }
+
+    const Component = lazy(loader as () => Promise<{ default: ComponentType<SVGProps<SVGSVGElement>> }>);
+    skillIconCache.set(fileName, Component);
+    return Component;
+}
+
 type SkillTag = {
     name: string;
-    icon: ReactNode;
+    iconFile: string;
 };
 
 type Project = {
@@ -468,6 +563,10 @@ function App() {
     });
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [activeSkillCategory, setActiveSkillCategory] = useState(0);
+    const {
+        visited: visitedSkillCategories,
+        setPanelRef
+    } = useVisitedSkillCategories(SKILLS.length, activeSkillCategory);
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
     const [counterIsOpen, setCounterIsOpen] = useState(false);
 
@@ -588,48 +687,40 @@ function App() {
                 </div>
             </nav>
 
-            <section className="hero margin-0-auto max-width-960px padding-48px-32px" id="about">
-                <div
-                    className="hero-eyebrow flex items-center color-text3 font-dm-mono font-12px gap-10px tracking-014em margin-bottom-16px uppercase">Hi,
-                    I am Antonio Saucedo
-                </div>
-                <h1 className="color-text3 weight-600 margin-bottom-24px uppercase">{heroLine1}{heroLine2.length === 0 &&
-                    <span className="typewriter-cursor"/>}<br/><em
-                    className="color-accent font-normal">{heroLine2}{heroLine2.length > 0 &&
-                    <span className="typewriter-cursor"/>}</em></h1>
-                <p className="hero-bio tracking-180em">Full Stack Developer with 3+ years of experience building and
-                    maintaining web applications from front-end UI through back-end APIs and database design.
-                    Experienced leading small development teams, mentoring developers, and establishing standards that
-                    measurably improve delivery speed. Skilled in JavaScript, TypeScript, React, Angular, Node.js
-                    (Express/NestJS), Python, SQL, and NoSQL databases. Known for integrating third-party APIs,
-                    translating complex technical work into business value, and collaborating across development,
-                    design, and stakeholder teams to deliver reliable, scalable software.</p>
-                <div className="hero-cta flex flex-wrap gap-12px">
-                    <a href="#projects"
-                       className="btn-primary inline-block bg-accent border-none border-radius-4px color-text2 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">View
-                        Projects</a>
-                    <a href="#contact"
-                       className="btn-secondary inline-block bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">Contact
-                        Me</a>
-                </div>
-                <div className="hero-details flex top-border1">
-                    {HERO_DETAILS.map(({label, value}) => (
-                        <div key={label}>
-                            <div className="hero-label font-13px weight-500 margin-bottom-3px">{label}</div>
-                            <div className="hero-value font-dm-mono font-12px">{value}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="quote">
-                <div className="quote-wrap bg-bg2 solid-border1 border-radius-4px padding-32px">
-                    <div className="quote-mark block color-accent margin-bottom-8px">"</div>
-                    <p className="quote-text tracking-170em margin-bottom-16px">Growth comes from putting yourself
-                        through tough situations and embracing the struggle.</p>
-                    <div className="quote-author font-dm-mono font-12px tracking-006em">— Antonio Saucedo</div>
-                </div>
-            </section>
+            <main>
+                <section className="hero margin-0-auto max-width-960px padding-48px-32px" id="about">
+                    <div
+                        className="hero-eyebrow flex items-center color-text3 font-dm-mono font-12px gap-10px tracking-014em margin-bottom-16px uppercase">Hi,
+                        I am Antonio Saucedo
+                    </div>
+                    <h1 className="color-text3 weight-600 margin-bottom-24px uppercase">{heroLine1}{heroLine2.length === 0 &&
+                        <span className="typewriter-cursor"/>}<br/><em
+                        className="color-accent font-normal">{heroLine2}{heroLine2.length > 0 &&
+                        <span className="typewriter-cursor"/>}</em></h1>
+                    <p className="hero-bio tracking-180em">Full Stack Developer with 3+ years of experience building and
+                        maintaining web applications from front-end UI through back-end APIs and database design.
+                        Experienced leading small development teams, mentoring developers, and establishing standards
+                        that measurably improve delivery speed. Skilled in JavaScript, TypeScript, React, Angular,
+                        Node.js (Express/NestJS), Python, SQL, and NoSQL databases. Known for integrating third-party
+                        APIs, translating complex technical work into business value, and collaborating across
+                        development, design, and stakeholder teams to deliver reliable, scalable software.</p>
+                    <div className="hero-cta flex flex-wrap gap-12px">
+                        <a href="#projects"
+                           className="btn-primary inline-block bg-accent border-none border-radius-4px color-text2 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">View
+                            Projects</a>
+                        <a href="#contact"
+                           className="btn-secondary inline-block bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 tracking-004em padding-11px-24px decoration-none uppercase">Contact
+                            Me</a>
+                    </div>
+                    <div className="hero-details flex top-border1">
+                        {HERO_DETAILS.map(({label, value}) => (
+                            <div key={label}>
+                                <div className="hero-label font-13px weight-500 margin-bottom-3px">{label}</div>
+                                <div className="hero-value font-dm-mono font-12px">{value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
             <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
                 <SectionHeader title="Skills"/>
@@ -655,137 +746,165 @@ function App() {
                     </div>
                 </div>
             </section>
-
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="projects">
-                <SectionHeader title="Projects"/>
-                <div className="projects-grid grid gap-16px">
-                    {projects.map((project, i) => (
-                        <Fragment key={project.name}>
-                            <ProjectCard project={project}/>
-                            {/* Each modal renders right after the card whose "Open" button
-                                controls it, so DOM position stays tied to its trigger. */}
-                            {i === 1 && coverLetterGeneratorIsOpen && (
-                                <Suspense fallback={null}>
-                                    <CoverLetterGenerator isOpen={coverLetterGeneratorIsOpen}
-                                                          onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
-                                </Suspense>
-                            )}
-                            {i === 2 && counterIsOpen && (
-                                <Suspense fallback={null}>
-                                    <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
-                                </Suspense>
-                            )}
-                        </Fragment>
-                    ))}
-                </div>
-            </section>
-
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="resume">
-                <SectionHeader title="My Resume" action={
-                    <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
-                       className="resume-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             strokeWidth="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7 10 12 15 17 10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                        Download Resume
-                    </a>
-                }/>
-                <div className="resume-list flex flex-column">
-                    {EXPERIENCE_ITEMS.map(({period, role, company, desc}) => (
-                        <div className="resume-item grid bottom-border1" key={company}>
-                            <div
-                                className="resume-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
-                            <div>
-                                <div className="resume-role font-15px weight-500 margin-bottom-3px">{role}</div>
+                <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
+                    <SectionHeader title="Skills"/>
+                    <div className="skills-wrap bg-bg2 solid-border1 border-radius-4px">
+                        <div className="skills-sidebar flex flex-column" role="tablist" aria-label="Skill categories">
+                            {SKILLS.map(({title, tags}, i) => (
+                                <button key={title} role="tab" aria-selected={i === activeSkillCategory}
+                                        className={`skills-tab font-dm-mono font-12px tracking-002em flex justify-between bg-transparent border-none color-text1 cursor-pointer ${i === activeSkillCategory ? 'skills-tab-active' : ''}`}
+                                        onClick={() => setActiveSkillCategory(i)}><span>{title}</span><span
+                                    className="skills-tab-count">{tags.length}</span></button>
+                            ))}
+                        </div>
+                        <div className="skills-panels relative">
+                            {SKILLS.map(({title, tags}, i) => (
                                 <div
-                                    className="resume-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
-                                <ul className="resume-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
-                                    <li key={i}>{point}</li>))}</ul>
-                            </div>
+                                    ref={setPanelRef(i)}
+                                    className={`skills-panel ${i === activeSkillCategory ? 'skills-panel-active' : ''}`}
+                                    key={title}>
+                                    <div
+                                        className="skills-panel-title font-15px weight-600 color-text1 margin-bottom-16px">{title}</div>
+                                    <TagList tags={tags} shouldLoadIcons={visitedSkillCategories[i]}
+                                             wrapperClassName="skills-panel-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-16px tracking-002em"/>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </section>
+                    </div>
+                </section>
 
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="contact">
-                <SectionHeader title="Contact Me"/>
-                <div className="contact-wrap grid">
-                    <div className="contact-text">
-                        <p className="font-16px tracking-180em margin-bottom-24px">I'm always open to new opportunities,
-                            collaborations, or just a conversation about software design. Send me a message.</p>
-                        <div className="contact-links flex flex-column font-14px gap-12px margin-top-24px">
-                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
-                               href="mailto:antonios.softwareengineer@gmail.com">
-                                <ContactLinkIcon>
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </ContactLinkIcon>
-                                antonios.softwareengineer@gmail.com
-                            </a>
-                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
-                               href="https://github.com/Antonio-Saucedo"
-                               target="_blank">
-                                <ContactLinkIcon>
-                                    <path
-                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </ContactLinkIcon>
-                                github.com/Antonio-Saucedo
-                            </a>
-                            <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
-                               href="https://www.linkedin.com/in/antoniojsaucedo"
-                               target="_blank">
-                                <ContactLinkIcon>
-                                    <path
-                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                                    <rect x="2" y="9" width="4" height="12"/>
-                                    <circle cx="4" cy="4" r="2"/>
-                                </ContactLinkIcon>
-                                linkedin.com/in/antoniojsaucedo
-                            </a>
-                        </div>
+                <section className="margin-0-auto max-width-960px padding-48px-32px" id="projects">
+                    <SectionHeader title="Projects"/>
+                    <div className="projects-grid grid gap-16px">
+                        {projects.map((project, i) => (
+                            <Fragment key={project.name}>
+                                <ProjectCard project={project}/>
+                                {/* Each modal renders right after the card whose "Open" button
+                                controls it, so DOM position stays tied to its trigger. */}
+                                {i === 1 && coverLetterGeneratorIsOpen && (
+                                    <Suspense fallback={null}>
+                                        <CoverLetterGenerator isOpen={coverLetterGeneratorIsOpen}
+                                                              onClose={() => setCoverLetterGeneratorIsOpen(false)}/>
+                                    </Suspense>
+                                )}
+                                {i === 2 && counterIsOpen && (
+                                    <Suspense fallback={null}>
+                                        <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
+                                    </Suspense>
+                                )}
+                            </Fragment>
+                        ))}
                     </div>
-                    <div className="contact-form flex flex-column gap-12px">
-                        <div className="form-row grid gap-12px">
-                            <ContactField id="from_name" label="Name" type="text" placeholder="Your name"
-                                          value={formData.from_name} onChange={handleChange}/>
-                            <ContactField id="from_email" label="From" type="email" placeholder="Email"
-                                          value={formData.from_email} onChange={handleChange}/>
+                </section>
+
+                <section className="margin-0-auto max-width-960px padding-48px-32px" id="resume">
+                    <SectionHeader title="My Resume" action={
+                        <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
+                           className="resume-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 strokeWidth="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download Resume (PDF)
+                        </a>
+                    }/>
+                    <div className="resume-list flex flex-column">
+                        {EXPERIENCE_ITEMS.map(({period, role, company, desc}) => (
+                            <div className="resume-item grid bottom-border1" key={company}>
+                                <div
+                                    className="resume-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
+                                <div>
+                                    <div className="resume-role font-15px weight-500 margin-bottom-3px">{role}</div>
+                                    <div
+                                        className="resume-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
+                                    <ul className="resume-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
+                                        <li key={i}>{point}</li>))}</ul>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="margin-0-auto max-width-960px padding-48px-32px" id="contact">
+                    <SectionHeader title="Contact Me"/>
+                    <div className="contact-wrap grid">
+                        <div className="contact-text">
+                            <p className="font-16px tracking-180em margin-bottom-24px">I'm always open to new
+                                opportunities,
+                                collaborations, or just a conversation about software design. Send me a message.</p>
+                            <div className="contact-links flex flex-column font-14px gap-12px margin-top-24px">
+                                <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                                   href="mailto:antonios.softwareengineer@gmail.com">
+                                    <ContactLinkIcon>
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </ContactLinkIcon>
+                                    antonios.softwareengineer@gmail.com
+                                </a>
+                                <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                                   href="https://github.com/Antonio-Saucedo"
+                                   target="_blank">
+                                    <ContactLinkIcon>
+                                        <path
+                                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                    </ContactLinkIcon>
+                                    github.com/Antonio-Saucedo
+                                </a>
+                                <a className="contact-link flex items-center color-text1 gap-10px decoration-none"
+                                   href="https://www.linkedin.com/in/antoniojsaucedo"
+                                   target="_blank">
+                                    <ContactLinkIcon>
+                                        <path
+                                            d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                        <rect x="2" y="9" width="4" height="12"/>
+                                        <circle cx="4" cy="4" r="2"/>
+                                    </ContactLinkIcon>
+                                    linkedin.com/in/antoniojsaucedo
+                                </a>
+                            </div>
                         </div>
-                        <ContactField id="subject" label="Subject" type="text" placeholder="Subject"
-                                      value={formData.subject} onChange={handleChange}/>
-                        <ContactField id="message" label="Message" as="textarea" placeholder="Your message..."
-                                      value={formData.message} onChange={handleChange}/>
-                        {status === 'success' && (
-                            <div
-                                className="form-status form-status--success border-radius-4px font-dm-mono font-13px padding-10px-14px">
-                                ✓ Message sent! I'll get back to you soon.
+                        <div className="contact-form flex flex-column gap-12px">
+                            <div className="form-row grid gap-12px">
+                                <ContactField id="from_name" label="Name" type="text" placeholder="Your name"
+                                              value={formData.from_name} onChange={handleChange}/>
+                                <ContactField id="from_email" label="From" type="email" placeholder="Email"
+                                              value={formData.from_email} onChange={handleChange}/>
                             </div>
-                        )}
-                        {status === 'error' && (
-                            <div
-                                className="form-status form-status--error bg-bg4 solid-border2 border-radius-4px color-text3 font-dm-mono font-13px padding-10px-14px">
-                                ✗ Something went wrong. Please check all fields and try again.
-                            </div>
-                        )}
-                        <button
-                            className="form-submit flex items-center bg-accent border-none border-radius-4px color-text2 cursor-pointer font-dm-sans font-12px weight-500 gap-8px tracking-006em uppercase"
-                            onClick={handleSubmit} disabled={status === 'sending'}>
-                            {status === 'sending' ? 'Sending...' : 'Send message'}
-                            {status !== 'sending' && (
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                     strokeWidth="2">
-                                    <line x1="5" y1="12" x2="19" y2="12"/>
-                                    <polyline points="12 5 19 12 12 19"/>
-                                </svg>
+                            <ContactField id="subject" label="Subject" type="text" placeholder="Subject"
+                                          value={formData.subject} onChange={handleChange}/>
+                            <ContactField id="message" label="Message" as="textarea" placeholder="Your message..."
+                                          value={formData.message} onChange={handleChange}/>
+                            {status === 'success' && (
+                                <div
+                                    className="form-status form-status--success border-radius-4px font-dm-mono font-13px padding-10px-14px">
+                                    ✓ Message sent! I'll get back to you soon.
+                                </div>
                             )}
-                        </button>
+                            {status === 'error' && (
+                                <div
+                                    className="form-status form-status--error bg-bg4 solid-border2 border-radius-4px color-text3 font-dm-mono font-13px padding-10px-14px">
+                                    ✗ Something went wrong. Please check all fields and try again.
+                                </div>
+                            )}
+                            <button
+                                className="form-submit flex items-center bg-accent border-none border-radius-4px color-text2 cursor-pointer font-dm-sans font-12px weight-500 gap-8px tracking-006em uppercase"
+                                onClick={handleSubmit} disabled={status === 'sending'}>
+                                {status === 'sending' ? 'Sending...' : 'Send message'}
+                                {status !== 'sending' && (
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         strokeWidth="2">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12 5 19 12 12 19"/>
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </main>
 
             <footer
                 className="flex items-center top-border1 font-dm-mono font-12px justify-between margin-0-auto max-width-960px padding-32px">
