@@ -11,79 +11,64 @@ import type {
 import emailjs from '@emailjs/browser';
 import './App.css';
 
-import AdaptabilityIcon from './assets/icons/adaptability.svg?react';
-import AgileScrumIcon from './assets/icons/agileScrum.svg?react';
-import AngularIcon from './assets/icons/angular.svg?react';
-import AttentionToDetailIcon from './assets/icons/attentionToDetail.svg?react';
-import AzureDevopsIcon from './assets/icons/azureDevops.svg?react';
-import BashScriptingIcon from './assets/icons/bashScripting.svg?react';
-import BilingualIcon from './assets/icons/bilingual.svg?react';
-import BootstrapIcon from './assets/icons/bootstrap.svg?react';
-import CodeReviewIcon from './assets/icons/codeReview.svg?react';
-import CollaborationIcon from './assets/icons/collaboration.svg?react';
-import ConflictResolutionIcon from './assets/icons/conflictResolution.svg?react';
-import ContinuousLearnerIcon from './assets/icons/continuousLearner.svg?react';
-import CppIcon from './assets/icons/cpp.svg?react';
-import CssIcon from './assets/icons/css.svg?react';
-import DockerIcon from './assets/icons/docker.svg?react';
-import ExpressIcon from './assets/icons/express.svg?react';
-import FetchApiIcon from './assets/icons/fetchApi.svg?react';
-import GeminiFlashApiIcon from './assets/icons/geminiFlashApi.svg?react';
-import GitIcon from './assets/icons/git.svg?react';
-import GithubIcon from './assets/icons/github.svg?react';
-import GithubActionsIcon from './assets/icons/githubActions.svg?react';
-import GraphQlIcon from './assets/icons/graphQl.svg?react';
-import HtmlIcon from './assets/icons/html.svg?react';
-import IntuitApiIcon from './assets/icons/intuitApi.svg?react';
-import IpGeolocationApiIcon from './assets/icons/ipGeolocationApi.svg?react';
-import JavaIcon from './assets/icons/java.svg?react';
-import JavascriptIcon from './assets/icons/javascript.svg?react';
-import JestIcon from './assets/icons/jest.svg?react';
-import JiraIcon from './assets/icons/jira.svg?react';
-import JsonIcon from './assets/icons/json.svg?react';
-import KotlinIcon from './assets/icons/kotlin.svg?react';
-import LeadershipIcon from './assets/icons/leadership.svg?react';
-import MicrosoftSqlServerIcon from './assets/icons/microsoftSqlServer.svg?react';
-import MongoDbIcon from './assets/icons/mongoDb.svg?react';
-import MysqlIcon from './assets/icons/mysql.svg?react';
-import NestjsIcon from './assets/icons/nestjs.svg?react';
-import NodejsIcon from './assets/icons/nodejs.svg?react';
-import OauthIcon from './assets/icons/oauth.svg?react';
-import OracleApexIcon from './assets/icons/oracleApex.svg?react';
-import PlaywrightIcon from './assets/icons/playwright.svg?react';
-import PlsqlIcon from './assets/icons/plsql.svg?react';
-import PostgresqlIcon from './assets/icons/postgresql.svg?react';
-import ProblemSolvingIcon from './assets/icons/problemSolving.svg?react';
-import PythonIcon from './assets/icons/python.svg?react';
-import ReactIcon from './assets/icons/react.svg?react';
-import RenderIcon from './assets/icons/render.svg?react';
-import ResponsiveDesignIcon from './assets/icons/responsiveDesign.svg?react';
-import RestfulApiIcon from './assets/icons/restfulApi.svg?react';
-import RustIcon from './assets/icons/rust.svg?react';
-import SassIcon from './assets/icons/sass.svg?react';
-import SaasIcon from './assets/icons/saas.svg?react';
-import SelfMotivatedIcon from './assets/icons/selfMotivated.svg?react';
-import SqlIcon from './assets/icons/sql.svg?react';
-import SqliteIcon from './assets/icons/sqlite.svg?react';
-import SwaggerIcon from './assets/icons/swagger.svg?react';
-import SwiftIcon from './assets/icons/swift.svg?react';
-import TailwindIcon from './assets/icons/tailwind.svg?react';
-import ThirdPartyRestIcon from './assets/icons/thirdPartyRest.svg?react';
-import TypescriptIcon from './assets/icons/typescript.svg?react';
-import UtplsqlIcon from './assets/icons/utplsql.svg?react';
-import VbaIcon from './assets/icons/vba.svg?react';
-import ViteIcon from './assets/icons/vite.svg?react';
+import WindIcon from './assets/weatherIcons/wind.png';
 
 // Modals are lazy-loaded making modals reset state on close.
 const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator.tsx'));
 const Counter = lazy(() => import('./modals/counter/counter.tsx'));
 
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+// Lazy loader map: icon name -> dynamic import of the ?react component.
+// Vite's import.meta.glob with a function-returning (non-eager) result keeps
+// these as on-demand imports, each becoming its own chunk.
+const SKILL_ICON_LOADERS = import.meta.glob('./assets/skillsIcons/*.svg', {
+    query: '?react',
+}) as Record<string, () => Promise<{ default: ComponentType<SVGProps<SVGSVGElement>> }>>;
+
 // Cache of already-created lazy components, so repeated lookups of the same
 // icon name reuse the same React.lazy() instance instead of remounting fresh.
 const skillIconCache = new Map<string, LazyExoticComponent<ComponentType<SVGProps<SVGSVGElement>>>>();
+
+// Email variables
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+// Weather API
+const OWM_API_KEY = import.meta.env.VITE_OWM_API_KEY;
+const GEOCODE_URL = 'https://api.openweathermap.org/geo/1.0/direct';
+const REVERSE_GEOCODE_URL = 'https://api.openweathermap.org/geo/1.0/reverse';
+const CURRENT_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
+const WEATHER_COOKIE_NAME = 'weather_pref';
+const WEATHER_COOKIE_MAX_AGE_DAYS = 400;
+const WEATHER_GRADIENTS: Record<string, WeatherGradient> = {
+    clearDay: {from: '#EF9F27', to: '#185FA5'},
+    clearNight: {from: '#042C53', to: '#26215C'},
+    clouds: {from: '#5F5E5A', to: '#185FA5'},
+    rain: {from: '#185FA5', to: '#085041'},
+    storm: {from: '#26215C', to: '#2C2C2A'},
+    snow: {from: '#85B7EB', to: '#E6F1FB'},
+    fog: {from: '#888780', to: '#B4B2A9'},
+    default: {from: '#185FA5', to: '#0F6E56'},
+};
+const REGION_DISPLAY_NAMES = new Intl.DisplayNames(['en'], {type: 'region'});
+const DEFAULT_WEATHER_PREF: WeatherPref = {
+    lat: 43.6671,
+    lon: -111.7702,
+    label: 'Rigby, ID, United States',
+    units: 'imperial',
+};
+
+const WEATHER_ICON_MODULES = import.meta.glob('./assets/weatherIcons/*.png', {
+    eager: true,
+    import: 'default',
+}) as Record<string, string>;
+
+const WEATHER_ICONS: Record<string, string> = Object.fromEntries(
+    Object.entries(WEATHER_ICON_MODULES).map(([path, url]) => {
+        const filename = path.split('/').pop()!.replace('.png', '');
+        return [filename, url];
+    })
+);
 
 // Module scope: these never change between renders, so building them inside components
 // would recreate each array/object on re-render (they don't depend on props or state).
@@ -383,6 +368,156 @@ function getSkillIconComponent(fileName: string) {
     return Component;
 }
 
+function celsiusToFahrenheit(c: number): number {
+    return c * 9 / 5 + 32;
+}
+
+function mpsToMph(mps: number): number {
+    return mps * 2.23694;
+}
+
+function getWeatherIconUrl(code: string): string | undefined {
+    return WEATHER_ICONS[code];
+}
+
+function getWeatherGradient(iconCode: string): WeatherGradient {
+    const group = iconCode.slice(0, 2);
+    const isNight = iconCode.endsWith('n');
+
+    switch (group) {
+        case '01':
+        case '02':
+            return isNight ? WEATHER_GRADIENTS.clearNight : WEATHER_GRADIENTS.clearDay;
+        case '03':
+        case '04':
+            return WEATHER_GRADIENTS.clouds;
+        case '09':
+        case '10':
+            return WEATHER_GRADIENTS.rain;
+        case '11':
+            return WEATHER_GRADIENTS.storm;
+        case '13':
+            return WEATHER_GRADIENTS.snow;
+        case '50':
+            return WEATHER_GRADIENTS.fog;
+        default:
+            return WEATHER_GRADIENTS.default;
+    }
+}
+
+function setWeatherCookie(pref: WeatherPref) {
+    const value = encodeURIComponent(JSON.stringify(pref));
+    const maxAgeSeconds = WEATHER_COOKIE_MAX_AGE_DAYS * 24 * 60 * 60;
+    document.cookie = `${WEATHER_COOKIE_NAME}=${value}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax`;
+}
+
+function getWeatherCookie(): WeatherPref | null {
+    const match = document.cookie.split('; ').find((row) => row.startsWith(`${WEATHER_COOKIE_NAME}=`));
+    if (!match) return null;
+
+    try {
+        const raw = match.split('=').slice(1).join('=');
+        const parsed = JSON.parse(decodeURIComponent(raw));
+        if (typeof parsed.lat === 'number' && typeof parsed.lon === 'number') {
+            return parsed as WeatherPref;
+        }
+        return null;
+    } catch {
+        return null;
+    }
+}
+
+function loadWeatherPref(): WeatherPref {
+    const saved = getWeatherCookie();
+    if (saved) {
+        // refresh the expiration on every successful read
+        setWeatherCookie(saved);
+        return saved;
+    }
+    setWeatherCookie(DEFAULT_WEATHER_PREF);
+    return DEFAULT_WEATHER_PREF;
+}
+
+async function geocodeCity(city: string): Promise<{ lat: number; lon: number; label: string }> {
+    const url = `${GEOCODE_URL}?q=${encodeURIComponent(city)}&limit=1&appid=${OWM_API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Geocoding request failed: ${res.status}`);
+
+    const results = await res.json();
+    if (!results.length) throw new Error(`No location found for "${city}"`);
+
+    const {lat, lon, name, state, country} = results[0];
+    const countryName = country ? (REGION_DISPLAY_NAMES.of(country) ?? country) : undefined;
+    return {lat, lon, label: [name, state, countryName].filter(Boolean).join(', ')};
+}
+
+async function reverseGeocode(lat: number, lon: number): Promise<string> {
+    const url = `${REVERSE_GEOCODE_URL}?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Reverse geocoding failed: ${res.status}`);
+
+    const results = await res.json();
+    if (!results.length) return 'Current location';
+
+    const {name, state, country} = results[0];
+    const countryName = country ? (REGION_DISPLAY_NAMES.of(country) ?? country) : undefined;
+    return [name, state, countryName].filter(Boolean).join(', ');
+}
+
+async function fetchCurrentWeather(lat: number, lon: number): Promise<CurrentWeather> {
+    const url = `${CURRENT_WEATHER_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${OWM_API_KEY}`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.message || `Weather request failed: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return {
+        temp: data.main.temp,
+        tempMin: data.main.temp_min,
+        tempMax: data.main.temp_max,
+        windSpeed: data.wind.speed,
+        description: data.weather[0]?.description ?? 'Unknown',
+        icon: data.weather[0]?.icon ?? '01d',
+    };
+}
+
+function getBrowserLocation(): Promise<{ lat: number; lon: number }> {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported by this browser'));
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (pos) => resolve({lat: pos.coords.latitude, lon: pos.coords.longitude}),
+            (err) => reject(new Error(err.message || 'Location permission denied')),
+            {timeout: 10000}
+        );
+    });
+}
+
+type WeatherGradient = { from: string; to: string };
+
+type Units = 'imperial' | 'metric';
+
+type WeatherPref = {
+    lat: number;
+    lon: number;
+    label: string;
+    units: Units;
+};
+
+type CurrentWeather = {
+    temp: number;
+    tempMin: number;
+    tempMax: number;
+    windSpeed: number;
+    description: string;
+    icon: string;
+};
+
 type SkillTag = {
     name: string;
     iconFile: string;
@@ -471,9 +606,94 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
     return {line1, line2};
 }
 
+// Loads the saved location/units from a cookie (falling back to preset location),
+// fetches current weather for it on mount, and exposes setters that
+// geocode/reverse-geocode as needed, persist the new pref, and refetch.
+function useWeather() {
+    const [pref, setPref] = useState<WeatherPref>(() => loadWeatherPref());
+    const [weather, setWeather] = useState<CurrentWeather | null>(null);
+    const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const loadWeatherFor = useCallback(async (nextPref: WeatherPref) => {
+        setStatus('loading');
+        try {
+            const current = await fetchCurrentWeather(nextPref.lat, nextPref.lon);
+            setWeather(current);
+            setStatus('idle');
+        } catch (err) {
+            setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
+            setStatus('error');
+        }
+    }, []);
+
+    // Initial fetch from cookie pref or default.
+    useEffect(() => {
+        let cancelled = false;
+
+        (async () => {
+            setStatus('loading');
+            try {
+                const current = await fetchCurrentWeather(pref.lat, pref.lon);
+                if (!cancelled) {
+                    setWeather(current);
+                    setStatus('idle');
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
+                    setStatus('error');
+                }
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const setCity = useCallback(async (city: string) => {
+        setStatus('loading');
+        try {
+            const {lat, lon, label} = await geocodeCity(city);
+            const nextPref: WeatherPref = {...pref, lat, lon, label};
+            setPref(nextPref);
+            setWeatherCookie(nextPref);
+            await loadWeatherFor(nextPref);
+        } catch (err) {
+            setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
+            setStatus('error');
+        }
+    }, [pref, loadWeatherFor]);
+
+    const useBrowserLocation = useCallback(async () => {
+        setStatus('loading');
+        try {
+            const {lat, lon} = await getBrowserLocation();
+            const label = await reverseGeocode(lat, lon);
+            const nextPref: WeatherPref = {...pref, lat, lon, label};
+            setPref(nextPref);
+            setWeatherCookie(nextPref);
+            await loadWeatherFor(nextPref);
+        } catch (err) {
+            setErrorMessage(err instanceof Error ? err.message : 'Something went wrong');
+            setStatus('error');
+        }
+    }, [pref, loadWeatherFor]);
+
+    const toggleUnits = useCallback(async () => {
+        const nextPref: WeatherPref = {...pref, units: pref.units === 'imperial' ? 'metric' : 'imperial'};
+        setPref(nextPref);
+        setWeatherCookie(nextPref);
+    }, [pref]);
+
+    return {pref, weather, status, errorMessage, setCity, useBrowserLocation, toggleUnits};
+}
+
 // Nav bar's links. Each closes the mobile menu on click.
 const NAV_LINKS = [
     {href: '#about', label: 'About'},
+    {href: '#weather', label: 'Weather'},
     {href: '#skills', label: 'Skills'},
     {href: '#projects', label: 'Projects'},
     {href: '#resume', label: 'Resume'},
@@ -536,7 +756,7 @@ function ProjectCard({project}: { project: Project }) {
     };
     return (
         <div onClick={handleCardClick} onKeyDown={handleCardKeyDown} role="button" tabIndex={0}
-             className="project-card bg-bg2 border-radius-4px cursor-pointer">
+             className="project-card relative bg-bg2 border-radius-4px cursor-pointer">
             <div className="project-header flex justify-between">
                 <div className="project-icon flex items-center bg-bg4 border-radius-4px justify-center">
                     {icon}
@@ -549,6 +769,111 @@ function ProjectCard({project}: { project: Project }) {
             <div className="project-desc font-13px tracking-165em margin-bottom-16px">{desc}</div>
             <ProjectSkillList tags={tags}/>
         </div>
+    );
+}
+
+// Shows current conditions for cookie saved or default location, with
+// controls to change city, use browser's geolocation, or toggle °F/°C.
+function WeatherSection() {
+    const {pref, weather, status, errorMessage, setCity, useBrowserLocation, toggleUnits} = useWeather();
+    const [cityInput, setCityInput] = useState(pref.label);
+
+    // Sync input with weather label
+    useEffect(() => {
+        setCityInput(pref.label);
+    }, [pref.label]);
+
+    const handleCitySubmit = useCallback(async (e: SyntheticEvent) => {
+        e.preventDefault();
+        const trimmed = cityInput.trim();
+        if (!trimmed) return;
+        await setCity(trimmed);
+    }, [cityInput, setCity]);
+
+    const isImperial = pref.units === 'imperial';
+    const unitLabel = pref.units === 'imperial' ? '°F' : '°C';
+    const toggleLabel = pref.units === 'imperial' ? '°C' : '°F';
+    const windUnit = pref.units === 'imperial' ? 'mph' : 'm/s';
+    const conditionIconUrl = weather ? getWeatherIconUrl(weather.icon) : undefined;
+    const conditionText = weather
+        ? weather.description.replace(/\b\w/g, (c) => c.toUpperCase())
+        : '';
+    const gradient = weather ? getWeatherGradient(weather.icon) : WEATHER_GRADIENTS.default;
+
+    // Convert from the always-metric stored values at render time.
+    const displayTemp = weather ? (isImperial ? celsiusToFahrenheit(weather.temp) : weather.temp) : 0;
+    const displayTempMin = weather ? (isImperial ? celsiusToFahrenheit(weather.tempMin) : weather.tempMin) : 0;
+    const displayTempMax = weather ? (isImperial ? celsiusToFahrenheit(weather.tempMax) : weather.tempMax) : 0;
+    const displayWind = weather ? (isImperial ? mpsToMph(weather.windSpeed) : weather.windSpeed) : 0;
+
+    return (
+        <section className="margin-0-auto max-width-960px padding-48px-32px" id="weather">
+            <SectionHeader title="How's the weather?"/>
+            <div className="weather-hero border-radius-16px padding-24px"
+                 style={{background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,}}>
+                <form onSubmit={handleCitySubmit}
+                      className="weather-hero-form flex gap-8px flex-wrap margin-bottom-8px">
+                    <div className="flex flex-column">
+                        <label htmlFor="weatherInput" className="block">City, state, country</label>
+                        <input
+                            id="weatherInput"
+                            name="weatherInput"
+                            type="text"
+                            className="weather-hero-input border-radius-8px font-13px padding-8px-12px"
+                            placeholder="Enter city, state, country"
+                            value={cityInput}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setCityInput(e.target.value)}
+                            disabled={status === 'loading'}
+                        />
+                    </div>
+                    <button type="submit" disabled={status === 'loading'}
+                            className="weather-hero-btn border-radius-8px font-12px padding-8px-14px cursor-pointer">
+                        Set
+                    </button>
+                    <button type="button" onClick={useBrowserLocation} disabled={status === 'loading'}
+                            className="weather-hero-btn border-radius-8px font-12px padding-8px-14px cursor-pointer">
+                        📍 Use My Location
+                    </button>
+                    <button type="button" onClick={toggleUnits} disabled={status === 'loading'}
+                            className="weather-hero-btn border-radius-8px font-12px padding-8px-14px cursor-pointer">
+                        {toggleLabel}
+                    </button>
+                </form>
+
+                {status === 'loading' && <p className="weather-hero-status margin-top-24px">Loading...</p>}
+                {status === 'error' && <p className="weather-hero-status margin-top-24px">Error: {errorMessage}</p>}
+
+                {status === 'idle' && weather && (
+                    <div className="weather-hero-body relative flex flex-column margin-top-20px">
+                        <div className="weather-hero-top flex justify-between">
+                            <div className="weather-hero-text">
+                                <p className="weather-hero-location font-13px margin-bottom-4px">{pref.label}</p>
+                                <p className="weather-hero-condition font-13px">{conditionText}</p>
+                            </div>
+                        </div>
+                        <div className="weather-hero-temp-row flex items-baseline gap-16px margin-top-12px">
+                            <span className="weather-hero-temp font-56px weight-500">
+                                {Math.round(displayTemp)}{unitLabel}
+                            </span>
+                            <div className="weather-hero-hilo flex flex-column gap-6px font-13px self-center">
+                                <span>↑ {Math.round(displayTempMax)}{unitLabel}</span>
+                                <span>↓ {Math.round(displayTempMin)}{unitLabel}</span>
+                            </div>
+                        </div>
+                        {conditionIconUrl && (
+                            <img src={conditionIconUrl} alt={conditionText + ' Icon'}
+                                 className="weather-hero-icon absolute"/>
+                        )}
+                        <div
+                            className="weather-hero-wind flex items-center gap-8px font-14px margin-top-12px padding-top-12px">
+                            <img src={WindIcon} alt="Wind Icon" className="weather-hero-wind-icon"/>
+                            <span>{Math.round(displayWind)} {windUnit}</span>
+                        </div>
+                        <span className="text-center">API → OpenWeatherMap</span>
+                    </div>
+                )}
+            </div>
+        </section>
     );
 }
 
@@ -722,30 +1047,8 @@ function App() {
                     </div>
                 </section>
 
-            <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
-                <SectionHeader title="Skills"/>
-                <div className="skills-wrap bg-bg2 solid-border1 border-radius-4px">
-                    <div className="skills-sidebar flex flex-column" role="tablist" aria-label="Skill categories">
-                        {SKILLS.map(({title, tags}, i) => (
-                            <button key={title} role="tab" aria-selected={i === activeSkillCategory}
-                                    className={`skills-tab font-dm-mono font-12px tracking-002em flex justify-between bg-transparent border-none color-text1 cursor-pointer ${i === activeSkillCategory ? 'skills-tab-active' : ''}`}
-                                    onClick={() => setActiveSkillCategory(i)}><span>{title}</span><span
-                                className="skills-tab-count">{tags.length}</span></button>
-                        ))}
-                    </div>
-                    <div className="skills-panels">
-                        {SKILLS.map(({title, tags}, i) => (
-                            <div className={`skills-panel ${i === activeSkillCategory ? 'skills-panel-active' : ''}`}
-                                 key={title}>
-                                <div
-                                    className="skills-panel-title font-15px weight-600 color-text1 margin-bottom-16px">{title}</div>
-                                <TagList tags={tags}
-                                         wrapperClassName="skills-panel-tags flex flex-wrap font-dm-mono font-12px weight-500 gap-16px tracking-002em"/>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                <WeatherSection/>
+
                 <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
                     <SectionHeader title="Skills"/>
                     <div className="skills-wrap bg-bg2 solid-border1 border-radius-4px">

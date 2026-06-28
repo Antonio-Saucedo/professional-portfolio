@@ -119,6 +119,10 @@ html {
     align-items: center;
 }
 
+.weather-hero-form {
+    align-items: flex-end;
+}
+
 .project-header {
     align-items: flex-start;
     margin-bottom: 0.75rem;
@@ -127,6 +131,10 @@ html {
 .contact-wrap {
     align-items: start;
     gap: 48px;
+}
+
+.self-center {
+    align-self: center;
 }
 
 .hero h1 .typewriter-cursor::after {
@@ -139,57 +147,66 @@ html {
     animation: skills-fade-in 0.2s ease forwards;
 }
 
+.weather-hero-input,
+.weather-hero-btn {
+    background-color: color-mix(in srgb, var(--color-white) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-white) 30%, transparent);
+}
+
+.weather-hero-btn:hover {
+    background-color: color-mix(in srgb, var(--color-white) 25%, transparent);
+}
+
 .bg-accent,
 .hero-eyebrow::before,
 .project-card::before {
-    background: var(--accent);
+    background-color: var(--accent);
 }
 
 .btn-primary:hover,
 .form-submit:hover {
-    background: var(--accent2);
-    color: var(--color-white);
+    background-color: var(--accent2);
 }
 
 .bg-bg1,
 body {
-    background: var(--bg1);
+    background-color: var(--bg1);
 }
 
 .bg-bg2 {
-    background: var(--bg2);
+    background-color: var(--bg2);
 }
 
 .bg-bg3 {
-    background: var(--bg3);
+    background-color: var(--bg3);
 }
 
 .bg-bg4 {
-    background: var(--bg4);
+    background-color: var(--bg4);
 }
 
 .hamburger span {
-    background: var(--bg5);
+    background-color: var(--bg5);
     border-radius: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
     width: 22px;
 }
 
 .contact-form .form-status--success {
-    background: var(--color-ottoman);
+    background-color: var(--color-ottoman);
     border: 1px solid var(--color-moss-green);
     color: var(--color-jewel);
 }
 
 .hamburger {
-    background: none;
+    background-color: unset;
     gap: 5px;
     padding: 4px;
     z-index: 200;
 }
 
 .bg-transparent {
-    background: transparent;
+    background-color: transparent;
 }
 
 .solid-border1 {
@@ -206,6 +223,10 @@ body {
 
 .bottom-border1 {
     border-bottom: 1px solid var(--border1);
+}
+
+.weather-hero-input:focus {
+    border-color: color-mix(in srgb, var(--color-white) 60%, transparent);
 }
 
 .theme-btn:hover,
@@ -227,10 +248,6 @@ body {
     transition: color 0.15s, border-color 0.15s;
 }
 
-.quote-wrap {
-    border-left: 3px solid var(--accent);
-}
-
 .skills-tab-active {
     border-left-color: var(--accent);
     padding-left: 14px;
@@ -244,6 +261,10 @@ body {
     border-radius: 10px;
 }
 
+.border-radius-16px {
+    border-radius: 16px;
+}
+
 .border-radius-20px {
     border-radius: 20px;
 }
@@ -252,6 +273,11 @@ body {
     border-right: 1px solid var(--border1);
     gap: 2px;
     padding-right: 24px;
+}
+
+.weather-hero-wind {
+    border-top: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
+    opacity: 0.9;
 }
 
 .top-border1,
@@ -267,10 +293,14 @@ body {
 }
 
 .skills-panel-tags .tag {
-    box-shadow: 0 0 8px 1px black;
+    box-shadow: 0 0 6px 0 black;
     flex: auto;
     max-width: calc(50% - 8px);
     min-height: 58px;
+}
+
+.weather-hero-input::placeholder {
+    color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
 .color-accent,
@@ -287,6 +317,12 @@ body {
     color: var(--accent);
 }
 
+.btn-primary:hover,
+.form-submit:hover,
+.weather-hero * {
+    color: var(--color-white);
+}
+
 .color-text1,
 .form-input::placeholder,
 body {
@@ -297,7 +333,8 @@ body {
     color: var(--text2);
 }
 
-.color-text3 {
+.color-text3,
+.skills-tab-active .skills-tab-count {
     color: var(--text3);
 }
 
@@ -315,7 +352,8 @@ body {
     content: '—';
 }
 
-.form-submit:disabled {
+.form-submit:disabled,
+.weather-hero-btn:disabled {
     cursor: not-allowed;
 }
 
@@ -328,6 +366,10 @@ body {
     display: block;
 }
 
+.contents {
+    display: contents;
+}
+
 .flex {
     display: flex;
 }
@@ -338,7 +380,8 @@ body {
 }
 
 .inline-block,
-.hero-eyebrow::before {
+.hero-eyebrow::before,
+.tag-icon-placeholder {
     display: inline-block;
 }
 
@@ -351,6 +394,12 @@ body {
 .hamburger,
 .skills-panel:not(.skills-panel-active) {
     display: none;
+}
+
+.weather-hero-wind-icon {
+    filter: brightness(0) invert(1);
+    height: 18px;
+    width: 18px;
 }
 
 .flex-column {
@@ -368,12 +417,6 @@ body {
 .font-dm-sans,
 body {
     font-family: 'DM Sans', sans-serif;
-}
-
-.quote-mark {
-    font-family: Georgia, serif;
-    font-size: 4rem;
-    line-height: 1;
 }
 
 .font-11px,
@@ -402,16 +445,18 @@ body {
     font-size: 16px;
 }
 
+.font-20px {
+    font-size: 20px;
+}
+
+.font-56px {
+    font-size: 56px;
+}
+
 .hero-bio {
     font-size: 17px;
     margin-bottom: 2.5rem;
     max-width: 520px;
-}
-
-.quote-text {
-    font-size: 19px;
-    font-weight: 400;
-    max-width: 700px;
 }
 
 .section-title {
@@ -500,7 +545,6 @@ body {
 .project-card::before {
     height: 0;
     left: 0;
-    position: absolute;
     transition: height 0.25s ease;
     width: 3px;
 }
@@ -528,12 +572,17 @@ body {
     width: 32px;
 }
 
+.weather-hero-btn {
+    height: 33px;
+}
+
 .project-icon {
     height: 36px;
     width: 36px;
 }
 
-.skills-panel-tags .tag svg {
+.skills-panel-tags .tag svg,
+.tag-icon-placeholder {
     height: 50px;
     min-width: 50px;
     width: 50px;
@@ -545,6 +594,12 @@ nav {
     position: sticky;
     transition: background 0.3s;
     z-index: 100;
+}
+
+.weather-hero-icon {
+    height: 90px;
+    left: 359px;
+    width: 90px;
 }
 
 .project-card:hover::before {
@@ -573,6 +628,10 @@ nav {
 
 .tracking-014em {
     letter-spacing: 0.14em;
+}
+
+.weather-hero-temp {
+    line-height: 1;
 }
 
 body {
@@ -614,6 +673,10 @@ body {
     margin-bottom: 10px;
 }
 
+.margin-bottom-12px {
+    margin-bottom: 12px;
+}
+
 .margin-bottom-16px {
     margin-bottom: 16px;
 }
@@ -624,7 +687,6 @@ body {
 
 .section-header {
     margin-bottom: 48px;
-    text-align: center;
 }
 
 .margin-top-24px {
@@ -646,17 +708,23 @@ body {
 
 .nav-logo::before,
 .nav-logo::after,
-.form-submit:disabled {
+.form-submit:disabled,
+.weather-hero-btn:disabled {
     opacity: 0.6;
 }
 
-.skills-tab-active .skills-tab-count {
-    color: var(--text3);
+.weather-hero-condition {
+    opacity: 0.7;
 }
 
-.form-input {
+.weather-hero-location,
+.weather-hero-hilo {
+    opacity: 0.85;
+}
+
+.form-input,
+.weather-hero-input:focus {
     outline: none;
-    transition: border-color 0.15s;
 }
 
 body:has(.modal-page) {
@@ -670,6 +738,14 @@ body:has(.modal-page) {
 .theme-btn {
     padding: 6px 14px;
     transition: all 0.15s;
+}
+
+.padding-8px-12px {
+    padding: 8px 12px;
+}
+
+.padding-8px-14px {
+    padding: 8px 14px;
 }
 
 .padding-10px-14px {
@@ -688,6 +764,14 @@ body:has(.modal-page) {
     padding: 11px 24px;
 }
 
+.padding-16px {
+    padding: 16px;
+}
+
+.padding-24px {
+    padding: 24px;
+}
+
 .padding-32px,
 .skills-wrap {
     padding: 32px;
@@ -701,8 +785,12 @@ body:has(.modal-page) {
     padding-top: 3px;
 }
 
-.skills-panels,
-.project-card {
+.absolute,
+.project-card::before {
+    position: absolute;
+}
+
+.relative {
     position: relative;
 }
 
@@ -712,6 +800,10 @@ body:has(.modal-page) {
 
 .contact-link:hover .contact-link-icon svg {
     stroke: var(--accent);
+}
+
+.text-center {
+    text-align: center;
 }
 
 .form-submit,
@@ -753,6 +845,14 @@ body:has(.modal-page) {
 .btn-secondary,
 .resume-download-btn {
     transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.weather-hero {
+    transition: background 0.6s ease;
+}
+
+.form-input {
+    transition: border-color 0.15s;
 }
 
 .contact-link,
@@ -799,9 +899,9 @@ body:has(.modal-page) {
     }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 706px) {
     .nav-links {
-        background: var(--bg1);
+        background-color: var(--bg1);
         border-bottom: 1px solid var(--border1);
         display: none;
         gap: 0;
@@ -814,7 +914,7 @@ body:has(.modal-page) {
     }
 
     .nav-links a:hover {
-        background: var(--accent2);
+        background-color: var(--accent2);
         color: var(--color-white);
     }
 
@@ -832,9 +932,19 @@ body:has(.modal-page) {
     }
 
     .hamburger,
-    .nav-links,
+    .nav-links {
+        flex-direction: column;
+    }
+
+    nav {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 660px) {
     footer {
         flex-direction: column;
+        gap: 0.5rem;
     }
 
     .hero-details {
@@ -846,17 +956,9 @@ body:has(.modal-page) {
         gap: 0.4rem;
     }
 
-    footer {
-        gap: 0.5rem;
-    }
-
     .contact-wrap, .form-row,
     .resume-item {
         grid-template-columns: 1fr;
-    }
-
-    nav {
-        padding: 0 1rem;
     }
 
     section {
@@ -868,5 +970,20 @@ body:has(.modal-page) {
     .hero h1 .typewriter-cursor::after,
     .skills-panel-active {
         animation: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .weather-hero-form {
+        flex-direction: column;
+    }
+
+    .weather-hero-icon {
+        left: unset;
+        right: 0;
+    }
+
+    .weather-hero-form > * {
+        width: 100%;
     }
 }
