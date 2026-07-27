@@ -12,6 +12,7 @@ import emailjs from '@emailjs/browser';
 import './App.css';
 
 import WindIcon from './assets/weatherIcons/wind.png';
+import ByuIIcon from './assets/educationIcons/byui.svg'
 
 // Modals are lazy-loaded making modals reset state on close.
 const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator.tsx'));
@@ -144,10 +145,27 @@ const SKILLS: { title: string; tags: { name: string; iconFile: string }[] }[] = 
         ]
     },
     {
+        title: 'IDEs',
+        tags: [
+            {name: 'WebStorm', iconFile: 'webstorm'},
+            {name: 'VSCode', iconFile: 'vscode'},
+            {name: 'IntelliJ', iconFile: 'intellij'},
+        ]
+    },
+    {
+        title: 'AI Tools',
+        tags: [
+            {name: 'Claude', iconFile: 'claude'},
+            {name: 'Gemini', iconFile: 'gemini'},
+            {name: 'ChatGPT', iconFile: 'chatgpt'},
+        ]
+    },
+    {
         title: 'Testing',
         tags: [
             {name: 'Playwright (E2E)', iconFile: 'playwright'},
             {name: 'utPLSQL (Unit)', iconFile: 'utplsql'},
+            {name: 'Vitest (Unit)', iconFile: 'vitest'},
             {name: 'Jest (Unit)', iconFile: 'jest'},
         ]
     },
@@ -183,40 +201,42 @@ const EXPERIENCE_ITEMS = [
         role: 'Lead Software Developer',
         company: 'MobileDash LLC., Remote from Rexburg ID',
         desc: [
-            'Led a team of 2–3 developers building two parallel applications (a legacy system and a new Oracle Apex platform serving 40–50 end users), owning full stack delivery across front-end UI, REST API development, and database architecture, while mentoring developers, unblocking blockers, and delegating tasks to keep the team moving.',
-            'Integrated the Intuit API end-to-end to replace manual cash and check collection with in-app invoicing and digital payment processing, reducing billing errors, accelerating revenue collection, and giving the business real-time visibility into invoice balances; implemented OAuth 2.0 token acquisition and automated renewal to maintain secure, uninterrupted sessions.',
-            'Redesigned the SQL database architecture for the Oracle Apex application from the ground up, resolving structural issues that caused slow queries, poor scalability, and data integrity bugs; the improved schema supported multi-entity construction work order and project data and delivered a measurable boost to overall application performance.',
-            'Built a lead intake form from scratch in the Oracle Apex platform that used dynamic dropdowns driven by admin-managed settings to route leads to the correct service or product, then automatically generated the associated purchase and work orders, eliminating a fully manual process from the legacy system and empowering company admins to update service configurations directly without routing changes through a third party.',
-            'Established and enforced developer standards and coding conventions across the team, reducing feature delivery time from 2–3 months down to 1–2 weeks and building a consistent, maintainable codebase that lowered the onboarding curve for new developers.',
-            'Built and maintained RESTful APIs using Node.js with Express and NestJS, and maintained MongoDB schemas and query performance on the legacy production application, keeping thousands of document retrievals reliable across diverse query types with minimal downtime during active parallel development.',
-            'Maintained and extended Angular components across the legacy application to ensure UI stability during parallel development, and integrated external APIs to capture IP address and consent metadata for terms and conditions compliance, creating accurate audit trails for legal and regulatory purposes.',
-            'Served as the primary technical liaison between development, design, and business stakeholders, translating feature requirements into technical plans, communicating trade-offs in non-technical terms, and helping leadership make informed product decisions without needing to interpret technical detail.',
-            'Reviewed and merged GitHub pull requests, enforced code quality standards, and participated in daily Agile/Scrum standups to surface blockers and keep cross-functional teams aligned across design, engineering, and product.']
+            'Team Lead & Mentorship: Owned sprint planning, task delegation, code reviews, and daily Agile standups; unblocked developers to maintain delivery momentum.',
+            'Intuit API Integration: Built end-to-end invoicing and digital payment flow (OAuth 2.0 with auto-renewal), replacing manual cash/check collection and giving leadership real-time billing visibility.',
+            'Database Redesign: Rebuilt Oracle Apex SQL schema from scratch, resolving slow queries, scalability issues, and data-integrity bugs across multi-entity construction work orders.',
+            'Lead Intake Automation: Built a dynamic lead form that auto-routes submissions and generates purchase and work orders, eliminating a fully manual legacy process and enabling admins to update configs without developer involvement.',
+            'Delivery Speed: Established team coding standards and conventions, cutting feature delivery from 2–3 months down to 1–2 weeks and reducing new-developer onboarding time.',
+            'Backend & APIs: Built and maintained RESTful APIs (Node.js/Express, NestJS) and managed MongoDB schemas on the legacy production app with minimal downtime during parallel development.',
+            'Compliance Integration: Integrated IP-geolocation APIs to capture consent metadata for terms-and-conditions audit trails; maintained Angular UI components throughout parallel development.',
+            'Stakeholder Communication: Served as primary liaison between engineering, design, and business stakeholders — translating technical trade-offs into plain language to support informed product decisions.']
     },
     {
         period: '01/2023 – 04/2023',
         role: 'Developer Intern',
         company: 'The Church of Jesus Christ of Latter-day Saints, Remote from Riverton UT',
         desc: [
-            'Contributed UI fixes and small feature improvements to a member-facing portal querying millions of documents, delivering changes that shipped to users across the full development cycle from coding to QA to production deployment.',
-            'Diagnosed and resolved front-end UI bugs in Angular components using TypeScript, Node.js, SASS, and Maven, working alongside developers to identify root causes and implement fixes that restored correct display and behavior for members using the portal.',
-            'Created and updated Jira bug, story, and feature tickets, performing requirement elicitation directly with stakeholders to define clear scope for other developers and ensure work was well-defined before implementation began.',
-            'Independently executed manual QA across bug fixes, PR reviews, and production deployments, applying workflow knowledge to run through test cases without needing them defined; reviewed and approved GitHub pull requests as part of the same quality gate process.',
-            'Upgraded Node.js dependencies including Bootstrap and Angular, resolving breaking changes in the codebase introduced by the version bumps; independently deployed application changes to staging and production via Azure DevOps CI/CD pipelines, taking full ownership of the release process while the engineering manager was unavailable.']
+            'Full-cycle delivery: Shipped UI fixes and feature improvements to a member-facing portal querying millions of documents, taking changes from coding through QA to production deployment.',
+            'Bug resolution: Diagnosed and fixed front-end Angular bugs using TypeScript, Node.js, SASS, and Maven, restoring correct portal behavior for end users.',
+            'Requirements & tickets: Wrote and refined Jira stories, bugs, and feature tickets via direct stakeholder elicitation — ensuring work was clearly scoped before implementation.',
+            'QA & CI/CD: Independently executed manual QA and reviewed GitHub PRs; deployed to staging and production via Azure DevOps pipelines.']
     },
     {
         period: '02/2021 – 10/2022',
         role: 'CAD Drafter',
         company: 'HLE Inc., Blackfoot ID',
         desc: [
-            'Drafted plans for surveyors and civil engineers using Civil3D, collaborating with state and local jurisdictions to meet regulatory requirements.']
+            'Survey & civil drafting: Produced Civil3D plan sets for surveyors and civil engineers across multiple active projects simultaneously.',
+            'Regulatory compliance: Coordinated directly with state and local municipalities to ensure drawings met all applicable regulatory requirements before submission.',
+            'Cross-discipline collaboration: Worked closely with engineers and field crews, translating field notes and design intent into accurate, construction-ready documents.']
     },
     {
         period: '03/2020 – 02/2021',
         role: 'Construction Estimator',
         company: 'Mickelsen Construction Inc., Blackfoot ID',
         desc: [
-            'Created civil estimates and Excel-based calculation tools to support vendor negotiations and project bidding.']
+            'Civil estimates: Developed detailed cost estimates for civil construction projects, used directly in vendor negotiations and competitive bid submissions.',
+            'Excel tools: Built custom Excel-based calculation tools that standardized estimating workflows and improved bid accuracy across the team.',
+            'Vendor coordination: Engaged vendors and subcontractors to obtain competitive pricing, ensuring estimates reflected current market rates.']
     },
 ];
 
@@ -340,7 +360,7 @@ function ProjectSkillList({tags}: { tags: string[] }) {
     );
 }
 
-// Section heading rows with `action` for a trailing control (e.g. the resume section's download button).
+// Section heading rows with `action` for a trailing control (e.g. the work experience section's download button).
 function SectionHeader({title, action}: {
     title: string; action?: ReactNode
 }) {
@@ -696,7 +716,8 @@ const NAV_LINKS = [
     {href: '#weather', label: 'Weather'},
     {href: '#skills', label: 'Skills'},
     {href: '#projects', label: 'Projects'},
-    {href: '#resume', label: 'Resume'},
+    {href: '#experience', label: 'Experience'},
+    {href: '#education', label: 'Education'},
     {href: '#contact', label: 'Contact'},
 ];
 
@@ -957,7 +978,7 @@ function App() {
             icon: StackIcon,
             name: 'MobileDash',
             desc: "A cloud-based, full-featured CRM platform built on Oracle APEX for exterior contractors, utilizing Oracle's built-in authentication for secure, role-based access control and custom-developed plugins to extend the framework for domain-specific needs. I was directly involved in implementing and enhancing all major features throughout the development lifecycle.",
-            tags: ['Git/GitHub', 'Docker', 'Bash Scripting', 'Oracle Apex (OCI)', 'SaaS', 'OAuth & Security', 'HTML', 'CSS', 'Tailwind', 'JavaScript', 'SQL', 'PL/SQL', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)'],
+            tags: ['Git/GitHub', 'Docker', 'Bash Scripting', 'Oracle Apex (OCI)', 'SaaS', 'OAuth & Security', 'HTML', 'CSS', 'Tailwind', 'JavaScript', 'SQL', 'PL/SQL', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)', 'Vitest (Unit Testing)'],
             link: {type: 'live', href: 'https://mobiledash.net/'},
         },
         {
@@ -1100,10 +1121,10 @@ function App() {
                     </div>
                 </section>
 
-                <section className="margin-0-auto max-width-960px padding-48px-32px" id="resume">
-                    <SectionHeader title="My Resume" action={
+                <section className="margin-0-auto max-width-960px padding-48px-32px" id="experience">
+                    <SectionHeader title="Work Experience" action={
                         <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
-                           className="resume-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
+                           className="experience-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  strokeWidth="2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -1113,20 +1134,33 @@ function App() {
                             Download Resume (PDF)
                         </a>
                     }/>
-                    <div className="resume-list flex flex-column">
+                    <div className="experience-list flex flex-column">
                         {EXPERIENCE_ITEMS.map(({period, role, company, desc}) => (
-                            <div className="resume-item grid bottom-border1" key={company}>
+                            <div className="experience-item grid bottom-border1" key={company}>
                                 <div
-                                    className="resume-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
+                                    className="experience-period font-dm-mono font-11px tracking-004em padding-top-3px">{period}</div>
                                 <div>
-                                    <div className="resume-role font-15px weight-500 margin-bottom-3px">{role}</div>
+                                    <div className="experience-role font-15px weight-500 margin-bottom-3px">{role}</div>
                                     <div
-                                        className="resume-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
-                                    <ul className="resume-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
+                                        className="experience-company color-accent font-dm-mono font-12px tracking-004em margin-bottom-10px">{company}</div>
+                                    <ul className="experience-desc flex flex-column font-13px tracking-170em"> {desc.map((point, i) => (
                                         <li key={i}>{point}</li>))}</ul>
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </section>
+
+                <section className="margin-0-auto max-width-960px padding-48px-32px bottom-border1" id="education">
+                    <SectionHeader title="Education"/>
+                    <div className="education-container flex gap-16px justify-center">
+                        <img src={ByuIIcon} alt='BYU-Idaho logo' className="height-130px"></img>
+                        <div className="content-center font-16px">
+                            <p>Brigham Young university - Idaho</p>
+                            <p>Bachelor of Science in Software Engineering</p>
+                            <p>Emphasis in Web Development and Software Design</p>
+                            <p>Graduated July 2023</p>
+                        </div>
                     </div>
                 </section>
 

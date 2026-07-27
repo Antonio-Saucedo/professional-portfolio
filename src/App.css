@@ -115,6 +115,10 @@ html {
     }
 }
 
+.content-center {
+    align-content: center;
+}
+
 .items-center {
     align-items: center;
 }
@@ -231,7 +235,7 @@ body {
 
 .theme-btn:hover,
 .btn-secondary:hover,
-.resume-download-btn:hover,
+.experience-download-btn:hover,
 .contact-link:hover .contact-link-icon,
 .form-input:focus {
     border-color: var(--accent);
@@ -281,7 +285,7 @@ body {
 }
 
 .top-border1,
-.resume-item:first-child {
+.experience-item:first-child {
     border-top: 1px solid var(--border1);
 }
 
@@ -308,9 +312,9 @@ body {
 .nav-logo::after,
 .nav-links a:hover,
 .btn-secondary:hover,
-.resume-download-btn:hover,
+.experience-download-btn:hover,
 .project-card:hover .project-link,
-.resume-desc li::marker,
+.experience-desc li::marker,
 .skills-tab-active,
 .skills-tab:hover,
 .contact-link:hover {
@@ -385,7 +389,7 @@ body {
     display: inline-block;
 }
 
-.resume-download-btn {
+.experience-download-btn {
     display: inline-flex;
     margin-top: 1rem;
     padding: 10px 20px;
@@ -456,7 +460,7 @@ body {
 .hero-bio {
     font-size: 17px;
     margin-bottom: 2.5rem;
-    max-width: 520px;
+    max-width: 540px;
 }
 
 .section-title {
@@ -488,7 +492,7 @@ body {
     font-weight: 600;
 }
 
-.resume-desc {
+.experience-desc {
     gap: 4px;
     padding-left: 1.1rem;
 }
@@ -513,7 +517,7 @@ body {
     gap: 16px;
 }
 
-.resume-item,
+.experience-item,
 .skills-wrap {
     gap: 32px;
 }
@@ -524,7 +528,7 @@ body {
     padding-top: 40px;
 }
 
-.resume-item {
+.experience-item {
     grid-template-columns: 120px 1fr;
     padding: 1.75rem 0;
 }
@@ -590,7 +594,7 @@ body {
 
 nav {
     height: 56px;
-    padding: 0 2rem;
+    padding: 0 16px;
     position: sticky;
     transition: background 0.3s;
     z-index: 100;
@@ -600,6 +604,10 @@ nav {
     height: 90px;
     left: 359px;
     width: 90px;
+}
+
+.height-130px {
+    height: 130px;
 }
 
 .project-card:hover::before {
@@ -843,7 +851,7 @@ body:has(.modal-page) {
 }
 
 .btn-secondary,
-.resume-download-btn {
+.experience-download-btn {
     transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
@@ -899,7 +907,7 @@ body:has(.modal-page) {
     }
 }
 
-@media (max-width: 706px) {
+@media (max-width: 791px) {
     .nav-links {
         background-color: var(--bg1);
         border-bottom: 1px solid var(--border1);
@@ -952,12 +960,12 @@ body:has(.modal-page) {
         gap: 1.5rem;
     }
 
-    .resume-item {
+    .experience-item {
         gap: 0.4rem;
     }
 
     .contact-wrap, .form-row,
-    .resume-item {
+    .experience-item {
         grid-template-columns: 1fr;
     }
 
