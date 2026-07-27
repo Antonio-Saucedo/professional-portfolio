@@ -1154,9 +1154,9 @@ function App() {
                 <section className="margin-0-auto max-width-960px padding-48px-32px bottom-border1" id="education">
                     <SectionHeader title="Education"/>
                     <div className="education-container flex gap-16px justify-center">
-                        <img src={ByuIIcon} alt='BYU-Idaho logo' className="height-130px"></img>
+                        <img src={ByuIIcon} alt='Brigham Young University - Idaho logo' className="height-130px"></img>
                         <div className="content-center font-16px">
-                            <p>Brigham Young university - Idaho</p>
+                            <p>Brigham Young University - Idaho</p>
                             <p>Bachelor of Science in Software Engineering</p>
                             <p>Emphasis in Web Development and Software Design</p>
                             <p>Graduated July 2023</p>
