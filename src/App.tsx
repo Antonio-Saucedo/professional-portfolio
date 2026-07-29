@@ -17,6 +17,7 @@ import ByuIIcon from './assets/educationIcons/byui.svg'
 // Modals are lazy-loaded making modals reset state on close.
 const CoverLetterGenerator = lazy(() => import('./modals/cover_letter_generator/CoverLetterGenerator.tsx'));
 const Counter = lazy(() => import('./modals/counter/counter.tsx'));
+const TicTacToe = lazy(() => import('./modals/tictactoe/TicTacToe.tsx'));
 
 // Lazy loader map: icon name -> dynamic import of the ?react component.
 // Vite's import.meta.glob with a function-returning (non-eager) result keeps
@@ -915,6 +916,9 @@ function App() {
     } = useVisitedSkillCategories(SKILLS.length, activeSkillCategory);
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
     const [counterIsOpen, setCounterIsOpen] = useState(false);
+    const [ticTacToeIsOpen, setTicTacToeIsOpen] = useState(false);
+    const openTicTacToe = useCallback(() => setTicTacToeIsOpen(true), []);
+    const closeTicTacToe = useCallback(() => setTicTacToeIsOpen(false), []);
 
     const [formData, setFormData] = useState({
         from_name: '',
@@ -978,42 +982,49 @@ function App() {
             icon: StackIcon,
             name: 'MobileDash',
             desc: "A cloud-based, full-featured CRM platform built on Oracle APEX for exterior contractors, utilizing Oracle's built-in authentication for secure, role-based access control and custom-developed plugins to extend the framework for domain-specific needs. I was directly involved in implementing and enhancing all major features throughout the development lifecycle.",
-            tags: ['Git' , 'GitHub', 'Docker', 'Bash Scripting', 'Oracle Apex (OCI)', 'SaaS', 'OAuth & Security', 'HTML', 'CSS', 'Tailwind', 'JavaScript', 'SQL', 'PL/SQL', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)', 'Vitest (Unit Testing)'],
+            tags: ['Git', 'GitHub', 'Docker', 'Bash Scripting', 'Oracle Apex (OCI)', 'SaaS', 'OAuth & Security', 'HTML', 'CSS', 'Tailwind', 'JavaScript', 'SQL', 'PL/SQL', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)', 'Vitest (Unit Testing)'],
             link: {type: 'live', href: 'https://mobiledash.net/'},
         },
         {
             icon: ExternalLinkIcon,
             name: 'Cover Letter Generator',
             desc: 'A full-stack AI tool that generates tailored cover letters from a job description and resume highlights, powered by the Gemini Flash API with tone selection and a clean modal UI.',
-            tags: ['Git' , 'GitHub', 'Vite', 'React', 'TypeScript', 'SASS', 'SCSS', 'Gemini Flash API', 'RESTful API Design'],
+            tags: ['Git', 'GitHub', 'Vite', 'React', 'TypeScript', 'SASS', 'SCSS', 'Gemini Flash API', 'RESTful API Design'],
             link: {type: 'open', onOpen: () => setCoverLetterGeneratorIsOpen(true)},
         },
         {
             icon: ExternalLinkIcon,
             name: 'React Counter',
             desc: 'A React counter built with useState and a clean modal UI.',
-            tags: ['Git' , 'GitHub', 'Vite', 'React', 'TypeScript', 'SCSS'],
+            tags: ['Git', 'GitHub', 'Vite', 'React', 'TypeScript', 'SCSS'],
             link: {type: 'open', onOpen: () => setCounterIsOpen(true)},
         },
         {
             icon: ExternalLinkIcon,
             name: 'WDD 230 – Web Frontend Development',
             desc: "A collection of frontend projects built throughout BYU-Idaho's Web Frontend Development course, covering responsive design, DOM manipulation, JSON & Fetch API integration, live weather data, progressive image loading, and a polished final site, Temple Inn & Suites.",
-            tags: ['Git' , 'GitHub', 'HTML', 'CSS', 'JavaScript', 'Fetch API', 'JSON', 'Responsive Design'],
+            tags: ['Git', 'GitHub', 'HTML', 'CSS', 'JavaScript', 'Fetch API', 'JSON', 'Responsive Design'],
             link: {type: 'live', href: 'https://antonio-saucedo.github.io/wdd230/'},
+        },
+        {
+            icon: ExternalLinkIcon,
+            name: 'Tic-Tac-Toe',
+            desc: 'A console tic-tac-toe game (CSE 210, Programming with Classes) running in the browser via Pyodide, a real Python interpreter compiled to WebAssembly, with the original game logic adapted for async, clickable input instead of the terminal. This web version was created with the help of Claude; the original CLI version was created without AI assistance.',
+            tags: ['Claude', 'Git', 'GitHub', 'Vite', 'React', 'TypeScript', 'SCSS', 'Python', 'Pyodide', 'WebAssembly'],
+            link: {type: 'open', onOpen: openTicTacToe},
         },
         {
             icon: ExternalLinkIcon,
             name: 'WDD 130 – Web Fundamentals',
             desc: "A collection of foundational web projects built through BYU-Idaho's Web Fundamentals course, covering site planning, semantic HTML structure, CSS layout techniques (including positioning and Flexbox/Grid exercises), form design, and a multi-page final project — Dinner Snack Dates, a fictional date-night business site with a home page, recipes/events page, FAQ, and contact page.",
-            tags: ['Git' , 'GitHub', 'HTML', 'CSS', 'Responsive Design', 'JavaScript'],
+            tags: ['Git', 'GitHub', 'HTML', 'CSS', 'Responsive Design', 'JavaScript'],
             link: {type: 'live', href: 'https://antonio-saucedo.github.io/wdd130/'},
         },
         {
             icon: ExternalLinkIcon,
             name: 'Subway Counter',
             desc: "A vanilla JavaScript counter app for tracking subway passenger entries. This showcases simple DOM manipulation skills.",
-            tags: ['Git' , 'GitHub', 'HTML', 'CSS', 'JavaScript'],
+            tags: ['Git', 'GitHub', 'HTML', 'CSS', 'JavaScript'],
             link: {type: 'live', href: 'https://antonio-saucedo.github.io/subway-counter/'},
         },
     ];
@@ -1128,6 +1139,11 @@ function App() {
                                 {i === 2 && counterIsOpen && (
                                     <Suspense fallback={null}>
                                         <Counter isOpen={counterIsOpen} onClose={() => setCounterIsOpen(false)}/>
+                                    </Suspense>
+                                )}
+                                {i === 3 && ticTacToeIsOpen && (
+                                    <Suspense fallback={null}>
+                                        <TicTacToe isOpen={ticTacToeIsOpen} onClose={closeTicTacToe}/>
                                     </Suspense>
                                 )}
                             </Fragment>
