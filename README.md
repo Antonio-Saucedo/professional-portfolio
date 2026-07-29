@@ -9,6 +9,8 @@ at [antoniosoftwareengineer.com](https://antoniosoftwareengineer.com).
 
 - **AI Cover Letter Generator** — powered by Gemini 2.5 Flash, generates tailored cover letters from a job description,
   candidate info, and tone preference
+- **Interactive Tic-Tac-Toe** — a CSE 210 console game running live in the browser via Pyodide, a real Python
+  interpreter compiled to WebAssembly, with clickable input in place of the terminal
 - **Light & dark mode** — system-aware theme with manual toggle
 - **Contact form** — integrated with EmailJS for direct message delivery
 - **Responsive design** — optimized for desktop and mobile
@@ -39,11 +41,18 @@ variable, and forwards it to Gemini. The key never reaches the browser.
 
 ---
 
+The Tic-Tac-Toe feature is unrelated to this proxy setup — it's fully client-side. Pyodide loads from a CDN (jsDelivr)
+the first time the modal's **Start** button is clicked, and the original CSE 210 game logic runs directly in the browser
+via WebAssembly. No API key, no backend, nothing to configure.
+
+---
+
 ## Tech Stack
 
 | Layer              | Technology                         |
 |--------------------|------------------------------------|
 | Frontend           | React, TypeScript, Vite, SCSS      |
+| In-browser Python  | Pyodide (WebAssembly)              |
 | AI Backend         | Node.js, Express, TypeScript       |
 | AI Model           | Gemini 2.5 Flash (`@google/genai`) |
 | Contact            | EmailJS                            |
