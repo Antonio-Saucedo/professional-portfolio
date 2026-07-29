@@ -1001,6 +1001,13 @@ function App() {
         },
         {
             icon: ExternalLinkIcon,
+            name: 'WDD 330 – Web Frontend Development 2',
+            desc: "A collection of frontend projects built throughout BYU-Idaho's Web Frontend Development II course, covering ES Modules, the Fetch API, async/await, client-side view routing, Canvas & SVG, animation, and WebSockets, culminating in a multi-page final project: All About SpaceX, a site consuming the public SpaceX API with a lightweight MVC architecture (model, view, and controller layers) to browse rockets, launches, crew, capsules, and more.",
+            tags: ['Git', 'GitHub', 'HTML', 'CSS', 'JavaScript', 'ES Modules', 'Fetch API', 'JSON', 'Third-party REST', 'Responsive Design', 'Web Sockets'],
+            link: {type: 'live', href: 'https://antonio-saucedo.github.io/wdd-330/'},
+        },
+        {
+            icon: ExternalLinkIcon,
             name: 'WDD 230 – Web Frontend Development',
             desc: "A collection of frontend projects built throughout BYU-Idaho's Web Frontend Development course, covering responsive design, DOM manipulation, JSON & Fetch API integration, live weather data, progressive image loading, and a polished final site, Temple Inn & Suites.",
             tags: ['Git', 'GitHub', 'HTML', 'CSS', 'JavaScript', 'Fetch API', 'JSON', 'Responsive Design'],
