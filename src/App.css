@@ -299,7 +299,6 @@ body {
 .skills-panel-tags .tag {
     box-shadow: 0 0 6px 0 black;
     flex: auto;
-    max-width: calc(50% - 8px);
     min-height: 58px;
 }
 
@@ -474,7 +473,7 @@ body {
 
 .hero h1 {
     font-size: 64px;
-    height: 2.2em;
+    min-height: 2.2em;
     letter-spacing: -0.03em;
     line-height: 1.1;
 }
@@ -580,6 +579,10 @@ body {
     height: 33px;
 }
 
+.height-35px {
+    height: 35px;
+}
+
 .project-icon {
     height: 36px;
     width: 36px;
@@ -603,6 +606,7 @@ nav {
 .weather-hero-icon {
     height: 90px;
     left: 359px;
+    top: 10px;
     width: 90px;
 }
 
@@ -644,7 +648,7 @@ nav {
 
 body {
     line-height: 1.6;
-    min-width: 475px;
+    min-width: 320px;
     overflow-x: hidden;
     transition: background 0.3s, color 0.3s;
 }
@@ -691,10 +695,6 @@ body {
 
 .margin-bottom-24px {
     margin-bottom: 24px;
-}
-
-.section-header {
-    margin-bottom: 48px;
 }
 
 .margin-top-24px {
@@ -783,10 +783,6 @@ body:has(.modal-page) {
 .padding-32px,
 .skills-wrap {
     padding: 32px;
-}
-
-.padding-48px-32px {
-    padding: 48px 32px;
 }
 
 .padding-top-3px {
@@ -878,35 +874,6 @@ body:has(.modal-page) {
     width: 100%;
 }
 
-@media (max-width: 730px) {
-    .skills-panel,
-    .skills-panel-active {
-        animation: none;
-    }
-
-    .skills-panel:not(.skills-panel-active) {
-        display: block;
-    }
-
-    .skills-wrap,
-    .skills-panels {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .skills-sidebar {
-        display: none;
-    }
-
-    .skills-panels {
-        gap: 24px;
-    }
-
-    .skills-wrap {
-        padding: 24px;
-    }
-}
-
 @media (max-width: 791px) {
     .nav-links {
         background-color: var(--bg1);
@@ -946,6 +913,35 @@ body:has(.modal-page) {
 
     nav {
         padding: 0 1rem;
+    }
+}
+
+@media (max-width: 730px) {
+    .skills-panel,
+    .skills-panel-active {
+        animation: none;
+    }
+
+    .skills-panel:not(.skills-panel-active) {
+        display: block;
+    }
+
+    .skills-wrap,
+    .skills-panels {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .skills-sidebar {
+        display: none;
+    }
+
+    .skills-panels {
+        gap: 24px;
+    }
+
+    .skills-wrap {
+        padding: 24px;
     }
 }
 
@@ -993,5 +989,64 @@ body:has(.modal-page) {
 
     .weather-hero-form > * {
         width: 100%;
+    }
+}
+
+@media (max-width: 477px) {
+    .skills-panel-tags {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 477px) {
+    .skills-panel-tags .tag {
+        max-width: calc(50% - 8px);
+    }
+}
+
+@media (max-width: 423px) {
+    .hero h1 {
+        font-size: 54px;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-details {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (min-width: 380px) {
+    .weather-hero-temp-row .weather-hero-hilo {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 379px) {
+    .weather-hero-temp-row {
+        flex-direction: column;
+    }
+
+    .weather-hero-temp-row .weather-hero-hilo {
+        padding-bottom: 16px;
+        text-align: right;
+    }
+}
+
+@media (max-width: 352px) {
+    .hero-cta {
+        justify-content: center;
+    }
+}
+
+@media (min-width: 344px) {
+    .padding-48px-32px {
+        padding: 48px 32px;
+    }
+
+    .padding-48px-32px-0 {
+        padding: 48px 32px 0;
     }
 }

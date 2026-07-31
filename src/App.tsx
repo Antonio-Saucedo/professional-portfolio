@@ -366,7 +366,7 @@ function SectionHeader({title, action}: {
     title: string; action?: ReactNode
 }) {
     return (
-        <div className="section-header text-center">
+        <div className="section-header margin-bottom-24px text-center">
             <h2 className="section-title weight-600 uppercase">{title}</h2>
             {action}
         </div>
@@ -829,7 +829,7 @@ function WeatherSection() {
     const displayWind = weather ? (isImperial ? mpsToMph(weather.windSpeed) : weather.windSpeed) : 0;
 
     return (
-        <section className="margin-0-auto max-width-960px padding-48px-32px" id="weather">
+        <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="weather">
             <SectionHeader title="How's the weather?"/>
             <div className="weather-hero border-radius-16px padding-24px"
                  style={{background: `linear-gradient(135deg, ${gradient.from} 0%, ${gradient.to} 100%)`,}}>
@@ -877,7 +877,7 @@ function WeatherSection() {
                             <span className="weather-hero-temp font-56px weight-500">
                                 {Math.round(displayTemp)}{unitLabel}
                             </span>
-                            <div className="weather-hero-hilo flex flex-column gap-6px font-13px self-center">
+                            <div className="weather-hero-hilo flex gap-6px font-13px">
                                 <span>↑ {Math.round(displayTempMax)}{unitLabel}</span>
                                 <span>↓ {Math.round(displayTempMin)}{unitLabel}</span>
                             </div>
@@ -1066,9 +1066,9 @@ function App() {
             </nav>
 
             <main>
-                <section className="hero margin-0-auto max-width-960px padding-48px-32px" id="about">
+                <section className="hero margin-0-auto max-width-960px padding-48px-32px-0" id="about">
                     <div
-                        className="hero-eyebrow flex items-center color-text3 font-dm-mono font-12px gap-10px tracking-014em margin-bottom-16px uppercase">Hi,
+                        className="hero-eyebrow flex items-center color-text3 font-dm-mono font-12px tracking-014em margin-bottom-16px uppercase">Hi,
                         I am Antonio Saucedo
                     </div>
                     <h1 className="color-text3 weight-600 margin-bottom-24px uppercase">{heroLine1}{heroLine2.length === 0 &&
@@ -1102,7 +1102,7 @@ function App() {
 
                 <WeatherSection/>
 
-                <section className="margin-0-auto max-width-960px padding-48px-32px" id="skills">
+                <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="skills">
                     <SectionHeader title="Skills"/>
                     <div className="skills-wrap bg-bg2 solid-border1 border-radius-4px">
                         <div className="skills-sidebar flex flex-column" role="tablist" aria-label="Skill categories">
@@ -1129,7 +1129,7 @@ function App() {
                     </div>
                 </section>
 
-                <section className="margin-0-auto max-width-960px padding-48px-32px" id="projects">
+                <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="projects">
                     <SectionHeader title="Projects"/>
                     <div className="projects-grid grid gap-16px">
                         {projects.map((project, i) => (
@@ -1158,7 +1158,7 @@ function App() {
                     </div>
                 </section>
 
-                <section className="margin-0-auto max-width-960px padding-48px-32px" id="experience">
+                <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="experience">
                     <SectionHeader title="Work Experience" action={
                         <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
                            className="experience-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
@@ -1188,10 +1188,11 @@ function App() {
                     </div>
                 </section>
 
-                <section className="margin-0-auto max-width-960px padding-48px-32px bottom-border1" id="education">
+                <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="education">
                     <SectionHeader title="Education"/>
                     <div className="education-container flex gap-16px justify-center">
-                        <img src={ByuIIcon} alt='Brigham Young University - Idaho logo' className="height-130px"></img>
+                        <img src={ByuIIcon} alt='Brigham Young University - Idaho logo'
+                             className="height-130px self-center"></img>
                         <div className="content-center font-16px">
                             <p>Brigham Young University - Idaho</p>
                             <p>Bachelor of Science in Software Engineering</p>
@@ -1199,6 +1200,7 @@ function App() {
                             <p>Graduated July 2023</p>
                         </div>
                     </div>
+                    <div className="height-35px bottom-border1"></div>
                 </section>
 
                 <section className="margin-0-auto max-width-960px padding-48px-32px" id="contact">
@@ -1281,7 +1283,7 @@ function App() {
             </main>
 
             <footer
-                className="flex items-center top-border1 font-dm-mono font-12px justify-between margin-0-auto max-width-960px padding-32px">
+                className="flex items-center top-border1 font-dm-mono font-12px text-center justify-between margin-0-auto max-width-960px padding-32px">
                 <p>© 2026 Antonio Saucedo — All rights reserved</p>
                 <p>Built with React + passion</p>
             </footer>
