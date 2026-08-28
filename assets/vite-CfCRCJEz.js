@@ -1,0 +1,1 @@
+import{n as e,t}from"./index-BR2GCqu1.js";e();var n=t(),r=e=>(0,n.jsx)(`svg`,{viewBox:`0 0 128 128`,...e,children:(0,n.jsx)(`path`,{fill:`#006bff`,d:`M128 3.83 48.72 22.547 36.977 124.17ZM39.464 24.264 0 33.167l35.658 90.604Z`})});export{r as default};
