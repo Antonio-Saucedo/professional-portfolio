@@ -1,0 +1,2 @@
+import{n as e,t}from"./index-DkzX1HMf.js";e();var n=t(),r=e=>(0,n.jsxs)(`svg`,{viewBox:`0 -10 160 160`,xmlns:`http://www.w3.org/2000/svg`,...e,children:[(0,n.jsx)(`text`,{x:8,y:82,fontFamily:`Arial, sans-serif`,fontWeight:700,fontSize:64,fill:`#ED7014`,children:`{`}),(0,n.jsx)(`text`,{x:84,y:77,fontFamily:`Arial, sans-serif`,fontWeight:700,fontSize:30,fill:`#ED7014`,letterSpacing:.5,textAnchor:`middle`,children:`FETCH
+    `}),(0,n.jsx)(`text`,{x:135,y:82,fontFamily:`Arial, sans-serif`,fontWeight:700,fontSize:64,fill:`#ED7014`,children:`}`})]});export{r as default};

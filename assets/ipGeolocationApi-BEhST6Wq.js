@@ -1,1 +1,0 @@
-import{n as e,t}from"./index-BkBgv5Ov.js";e();var n=t(),r=e=>(0,n.jsxs)(`svg`,{viewBox:`0 0 128 128`,xmlns:`http://www.w3.org/2000/svg`,...e,children:[(0,n.jsx)(`polygon`,{points:`64,14 64,90 28,104`,fill:`#1E90FF`}),(0,n.jsx)(`polygon`,{points:`64,14 64,90 100,104`,fill:`#0066D6`})]});export{r as default};
