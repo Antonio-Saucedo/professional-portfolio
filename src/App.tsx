@@ -165,6 +165,7 @@ const SKILLS: { title: string; tags: { name: string; iconFile: string }[] }[] = 
         title: 'Testing',
         tags: [
             {name: 'Playwright (E2E)', iconFile: 'playwright'},
+            {name: 'Axe-core (a11y)', iconFile: 'axeCore'},
             {name: 'utPLSQL (Unit)', iconFile: 'utplsql'},
             {name: 'Vitest (Unit)', iconFile: 'vitest'},
             {name: 'Jest (Unit)', iconFile: 'jest'},
@@ -978,6 +979,13 @@ function App() {
 
     // Component: multiple entries need the modal-open setters, which only exist once the component runs.
     const projects: Project[] = [
+        {
+            icon: ExternalLinkIcon,
+            name: 'Instant Conversions',
+            desc: "Built out of a real need: during the 10 days my wife and I spent in the NICU with our newborn son, hospital staff tracked his weight and other measurements in metric rather than the imperial units most parents know. This weight unit converter (g, kg, mt, mcg, mg, oz, lb) was born from that experience, built with real-time conversion, dark mode, and full accessibility support, backed by a GitHub Actions CI/CD pipeline and an automated Vitest/Playwright/axe-core test suite.",
+            tags: ['Git', 'GitHub', 'GitHub Actions (CI/CD)', 'Vite', 'React', 'TypeScript', 'CSS', 'Playwright (E2E Testing)', 'Axe-core (Accessibility Testing)', 'Vitest (Unit Testing)'],
+            link: {type: 'live', href: 'https://antonio-saucedo.github.io/conversions/'},
+        },
         {
             icon: StackIcon,
             name: 'MobileDash',
