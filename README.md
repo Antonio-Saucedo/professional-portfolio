@@ -143,3 +143,15 @@ The `server/` folder is deployed as a separate Web Service on Render.
 
 Set `GEMINI_API_KEY` as an environment variable in the Render dashboard. The server includes a `/ping` endpoint that the
 frontend calls when the Cover Letter modal opens, warming the instance before the user submits the form.
+
+---
+
+## Dependency updates
+
+Dependabot is configured (`.github/dependabot.yml`) to check weekly for npm package updates and GitHub Actions version
+updates, opening up to 10 pull requests at a time.
+
+`.github/workflows/ci.yml` runs `npm audit --audit-level=high` on every push and pull request against `main`, which
+covers dependency vulnerabilities but does not currently lint, type-check, or build the project — a broken commit can
+still reach `main` and get deployed. Worth keeping in mind when merging Dependabot PRs, since nothing currently blocks a
+bad merge beyond the audit step.
