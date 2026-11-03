@@ -30,7 +30,7 @@ app.get('/ping', (_req: Request, res: Response) => {
 });
 
 // Cover letter generation endpoint
-app.post('/generate-cover-letter', async (req: Request<{}, {}, CoverLetterRequestBody>, res: Response) => {
+app.post('/generate-cover-letter', async (req: Request<Record<string, never>, unknown, CoverLetterRequestBody>, res: Response) => {
     const {job_description, name_and_role, key_experience, tone} = req.body;
 
     if (!job_description || !name_and_role) {

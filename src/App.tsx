@@ -274,24 +274,28 @@ const ExternalLinkIcon = (
 // being scrolled into view (mobile, where all panels stack and show at once)
 // or by being the active tab (desktop, where only one panel shows at a time).
 // Once a category is marked visible, it stays visible for the session.
-function useVisitedSkillCategories(categoryCount: number, activeIndex: number) {
-    const [visited, setVisited] = useState<boolean[]>(() => new Array(categoryCount).fill(false));
+function useVisitedSkillCategories(categoryCount: number, initialActiveIndex: number) {
+    // The initially active tab starts out visited so its icons load right away.
+    const [visited, setVisited] = useState<boolean[]>(
+        () => Array.from({length: categoryCount}, (_, i) => i === initialActiveIndex)
+    );
     const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    // Desktop: switching tabs marks that category visited immediately.
-    useEffect(() => {
+    // Desktop: switching tabs marks that category visited immediately. Called
+    // from the tab's click handler (not an effect) so it's a single render.
+    const markVisited = useCallback((index: number) => {
         setVisited(prev => {
-            if (prev[activeIndex]) return prev;
+            if (prev[index]) return prev;
             const next = [...prev];
-            next[activeIndex] = true;
+            next[index] = true;
             return next;
         });
-    }, [activeIndex]);
+    }, []);
 
     // Mobile (and anyone scrolling, regardless of layout): an IntersectionObserver
     // per panel marks it visited the first time it enters the viewport. Safe to
-    // run on desktop too — the active panel is already visited via the effect
-    // above, so this just covers the scroll-stacked mobile case without needing
+    // run on desktop too — the active panel is already visited via markVisited,
+    // so this just covers the scroll-stacked mobile case without needing
     // to know the current breakpoint.
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -325,7 +329,7 @@ function useVisitedSkillCategories(categoryCount: number, activeIndex: number) {
         panelRefs.current[index] = el;
     }, []);
 
-    return {visited, setPanelRef};
+    return {visited, markVisited, setPanelRef};
 }
 
 // Tag pills list, used by the skills section.
@@ -619,8 +623,13 @@ function useTypewriter(roles: { line1: string; line2: string }[]) {
             const t = setTimeout(() => setCharCount(c => c - 1), DELETE_SPEED_MS);
             return () => clearTimeout(t);
         }
-        setRoleIndex(i => (i + 1) % roles.length);
-        setPhase('typing');
+        // Fully deleted: advance to the next phrase after one more keystroke's
+        // worth of delay (setState inside a timer callback, not the effect body).
+        const t = setTimeout(() => {
+            setRoleIndex(i => (i + 1) % roles.length);
+            setPhase('typing');
+        }, DELETE_SPEED_MS);
+        return () => clearTimeout(t);
     }, [phase, charCount, full.length, roles.length, prefersReducedMotion]);
     const typed = full.slice(0, charCount);
     const line1 = typed.slice(0, roles[roleIndex].line1.length);
@@ -649,14 +658,18 @@ function useWeather() {
         }
     }, []);
 
-    // Initial fetch from cookie pref or default.
+    // Initial fetch from cookie pref or default. Reads the pref captured on
+    // first render so this runs once on mount; later changes refetch via
+    // setCity/useBrowserLocation, which call loadWeatherFor themselves.
+    const initialPrefRef = useRef(pref);
     useEffect(() => {
         let cancelled = false;
+        const {lat, lon} = initialPrefRef.current;
 
         (async () => {
             setStatus('loading');
             try {
-                const current = await fetchCurrentWeather(pref.lat, pref.lon);
+                const current = await fetchCurrentWeather(lat, lon);
                 if (!cancelled) {
                     setWeather(current);
                     setStatus('idle');
@@ -801,10 +814,15 @@ function WeatherSection() {
     const {pref, weather, status, errorMessage, setCity, useBrowserLocation, toggleUnits} = useWeather();
     const [cityInput, setCityInput] = useState(pref.label);
 
-    // Sync input with weather label
-    useEffect(() => {
+    // Sync input with weather label whenever it changes (e.g. after geocoding
+    // or "Use My Location"). Adjusting state during render instead of in an
+    // effect avoids an extra render pass:
+    // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+    const [prevLabel, setPrevLabel] = useState(pref.label);
+    if (pref.label !== prevLabel) {
+        setPrevLabel(pref.label);
         setCityInput(pref.label);
-    }, [pref.label]);
+    }
 
     const handleCitySubmit = useCallback(async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -913,6 +931,7 @@ function App() {
     const [activeSkillCategory, setActiveSkillCategory] = useState(0);
     const {
         visited: visitedSkillCategories,
+        markVisited: markSkillCategoryVisited,
         setPanelRef
     } = useVisitedSkillCategories(SKILLS.length, activeSkillCategory);
     const [coverLetterGeneratorIsOpen, setCoverLetterGeneratorIsOpen] = useState(false);
@@ -1117,7 +1136,10 @@ function App() {
                             {SKILLS.map(({title, tags}, i) => (
                                 <button key={title} role="tab" aria-selected={i === activeSkillCategory}
                                         className={`skills-tab font-dm-mono font-12px tracking-002em flex justify-between bg-transparent border-none color-text1 cursor-pointer ${i === activeSkillCategory ? 'skills-tab-active' : ''}`}
-                                        onClick={() => setActiveSkillCategory(i)}><span>{title}</span><span
+                                        onClick={() => {
+                                            setActiveSkillCategory(i);
+                                            markSkillCategoryVisited(i);
+                                        }}><span>{title}</span><span
                                     className="skills-tab-count">{tags.length}</span></button>
                             ))}
                         </div>
@@ -1168,17 +1190,20 @@ function App() {
 
                 <section className="margin-0-auto max-width-960px padding-48px-32px-0" id="experience">
                     <SectionHeader title="Work Experience" action={
-                        <a href="/AntonioResume_2026.pdf" download="AntonioResume_2026.pdf"
-                           className="experience-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                 strokeWidth="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                            Download Resume (PDF)
-                        </a>
-                    }/>
+                                                                <a href="/AntonioResume_2026.pdf"
+                                                                   download="AntonioResume_2026.pdf"
+                                                                   className="experience-download-btn items-center bg-transparent solid-border2 border-radius-4px color-text1 font-12px weight-500 gap-8px tracking-004em decoration-none uppercase">
+                                                                   <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                        fill="none" stroke="currentColor"
+                                                                        strokeWidth="2">
+                                                                       <path
+                                                                           d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                                       <polyline points="7 10 12 15 17 10"/>
+                                                                       <line x1="12" y1="15" x2="12" y2="3"/>
+                                                                   </svg>
+                                                                   Download Resume (PDF)
+                                                               </a>
+                                                           }/>
                     <div className="experience-list flex flex-column">
                         {EXPERIENCE_ITEMS.map(({period, role, company, desc}) => (
                             <div className="experience-item grid bottom-border1" key={company}>

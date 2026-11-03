@@ -1,0 +1,26 @@
+# Antonio Saucedo — Software Engineer
+
+> Portfolio of Antonio Saucedo, a full stack developer based in Rigby, Idaho, with 3+ years of experience building web applications from front-end UI through back-end APIs and database design. Open to full-time and contract roles, available immediately.
+
+Skills include JavaScript, TypeScript, React, Angular, Node.js (Express/NestJS), Python, SQL (Oracle APEX, PostgreSQL, MySQL) and MongoDB, plus team leadership, mentoring and stakeholder communication. B.S. in Software Engineering from Brigham Young University–Idaho (2023).
+
+## Main pages
+
+- [Portfolio home](https://antoniosoftwareengineer.com/): About, skills, projects, work experience, education and contact form
+- [Resume (PDF)](https://antoniosoftwareengineer.com/AntonioResume_2026.pdf): Full resume
+
+## Projects
+
+- [Instant Conversions](https://antonio-saucedo.github.io/conversions/): Weight unit converter with CI/CD and automated Vitest/Playwright/axe-core tests
+- [MobileDash](https://mobiledash.net/): Oracle APEX CRM platform for exterior contractors
+- [WDD 330 – Web Frontend Development 2](https://antonio-saucedo.github.io/wdd-330/): Course projects including "All About SpaceX"
+- [WDD 230 – Web Frontend Development](https://antonio-saucedo.github.io/wdd230/): Course projects including "Temple Inn & Suites"
+- [WDD 130 – Web Fundamentals](https://antonio-saucedo.github.io/wdd130/): Foundational HTML/CSS projects
+- [Subway Counter](https://antonio-saucedo.github.io/subway-counter/): Vanilla JavaScript counter app
+- [Tic-Tac-Toe source](https://github.com/Antonio-Saucedo/cse210-01): Original Python game, playable on the portfolio via Pyodide
+
+## Contact
+
+- [Email](mailto:antonios.softwareengineer@gmail.com)
+- [GitHub](https://github.com/Antonio-Saucedo)
+- [LinkedIn](https://www.linkedin.com/in/antoniojsaucedo)

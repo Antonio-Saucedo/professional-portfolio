@@ -234,6 +234,7 @@ function escapeHtml(text: string): string {
 // Converts our \x01COLOR\x02 markers (from printed board lines) into styled spans.
 function colorizeLine(line: string): string {
     const esc = escapeHtml(line);
+    // eslint-disable-next-line no-control-regex -- \x01/\x02 are the intentional color-marker delimiters emitted by the Fore/Style shim
     const parts = esc.split(/\x01(RED|BLUE|GREEN|RESET)\x02/);
     let html = '';
     let openClass: string | null = null;
