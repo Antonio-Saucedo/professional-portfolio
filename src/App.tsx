@@ -1010,7 +1010,7 @@ function App() {
             name: 'MobileDash',
             desc: "A cloud-based, full-featured CRM platform built on Oracle APEX for exterior contractors, utilizing Oracle's built-in authentication for secure, role-based access control and custom-developed plugins to extend the framework for domain-specific needs. I was directly involved in implementing and enhancing all major features throughout the development lifecycle.",
             tags: ['Git', 'GitHub', 'Docker', 'Bash Scripting', 'Oracle Apex (OCI)', 'SaaS', 'OAuth & Security', 'HTML', 'CSS', 'Tailwind', 'JavaScript', 'SQL', 'PL/SQL', 'Intuit API (payments/invoicing)', 'IP geolocation APIs', 'RESTful API Design', 'Third-party REST', 'Playwright (E2E Testing)', 'utPLSQL (Unit Testing)', 'Vitest (Unit Testing)'],
-            link: {type: 'live', href: 'https://mobiledash.net/'},
+            link: {type: 'live', href: 'https://app.mobiledash.net/ords/r/mobiledash_development/jobs/login'},
         },
         {
             icon: ExternalLinkIcon,
